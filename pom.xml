@@ -12,7 +12,7 @@
 	<artifactId>SageClient</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SageClient</name>
-	<description>Spring boot Sage 200 client application</description>
+	<description>Sage 200 client application</description>
 
 	<properties>
 		<java.version>12</java.version>
@@ -44,6 +44,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+		
 	</dependencies>
 
 	<build>
