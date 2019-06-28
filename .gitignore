@@ -29,12 +29,12 @@ HELP.md
 .vscode/
 
 ### eclispe ###
-.mvn
-.settings
-.project
-.metadata
-HELP.md
-mvnw.cmd
-mvn.cmd
-mvnw
-target/classes/application.properties
+SageClient/.mvn
+SageClient/.settings
+SageClient/.project
+SageClient/.metadata
+SageClient/HELP.md
+SageClient/mvnw.cmd
+SageClient/mvn.cmd
+SageClient/mvnw
+SageClient/target/classes/application.properties
