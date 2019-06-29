@@ -27,6 +27,8 @@ HELP.md
 
 ### VS Code ###
 .vscode/
+sage-client-frontend/frontend-workspace.code-workspace
+sage-client-frontend/node_modules
 
 ### eclispe ###
 SageClient/.mvn
