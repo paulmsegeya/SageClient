@@ -31,6 +31,7 @@ sage-client-frontend/frontend-workspace.code-workspace
 sage-client-frontend/node_modules
 
 ### eclispe ###
+SageClient/.gitignore
 SageClient/.mvn
 SageClient/.settings
 SageClient/.project
@@ -39,4 +40,5 @@ SageClient/HELP.md
 SageClient/mvnw.cmd
 SageClient/mvn.cmd
 SageClient/mvnw
-SageClient/target/classes/application.properties
+SageClient/target
+/.metadata/
