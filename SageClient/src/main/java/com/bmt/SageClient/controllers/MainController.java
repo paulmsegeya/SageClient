@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
@@ -20,8 +21,8 @@ public class MainController
 
 	
     @RequestMapping("/customerViews")
-    public List<CustomerViews> getCustomerViews() {
-        return  sageAPIHandler.requestCustomerViews("customer_views?$filter=reference%20eq%20'00001001'");
+    public List<CustomerViews> getCustomerViews(@RequestParam(name = "customerName") String customerName) {
+        return  sageAPIHandler.requestCustomerViews(customerName);
     }
 	
 	

@@ -7,6 +7,6 @@ import com.bmt.SageClient.sage200api.entities.CustomerViews;
 public interface SageAPIHandlerDAO 
 {
 	
-	public List<CustomerViews> requestCustomerViews(String endPoint);
+	public List<CustomerViews> requestCustomerViews(String customerName);
 
 }

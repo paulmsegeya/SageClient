@@ -1,0 +1,30 @@
+#customerSearch{
+    margin-bottom: 20px;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #f7fafb;
+ }
+
+ #customerInfoTbl th{
+    background-color: #4bde4b;    
+    margin-bottom: 5px;
+}
+
+/*#customerInfoTbl{
+    border: 0px;
+}
+
+#customerInfoTbl th{
+    background-color: #4bde4b;    
+    margin-bottom: 5px;
+}
+
+#headerRow{
+    border-radius: 5px;
+}
+
+#customerInfoTbl td{
+    background-color: #ffffff;
+}*/
