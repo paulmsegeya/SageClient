@@ -3,52 +3,69 @@
 	var CustomerInfoController =  function($http) 
 	{
 		
-		this.customerInfoHeaders = ["id", "reference", "name", "short_name", "country_code_id", "country_code"];
-		this.customerView = [];
-		this.customerName = "doruk akici";
+		this.customerInfoHeaders = []
+		this.customerInfoAPIFieldNames = [];
+		this.customerInfoData = {};
+		this.customerName = "donnell abankwa";
 		this.isTableVisible = false;
 		this.isDataTableStarted = false;
 			
 		
-		this.getCustomerViews = () => 
+		this.getCustomerInfoData = () => 
 		{
 			let vm = this;
 
 			$http({
 				method: "GET",
-				url: "http://localhost:8080/customerViews",
+				url: "http://192.168.0.19:8080/customer_info",
 				params: {
 					customerName : vm.customerName
 				}
 			})
 			.then(function(response) {
-				vm.customerView = response.data;
-				console.log(vm.customerView);
-				//if(!vm.isDataTableStarted) vm.startDataTables();
+				vm.customerInfoData = [response.data];
 				vm.startDataTables();
 				vm.isTableVisible = true;
 			});
 		}
 
+		this.getCustomerInfoFields = () => 
+		{
+			let vm = this;
+			$http({
+				method: "GET",
+				url: "http://192.168.0.19:8080/customer_info/fields"
+			})
+			.then(function(response) {
+				vm.customerInfoHeaders = response.data.fieldDisplayNames;
+				vm.customerInfoAPIFieldNames = response.data.fieldAPINames;
+			});
+		}
+
+
+		this.generateDataTablesAPIColumnNames = () =>{
+			let dataTableColumns = [];
+			for(let columnApiName of this.customerInfoAPIFieldNames)
+			{
+				dataTableColumns.push({
+					data: columnApiName
+				})
+			}
+			return dataTableColumns;
+		}
+
+
 		this.startDataTables = () =>{
 			let vm = this;
 			$('#customerInfoTbl').DataTable({
-				data: vm.customerView,
-				columns: [ 
-					{data: "id"}, 
-					{data: "reference"}, 
-					{data: "name"}, 
-					{data: "short_name"}, 
-					{data: "country_code_id"}, 
-					{data: "country_code"}
-				],
+				data: vm.customerInfoData,
+				columns: vm.generateDataTablesAPIColumnNames(),
 				destroy: true,
 			})
 			vm.isDataTableStarted = true;
 		}
 
-
-		//this.getCustomerViews();
+		this.getCustomerInfoFields();
     };
 
     angular.module('sageClientApp').controller('customerInfoController', ['$http', CustomerInfoController]);
