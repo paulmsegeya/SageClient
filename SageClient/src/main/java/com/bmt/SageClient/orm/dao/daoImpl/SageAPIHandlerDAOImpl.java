@@ -1,5 +1,7 @@
 package com.bmt.SageClient.orm.dao.daoImpl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +34,7 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 		headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		//headers.set("Authorization", "Bearer");
-		headers.set("Authorization", "Bearer /iHBw7SRGqO/TXoCD975Rp2D5IytZC6xylKf4FxxMQ2kN1bXJbRnfyfTqXe6gJok1GpU7HAssqIBbKxBz2Wp82trl4Z3D3QWHNDVMz/wO/c9guQckKDkkt27K3Ot0r9BglqQWIY4b7LYt9vvYZABvcc0Fpr9bshnQ6/4HWDMUDaf/TyU0wi8zaAhFi54aHMuw22ReMx4kiJm+PxsoOyhpbAxADZsc0jKJMUKZvrn6sscyz/6XTUZszFw2wmwohNCnUsoYzrjJMILptsunANsufYaVaRyT6uokq9tlllWjg8IB7E6MlxDCOtxtwcXCJiCCfYHjjcX+b4YDerF27dQ4hBT8BT1CVuIykb7TkOp4yslK3KGUTG24G7vd+4eZANnNt92ztpyS8O+l9AMlO7EbbrOgbvRbhd54xLqgHH6o6lVw318X3aURBmMV76KrwSZyIx4tyo4KjnUGY176l9ckJ8pArGJ2NwxCcao46Iw2CemhJwtqmojEuq8vGGqaVedMHWYy8eOaAeoC5kZJoUPbIunpnJjCRvfZcaKyJOAB/4cT2Xvx3kBs8vxypkhRGmSVwoVStA1dZiLm1pQUlBBoPO2z19O7XbBi0+QFANVsD3i+TGIhAh4EjFxsKnCVt1rr0IrEZxWmE7QQxsFC0wGPfZOFCBrRMXyUj+EXK0IaSKBzlMU9Lt//jn38ltBbPsvFLeIUAbGq4eeTEB57QQ+kYFUm1ZpswxCqUUOXeYvr9nM7y9HJgYdFerzYd/RUrg0dwACxldBARnE/pj+s3wUqGnQlSmZ6KTH3oY2oUzGXwvtwj30WcaomMn/mgDn3vv2XXI3th3rsE9TlHgzSiE7gyX/6A1auUv5FqdPkoMkXX00ZsGOZtso1+RYZG2v2/y4Qc3nr9uJf+R0Tk+xKfXeF3JmJe8ZxzTCr0sAFvov2sNxsK1yVkp7G9P7MOlm7uNfBM8yD/Z3FiNrevN5HO0iCfEsLQenFQyeLmuMGvi6rClzSRFxniWLSG2rL+tzkil8ok25Dzg4PO5LHn9ROAaeiFlE0dlF7DMfy/SLUvKESEf8cEx/ViyzOly0MKtKc7GnDeUtPT5irYTVQmQBAgCo7gl8D6MqcYuPEQWb+gAROcncpjyv1aYufTgzd3yzEQCk66LdXHpISLje8ktC/O/aBWKr92q+GSnjUGEYEiA/xKl5lX/AMZQfq6QYYOUmJloqGXomjx/7XlgvzIfZLaiadWaXLJaaXQcKU3KxmLwKzXTjwQqq9eezh1fv8IIzjKS2Kqxif7p0RzgTbaTS09A/4q1Sl9bzrlsLjW7Q5jjanQYCVqoIJtvmOGggJ3geBYt85wyv+D+1KpTXMihBCC2GouDx4aBGGRiBSYUoPWrJld2GdLdJ4yHUmoGBI7Eegr7MyCPEisW8jRu2IlEsoezYVJ668HPz+65VsnpPnZinhnPWEo3cOXoTVTEIFN3R8Q8c7lflmxE4na1k6N0oTcmw8D8ZABzeETrzGEqhgNGOddHJZixe7B0n/LOGy5yi8IRn2cPNiHW01kTO4lONb1yF1Uv3Xov1yibqH6PT/T8mDHg9kkGTzzt11nFcE/xtm9oCqfM2ZRPWtnqNmkP/6EaTmhdHYOUyXiRItt/4xYQjvEamT4544K/SImnRlX6//3e9TCh5lVI28P6LFtdpdtJj7qJg5rNs2ERd5eueRGNtTl8htsMnBhgeBK1OF+BhOCNBt77j9REQ9ImoV45o0CWTQwd4mMS1Wtwcqm6THKSpoDlR2zgMKitN0zadnbFY2FSDMKmcUB0L/YNEl4lvSB1BnK5PyYFob63FQuXh4/iCu3rP3+FJoVsg6Ztr1QEVEW5ZrVlWx6qGul7pJmkvBQYIPPfwwbTXP+y3ZCPaWHc5Zm3s3jbBGogOWaDbGVy2GFlVrSATcTYsL6MkjlSQc9RGddvbvgGReeYahXjudsDI4cXycd1dm2U5DPICeew9PAuMrZa5ZhAW3WPnyxvQcjOo8A==");
+		headers.set("Authorization", "Bearer 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");
 		headers.set("ocp-apim-subscription-key", "39cfbba1883b4f71931a6b3c495d3c68"); 
 		headers.set("X-Company", "1"); 
 		headers.set("Content-Type", "application/x-www-form-urlencoded"); 
@@ -183,5 +185,34 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 		List<CustomerMemos> memos = response.getBody();
 		return memos;
 	}
+	
+	
+	public List<String> requestCustomerNames(String namePart)
+	{
+		RestTemplate restTemplate = new RestTemplate();		
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customers")
+		        .queryParam("$filter", "contains(name, '" + namePart + "')")
+		        .queryParam("$select", "name")
+		        .queryParam("$top", 10);
+		
+		ResponseEntity<List<Customers>> response = restTemplate.exchange(
+				builder.toUriString().replaceAll("%20", " "),
+				HttpMethod.GET,
+				entity,
+		  new ParameterizedTypeReference<List<Customers>>(){});
+		List<Customers> customers = response.getBody();
+		
+		String[] customerNames = new String[customers.size()];
+		for(int x = 0; x < customers.size(); x++) {
+			customerNames[x] = customers.get(x).getName();
+		}
+		Arrays.sort(customerNames);
+		
+		return new ArrayList<>(Arrays.asList(customerNames));
+	}
+	
+	
+	
 
 }

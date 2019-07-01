@@ -7,6 +7,7 @@
 		this.customerInfoAPIFieldNames = [];
 		this.customerInfoData = {};
 		this.customerName = "donnell abankwa";
+		this.topCustomerNames = [];
 		this.isTableVisible = false;
 		this.isDataTableStarted = false;
 			
@@ -39,6 +40,23 @@
 			.then(function(response) {
 				vm.customerInfoHeaders = response.data.fieldDisplayNames;
 				vm.customerInfoAPIFieldNames = response.data.fieldAPINames;
+			});
+		}
+
+
+		this.getTopCustomerNames = () => 
+		{
+			let vm = this;
+			$http({
+				method: "GET",
+				url: "http://192.168.0.19:8080/customers/names",
+				params: {
+					customerNamePart : vm.customerName
+				}
+			})
+			.then(function(response) {
+				vm.topCustomerNames = response.data;
+				console.log(vm.topCustomerNames);
 			});
 		}
 

@@ -17,5 +17,6 @@ public interface SageAPIHandlerDAO
 	public List<CustomersContacts> requestCustomerContacts(Long id);
 	public List<Transactions> requestTransactions(Long id);
 	public List<CustomerMemos> requestMemos(Long id);
+	public List<String> requestCustomerNames(String namePart);
 
 }

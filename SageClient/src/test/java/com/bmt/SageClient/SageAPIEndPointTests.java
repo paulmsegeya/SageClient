@@ -90,8 +90,17 @@ public class SageAPIEndPointTests {
 		for(CustomerMemos memo : memos){
 			System.out.println(memo.getId() + ", " +memo.getCustomerId() + ", " + memo.getNote() );
 		}		
-	}
+	}//public List<String> requestCustomerNames(String namePart)
 	
+	
+	@Test
+	public void testRequestCustomerNames()
+	{		
+		List<String> customerNames = sageAPIHandler.requestCustomerNames("do");
+		for(String name : customerNames){
+			System.out.println(name);
+		}		
+	}
 	
 }
 

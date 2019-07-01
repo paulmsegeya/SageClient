@@ -10,7 +10,7 @@
 			<div id="customerSearch">
 				<div class="form-group">
 					<label for="customerNameTxt"> Customer Name:</label>
-					<input type="text" class="form-control" id="customerNameTxt" ng-model="customerCtrl.customerName">
+					<input type="text" class="form-control" id="customerNameTxt" ng-model="customerCtrl.customerName" ng-change="customerCtrl.getTopCustomerNames()">
 				</div>
 				<button type="button" class="btn btn-primary" ng-click="customerCtrl.getCustomerInfoData()">Search</button>
 			</div>

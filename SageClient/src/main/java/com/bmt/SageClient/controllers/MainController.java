@@ -1,5 +1,7 @@
 package com.bmt.SageClient.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,11 @@ public class MainController
     @RequestMapping("/customer_info/fields")
     public CustomerInfoFields getCustomerInfoFields() {
           return new CustomerInfoFields();
+    }
+    
+    @RequestMapping("/customers/names")
+    public List<String> getCustomerNames(@RequestParam(name = "customerNamePart") String customerNamePart) {
+          return sageAPIHandler.requestCustomerNames(customerNamePart);
     }
 	
 	
