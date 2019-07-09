@@ -1,5 +1,6 @@
 package com.bmt.SageClient.orm.dao.daoImpl;
 
+import com.bmt.SageClient.GlobalVars;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -33,8 +34,7 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 	public SageAPIHandlerDAOImpl() {
 		headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		//headers.set("Authorization", "Bearer");
-		headers.set("Authorization", "Bearer /iHBw7SRGqO/TXoCD975Rp2D5IytZC6xylKf4FxxMQ2kN1bXJbRnfyfTqXe6gJokFA9YZbbwjHtLglSkWysgTTvwlnJJOlCDvku89PaIxX3jLH/tiFoKQSn9QlNTgZ221430wKHgZzzUzmh88flxvKDjA/KDO0SYxx3PUhDW9y6LrQV9URKsVUJk1v0foGinXEFdfL1RmbZNm+DJ9/WQQUEawqBGWOxo32PvbgbVdhABmqf6fL2kI/ks55vlGu1Gx7mopnpR9Oin0K90S8V1r6LokBsuw/dSnUu1zCKtB55eojAsMGrYfF5x4Er4TH+iK6ip7ijlGjgb83mHAmWOmXZuimw3tGLssRXdgzIfzw920IgI5aUc449iCnlz/z71VBC9srtBTB2W/vOrUssj1DBqr/jm98ucC7PPmAMoO8ZpaQhmRXwNQKAQuZ388RHzgfrbJhzNmyl58+T1G6RPawcVSbXxVqOlirMsI3zBaX6Bu7lnpVHj8Q8aJazC68iRCSSbLmn1u5L6Bw2225p66fTu1Xcq37FIqmUQ8WV3vruHF7i6T0pduCqUUkYrWzkKMJWOwKwKN1zgzTBCBouNRCuNO5rDzwzR13aR9UvuLfDZ1rk28Fe6NVF3FUS8PTRNtbMXGO1dnBm3w8/g49bgWeC7tYrpJP6A6q0O8jkzJTN8rVMhSztvCQ9rIvHhIBs986k8YrrTcjVbkU0fyPGUJ8fVzzx0bgjIOkkhrGltzyMsqU+zPxbgkcQNgzAPWI4lQkCDhCjYVvX1viWpPFHgH14MqGyH5+83KRtk3nLrFG15pCYfAD/kWG9IhaEJo05pn3im7/yU3+8IgShSMAH65aOaYHuZGuPneCTgFkH/MD7lTEbtPzgV9nZk32O0wZwBCQZiBjVGF91MpabB4CcZro5rSniiYWq6QCoDfQvqIs1kJTTLz3YjJWQGBp6BTw+e+Th4G6Meo+my4HTc2KIJQl8Lz+zocofkSAEkR4v+oywh3W31BS9MMXktNdr0RGNmF8gkizyBI1J75IeEyao2c6ksCu8rIbhVkw0rIYSCHol0FfkII5TDD5TpqX4qOBSfLm/RhcBdHnIZQLSiIlyDcTbiFjgRXOjnTndN/3o/P+NSqR3emjXgEgrQiXJ5Amj9wcbe9FgZAuUHmN/HMId4QfPXh7kVd/UeRIY1YBMrlel4PJwWwC33Cv+nwc3schD5vAnmfdzBjtfuCYDWnuxO1h2G8ILyTM32cL1lKEAZommYRuKdI0UbMEUETj36qQ2dZoYGntwz0HtpgsYVRiJtKnZ0hHwXi7SV0Y5+EXKSZNlUht0opLuRPuyEaChDDQUgOcW3CgQhlZb69ZrtvxZ0D/mPYl6MdQByKxjpPl7aql+DcM4BRDGp1fWM4AZfIfsdd+c2FNNslS7obpI3YtFZQgGH+MGCn2rKDWsWwZoivd7mhLVohHx85I9rkujM6LMFRsdDL5UXBUHiSYYIRNTOUJak/J0/PE4FcbDptP9LyiI3xt3AZehrENx7YlTVjUivJPlS21kUvGKPqQyLJvmPjyToQyIMuI/OBd+Tc9SaI72k7uz/KN92LwwgBK+X283ZSn2B0XhuUpoUUifiz2e1T/BVEb1iE7Muf6aSmDMhSO16AmYfdF2ruqTlybTbMxa8kBiyUCme3ufc6Qy+V2Kl8rx1k/C+lrvHuVTgL0TSPHGPN8PN3skrd/pfyfU8TtomV8n7BET+h+plqXJlQlbN0a1J3M1dudTQeytRr4Wv9UF6A4D2M9dCuVjqGNQS+gUIK+DnvTsy88wPoPIfHyHfxvwGkAkjy5+PwSgTwGELJJGlmBGtBCeejr8ZeocYYPxV2nkpWdKbBqBpff5Ie9F/15pdc8IouCirf2Ij4S0/lBc/ykNJahpo82ok7H9ow56vlwR3TTtL0dMMbicBDKmK9+Puba97FF52I3UQhe1iVeRLHNwt4zvUnlM7nPZl2Luoa68D0aWVT3BVb+KNgXETGQ==");
+		headers.set("Authorization", "Bearer " + GlobalVars.accessToken);		
 		headers.set("ocp-apim-subscription-key", "39cfbba1883b4f71931a6b3c495d3c68"); 
 		headers.set("X-Company", "1"); 
 		headers.set("Content-Type", "application/x-www-form-urlencoded"); 
@@ -42,8 +42,13 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 	} 
 	
 	
+	public void setToken() {
+		headers.set("Authorization", "Bearer " +  GlobalVars.accessToken.replace(" ", ""));
+	}
+	
 	public CustomerInfo getCustomerInfo(String name)
 	{
+		setToken();
 		CustomerInfo customerInfo = new CustomerInfo();
 		List<Customers> customers = requestCustomers(name);
 		if(customers.size() > 0) 
@@ -101,7 +106,6 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 		        .queryParam("$filter", "name eq '" + name + "'")
 		        .queryParam("$select", "id,reference,name,short_name");
 
-		System.out.println(builder.toUriString().replaceAll("%20", " "));
 		ResponseEntity<List<Customers>> response = restTemplate.exchange(
 				builder.toUriString().replaceAll("%20", " "),
 				HttpMethod.GET,
@@ -189,6 +193,7 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 	
 	public List<String> requestCustomerNames(String namePart)
 	{
+		setToken();
 		RestTemplate restTemplate = new RestTemplate();		
 		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customers")

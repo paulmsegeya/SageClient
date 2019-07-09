@@ -61,6 +61,11 @@
 		}
 
 
+		this.setCustomerName = (e) =>{
+			console.log(e);
+		}
+
+
 		this.generateDataTablesAPIColumnNames = () =>{
 			let dataTableColumns = [];
 			for(let columnApiName of this.customerInfoAPIFieldNames)
