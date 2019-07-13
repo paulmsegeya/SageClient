@@ -1,39 +1,37 @@
 package com.bmt.SageClient;
 
-
 import java.util.Scanner;
-import com.bmt.SageClient.GlobalVars;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
 @SpringBootApplication
 public class SageClientApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SageClientApplication.class, args);	
-		
-		askForToken();
+		//SpringApplication.run(SageClientApplication.class, args);	
+		SpringApplicationBuilder builder = new SpringApplicationBuilder(SageClientApplication.class);
+        builder.headless(false).run(args);
+		TokenGetter.scheduleTokenGetter();
+		getInput();
 	}
+
 	
 	
-	public static void askForToken()
-	{
-		Scanner scanner = new Scanner(System.in);
-		while(true) {
-			System.out.println("Enter 'T' to provide access token or 'Q' to terminate program.");
-			String option = scanner.nextLine();
-			
-			if(option.toLowerCase().equals("q")) System.exit(0);
-			
-			else if(option.toLowerCase().equals("t"))
+	public static void getInput()
+	{		
+			while(true) 
 			{
-				System.out.println("Enter Access Token: ");
-				GlobalVars.accessToken = scanner.nextLine();
+				System.out.println("Enter 'T' to get access token or 'Q' to terminate program.");
+				Scanner scanner = new Scanner(System.in);
+				String option = scanner.nextLine();
+				
+				if(option.toLowerCase().equals("q")) System.exit(0);				
+				else if(option.toLowerCase().equals("t")) TokenGetter.getToken();
 			}
-					
 			
-		}
+
 	}
 
 }

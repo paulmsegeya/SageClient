@@ -11,3 +11,12 @@
     background-color: #4bde4b;    
     margin-bottom: 5px;
 }
+
+
+#customerNameSelect{
+    width: 100%;
+}
+
+#searchBtn{
+    margin-top: 10px;
+}

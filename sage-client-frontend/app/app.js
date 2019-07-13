@@ -1,1 +1,1 @@
-var sageClientApp = angular.module('sageClientApp',['ui.router']);
+var sageClientApp = angular.module('sageClientApp',['ui.router', 'ui.bootstrap']);
