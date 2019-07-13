@@ -1,8 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.bmt.SageClient.SageAPIEndPointTests
--------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.507 s <<< FAILURE! - in com.bmt.SageClient.SageAPIEndPointTests
-testRequestCustomerViews  Time elapsed: 0.969 s  <<< ERROR!
-org.springframework.web.client.HttpClientErrorException$Unauthorized: 401 Unauthorized
-	at com.bmt.SageClient.SageAPIEndPointTests.testRequestCustomerViews(SageAPIEndPointTests.java:39)
-

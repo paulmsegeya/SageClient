@@ -15,7 +15,7 @@
 	<description>Sage 200 client application</description>
 
 	<properties>
-		<java.version>12</java.version>
+		<java.version>8</java.version>
 	</properties>
 
 	<dependencies>

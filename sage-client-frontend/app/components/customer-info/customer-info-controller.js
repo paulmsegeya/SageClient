@@ -1,18 +1,19 @@
 (function() {
 
 	var CustomerInfoController =  function($http) 
-	{
-		
-		this.customerInfoHeaders = []
+	{		
 		this.customerInfoAPIFieldNames = [];
+		this.fieldNames = {}
 		this.customerInfoData = {};
 		this.customerName = undefined;
 		this.isTableVisible = false;
 		this.isDataTableStarted = false;
+		this.isCustomerInfoLoading = false;
 
 		
 		this.getCustomerInfoData = () => 
 		{
+			this.isCustomerInfoLoading = true;
 			let vm = this;
 			$http({
 				method: "GET",
@@ -22,8 +23,9 @@
 				}
 			})
 			.then(function(response) {
-				vm.customerInfoData = [response.data];
-				vm.startDataTables();
+				console.log(response.data);
+				vm.customerInfoData = response.data;
+				vm.isCustomerInfoLoading = false;
 				vm.isTableVisible = true;
 			});
 		}
@@ -36,7 +38,8 @@
 				url: "http://192.168.0.19:8080/customer_info/fields"
 			})
 			.then(function(response) {
-				vm.customerInfoHeaders = response.data.fieldDisplayNames;
+				console.log(response.data);
+				vm.fieldNames = response.data.fieldNames;
 				vm.customerInfoAPIFieldNames = response.data.fieldAPINames;
 			});
 		}
@@ -56,27 +59,6 @@
 		}
 
 
-		this.generateDataTablesAPIColumnNames = () =>{
-			let dataTableColumns = [];
-			for(let columnApiName of this.customerInfoAPIFieldNames)
-			{
-				dataTableColumns.push({
-					data: columnApiName
-				})
-			}
-			return dataTableColumns;
-		}
-
-
-		this.startDataTables = () =>{
-			let vm = this;
-			$('#customerInfoTbl').DataTable({
-				data: vm.customerInfoData,
-				columns: vm.generateDataTablesAPIColumnNames(),
-				destroy: true,
-			})
-			vm.isDataTableStarted = true;
-		}
 
 		this.getCustomerInfoFields();
     };

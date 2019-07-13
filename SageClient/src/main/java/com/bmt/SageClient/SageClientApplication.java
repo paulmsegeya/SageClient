@@ -6,6 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
+import com.bmt.SageClient.gui.HideToSystemTray;
+
 @SpringBootApplication
 public class SageClientApplication {
 
@@ -14,6 +16,7 @@ public class SageClientApplication {
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(SageClientApplication.class);
         builder.headless(false).run(args);
 		TokenGetter.scheduleTokenGetter();
+		//new HideToSystemTray();
 		getInput();
 	}
 

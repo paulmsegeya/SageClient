@@ -95,7 +95,7 @@ public class CustomerInfoFields {
 		fieldNames.put("accountName", "Account Name");
 		fieldNames.put("shortName", "Short Name");
 		fieldNames.put("customerName", "Customer Name");
-		fieldNames.put(" dateOfShoot", "Date of Shoot");
+		fieldNames.put("dateOfShoot", "Date of Shoot");
 		fieldNames.put("transPackage", "Package");
 		fieldNames.put("total", "Total");
 		fieldNames.put("invoiceBalance", "Invoice Balance");

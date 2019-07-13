@@ -1,7 +1,0 @@
-com\bmt\SageClient\orm\dao\SageAPIHandlerDAO.class
-com\bmt\SageClient\sage200api\entities\CustomerViews.class
-com\bmt\SageClient\SageClientApplication.class
-com\bmt\SageClient\controllers\MainController.class
-com\bmt\SageClient\orm\dao\daoImpl\SageAPIHandlerDAOImpl$1.class
-com\bmt\SageClient\orm\dao\daoImpl\SageAPIHandlerDAOImpl.class
-com\bmt\SageClient\sage200api\entities\Sites.class

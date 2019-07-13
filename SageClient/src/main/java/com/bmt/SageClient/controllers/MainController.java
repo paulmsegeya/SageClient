@@ -23,6 +23,7 @@ public class MainController
 	
     @RequestMapping("/customer_info")
     public CustomerInfo getCustomerInfo(@RequestParam(name = "customerName") String customerName) {
+    	
           return sageAPIHandler.getCustomerInfo(customerName);
     }
     

@@ -40,5 +40,6 @@ SageClient/HELP.md
 SageClient/mvnw.cmd
 SageClient/mvn.cmd
 SageClient/mvnw
-SageClient/target
+/SageClient/target/**
+SageClient/tokenGetter/
 /.metadata/

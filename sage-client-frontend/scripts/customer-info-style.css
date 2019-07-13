@@ -2,15 +2,19 @@
     margin-bottom: 20px;
 }
 
+#customerResults{
+    height: 700px;
+    overflow-y: auto;
+}
+
+#customerDataLoader{
+    text-align: center;
+}
+
 .table-striped>tbody>tr:nth-child(odd)>td, 
 .table-striped>tbody>tr:nth-child(odd)>th {
    background-color: #f7fafb;
  }
-
- #customerInfoTbl th{
-    background-color: #4bde4b;    
-    margin-bottom: 5px;
-}
 
 
 #customerNameSelect{
