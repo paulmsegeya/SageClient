@@ -26,6 +26,7 @@
 
 
 
+
 			<div id="customerResults">
 				<div id="customerDataLoader">
 					<div class="spinner-border text-primary" role="status" ng-show="customerCtrl.isCustomerInfoLoading">
@@ -35,10 +36,20 @@
 				
 				<table id="customerInfoTbl"  class="table table-striped table-hover" ng-show="customerCtrl.isTableVisible">
 					<tbody>
-						<tr cladss="headerRow" ng-repeat="apiFieldName in customerCtrl.customerInfoAPIFieldNames track by $index">
-							<th ng-bind="customerCtrl.fieldNames[apiFieldName]"></th>			
-							<td ng-bind="customerCtrl.customerInfoData[apiFieldName]"></td>				
+						<tr>
+							<td>								
+								<nested-table display-name="{{customerCtrl.fieldNames.accountRef}}" value="{{customerCtrl.customerInfoData.accountRef}}"> </nested-table>
+							</td>
+							<td>
+								<nested-table display-name="{{customerCtrl.fieldNames.accountName}}" value="{{customerCtrl.customerInfoData.accountName}}"> </nested-table>
+							</td>
+							<td>
+								<nested-table display-name="{{customerCtrl.fieldNames.shortName}}" value="{{customerCtrl.customerInfoData.shortName}}"> </nested-table>
+							</td>			
 						</tr>
+
+
+						
 					</tbody>
 				</table>
 			</div>
