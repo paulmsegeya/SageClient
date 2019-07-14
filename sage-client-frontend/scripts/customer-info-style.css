@@ -1,0 +1,26 @@
+#customerSearch{
+    margin-bottom: 20px;
+}
+
+#customerResults{
+    height: 700px;
+    overflow-y: auto;
+}
+
+#customerDataLoader{
+    text-align: center;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #f7fafb;
+ }
+
+
+#customerNameSelect{
+    width: 100%;
+}
+
+#searchBtn{
+    margin-top: 10px;
+}

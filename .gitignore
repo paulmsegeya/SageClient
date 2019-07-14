@@ -27,14 +27,19 @@ HELP.md
 
 ### VS Code ###
 .vscode/
+sage-client-frontend/frontend-workspace.code-workspace
+sage-client-frontend/node_modules
 
 ### eclispe ###
-.mvn
-.settings
-.project
-.metadata
-HELP.md
-mvnw.cmd
-mvn.cmd
-mvnw
-target/classes/application.properties
+SageClient/.gitignore
+SageClient/.mvn
+SageClient/.settings
+SageClient/.project
+SageClient/.metadata
+SageClient/HELP.md
+SageClient/mvnw.cmd
+SageClient/mvn.cmd
+SageClient/mvnw
+/SageClient/target/**
+SageClient/tokenGetter/
+/.metadata/

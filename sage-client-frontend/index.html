@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="sageClientApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Blue Room Sage Client </title>
+
+    <link rel="stylesheet" href="scripts/main-style.css">
+    <link rel="stylesheet" href="scripts/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+</head>
+
+
+<body id="body" class="col-md-10 offset-md-1 col-lg-10 offset-lg-1">
+    <nav class="navbar navbar-default">
+	    <div class="container-fluid">
+	        <div class="navbar-header">
+	            <a id="logoTxt" class="navbar-brand" href="#">Blue Room Sage Client</a>
+	        </div>
+	        <!--<ul class="nav navbar-nav">
+	            <li><a ui-sref="test">test</a></li>
+                <li><a ui-sref="test2">test2</a></li>            
+            </ul>
+            -->
+	    </div>
+    </nav>
+    
+
+    <div ui-view class="container-fluid"></div>
+    
+    
+
+    <script src="scripts/jquery-3.4.1.min.js"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/ui-router.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>   
+    <script src="scripts/ui-bootstrap-tpls-3.0.6.min.js"></script>       
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script> 
+    
+    <script src="app/app.js"></script>
+    <script src="app/app-state-manager.js"></script>
+    <script src="app/components/customer-info/customer-info-controller.js"></script>
+    
+
+</body>
+</html>
