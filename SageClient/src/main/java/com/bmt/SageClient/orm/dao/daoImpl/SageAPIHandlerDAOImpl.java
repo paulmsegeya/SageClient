@@ -14,6 +14,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -194,27 +196,40 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 	public List<String> requestCustomerNames(String namePart)
 	{
 		setToken();
-		RestTemplate restTemplate = new RestTemplate();		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customers")
-		        .queryParam("$filter", "contains(name, '" + namePart + "')")
-		        .queryParam("$select", "name")
-		        .queryParam("$top", 10);
-		
-		ResponseEntity<List<Customers>> response = restTemplate.exchange(
-				builder.toUriString().replaceAll("%20", " "),
-				HttpMethod.GET,
-				entity,
-		  new ParameterizedTypeReference<List<Customers>>(){});
-		List<Customers> customers = response.getBody();
-		
-		String[] customerNames = new String[customers.size()];
-		for(int x = 0; x < customers.size(); x++) {
-			customerNames[x] = customers.get(x).getName();
+		try 
+		{
+			RestTemplate restTemplate = new RestTemplate();		
+			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customers")
+			        .queryParam("$filter", "contains(name, '" + namePart + "')")
+			        .queryParam("$select", "name")
+			        .queryParam("$top", 10);
+			
+			ResponseEntity<List<Customers>> response = restTemplate.exchange(
+					builder.toUriString().replaceAll("%20", " "),
+					HttpMethod.GET,
+					entity,
+			  new ParameterizedTypeReference<List<Customers>>(){});
+			List<Customers> customers = response.getBody();
+			
+			String[] customerNames = new String[customers.size()];
+			for(int x = 0; x < customers.size(); x++) {
+				customerNames[x] = customers.get(x).getName();
+			}
+			Arrays.sort(customerNames);
+			
+			return new ArrayList<>(Arrays.asList(customerNames));
 		}
-		Arrays.sort(customerNames);
+		catch(HttpClientErrorException clientEx)
+		{
+			System.out.println(clientEx);
+		}
+		catch(HttpServerErrorException  serverEx)
+		{
+			System.out.println(serverEx);
+		}
 		
-		return new ArrayList<>(Arrays.asList(customerNames));
+		return null;
 	}
 	
 	
