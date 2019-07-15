@@ -7,7 +7,6 @@
 		this.customerInfoData = {};
 		this.customerName = undefined;
 		this.isTableVisible = false;
-		this.isDataTableStarted = false;
 		this.isCustomerInfoLoading = false;
 
 		
