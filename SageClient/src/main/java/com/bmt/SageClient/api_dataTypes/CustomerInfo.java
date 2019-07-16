@@ -1,10 +1,12 @@
 package com.bmt.SageClient.api_dataTypes;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerInfo 
 {
-	
+	private Long customerID;
 	private String accountRef;
 	private String accountName;
 	private String shortName;
@@ -19,10 +21,17 @@ public class CustomerInfo
 	private String email2;
 	private String tel;
 	private String seenContact;
-	private String notes;
+	private List<String> memos = new ArrayList<>();
+	private CustomerListData listData;
 	
 	
 	
+	public Long getCustomerID() {
+		return customerID;
+	}
+	public void setCustomerID(Long customerID) {
+		this.customerID = customerID;
+	}
 	public String getAccountRef() {
 		return accountRef;
 	}
@@ -107,12 +116,22 @@ public class CustomerInfo
 	public void setSeenContact(String seenContact) {
 		this.seenContact = seenContact;
 	}
-	public String getNotes() {
-		return notes;
+	public List<String> getMemos() {
+		return memos;
 	}
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}	
+	public void setMemos(List<String> memos) {
+		this.memos = memos;
+	}
+	public CustomerListData getListData() {
+		return listData;
+	}
+	public void setListData(CustomerListData listData) {
+		this.listData = listData;
+	}
+	
+	public void addMemo(String memo) {
+		memos.add(memo);
+	}
 
 	
 

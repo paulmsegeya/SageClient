@@ -16,7 +16,7 @@
 			let vm = this;
 			$http({
 				method: "GET",
-				url: "http://192.168.0.19:8080/customer_info",
+				url: "http://localhost:8080/customer_info",
 				params: {
 					customerName : vm.customerName
 				}
@@ -34,7 +34,7 @@
 			let vm = this;
 			$http({
 				method: "GET",
-				url: "http://192.168.0.19:8080/customer_info/fields"
+				url: "http://localhost:8080/customer_info/fields"
 			})
 			.then(function(response) {
 				console.log(response.data);
@@ -46,7 +46,7 @@
 		this.getTopCustomerNames = (name) =>{
 			return $http({
 				method: "GET",
-				url: "http://192.168.0.19:8080/customers/names",
+				url: "http://localhost:8080/customers/names",
 				params: {
 					customerNamePart : name
 				}

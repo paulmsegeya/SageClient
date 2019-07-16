@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bmt.SageClient.api_dataTypes.CustomerInfo;
 import com.bmt.SageClient.api_dataTypes.CustomerInfoFields;
+import com.bmt.SageClient.orm.dao.SageAPICustomerHandlerDAO;
 import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
 
 @CrossOrigin
@@ -18,13 +19,15 @@ public class MainController
 {
 	
 	@Autowired
+	SageAPICustomerHandlerDAO sageAPICustomerHandler;
+	@Autowired
 	SageAPIHandlerDAO sageAPIHandler;
 
 	
     @RequestMapping("/customer_info")
     public CustomerInfo getCustomerInfo(@RequestParam(name = "customerName") String customerName) {
     	
-          return sageAPIHandler.getCustomerInfo(customerName);
+          return sageAPICustomerHandler.getCustomerInfo(customerName);
     }
     
     @RequestMapping("/customer_info/fields")
@@ -34,7 +37,12 @@ public class MainController
     
     @RequestMapping("/customers/names")
     public List<String> getCustomerNames(@RequestParam(name = "customerNamePart") String customerNamePart) {
-          return sageAPIHandler.requestCustomerNames(customerNamePart);
+          return sageAPICustomerHandler.requestCustomerNames(customerNamePart);
+    }
+    
+    @RequestMapping("/test_sage_connection")
+    public boolean testSageConnection() {
+          return sageAPIHandler.testSageConnection();
     }
 	
 	

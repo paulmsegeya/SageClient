@@ -55,11 +55,11 @@
 				</table>
 
 				<div id="customerListDataDiv">
-					<customer-list-data header="Interviews" data="['bmw', 'merc', 'audi']" ></customer-list-data>
-					<customer-list-data header="Chosen Agencies" data="['mclarren', 'lambo', 'ferrari']" ></customer-list-data>
-					<customer-list-data header="Offers" data="['mclarren', 'lambo', 'ferrari']" ></customer-list-data>
-					<customer-list-data header="Casting Directories" data="['Porcshe', 'Nissan GTR', 'Supra']" ></customer-list-data>
-					<customer-list-data header="Self Tapes" data="['R8', 'Model S p100d', 'Mustang']" ></customer-list-data>
+					<customer-list-data header="Interviews" data="customerCtrl.customerInfoData.listData.interviews.data" ></customer-list-data>
+					<customer-list-data header="Chosen Agencies" data="customerCtrl.customerInfoData.listData.chosenAgencies.data" ></customer-list-data>
+					<customer-list-data header="Offers" data="customerCtrl.customerInfoData.listData.offers.data" ></customer-list-data>
+					<customer-list-data header="Casting Directories" data="customerCtrl.customerInfoData.listData.casting.data" ></customer-list-data>
+					<customer-list-data header="Self Tapes" data="customerCtrl.customerInfoData.listData.selfTapes.data" ></customer-list-data>
 				</div>
 			</div>
 
@@ -70,9 +70,7 @@
 					</div>
 					<div class="card-body">
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item">note 1 blah blah</li>
-							<li class="list-group-item">note 2 blah blah</li>
-							<li class="list-group-item">note 3 blah blah</li>
+							<li class="list-group-item" ng-repeat="memo in customerCtrl.customerInfoData.memos">{{memo}}</li>
 						</ul>
 					</div>
 				</div>
