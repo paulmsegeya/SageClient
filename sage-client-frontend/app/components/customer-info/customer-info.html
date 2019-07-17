@@ -25,6 +25,12 @@
 		</div>
 
 
+		<div id="connectionStatus" class="col-md-2 offset-md-2">
+			<span ng-show="customerCtrl.connectionDetails.connectedToSage"> Connected to Sage  </span>
+			<span ng-hide="customerCtrl.connectionDetails.connectedToSage"> Not connected to Sage  </span>
+		</div>
+
+
 
 
 		<div id="customerResults"  class="col-md-12">

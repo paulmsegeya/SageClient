@@ -11,6 +11,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
@@ -21,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.bmt.SageClient.api_dataTypes.CustomerInfo;
 import com.bmt.SageClient.api_dataTypes.CustomerListData;
+import com.bmt.SageClient.api_dataTypes.User;
 import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
 import com.bmt.SageClient.sage200api.CustomerMemoListData.MemoListDataTypes;
 import com.bmt.SageClient.sage200api.entities.CustomerMemos;
@@ -53,8 +55,35 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 		headers.set("Authorization", "Bearer " +  GlobalVars.accessToken.replace(" ", ""));
 	}
 	
-	public boolean testSageConnection() {
-		return true;
+	public User testSageConnection() 
+	{		
+		setToken();
+		try 
+		{
+			RestTemplate restTemplate = new RestTemplate();		
+			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/current_user");
+			
+			ResponseEntity<User> response = restTemplate.exchange(
+					builder.toUriString().replaceAll("%20", " "),
+					HttpMethod.GET,
+					entity,
+			  new ParameterizedTypeReference<User>(){});
+			User user = response.getBody();
+			user.setConnectedToSage(true);
+			return user;
+		}
+		catch(HttpClientErrorException clientEx)
+		{
+			System.out.println(clientEx);
+		}
+		catch(HttpServerErrorException  serverEx)
+		{
+			System.out.println(serverEx);
+		}
+		User user = new User();
+		user.setConnectedToSage(false);
+		return user;
 	}
 	
 	

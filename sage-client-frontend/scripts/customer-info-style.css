@@ -1,5 +1,10 @@
 #customerSearch{
     margin-bottom: 20px;
+    float: left;
+}
+
+#connectionStatus{
+    float: left;
 }
 
 #customerResults{

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bmt.SageClient.api_dataTypes.CustomerInfo;
 import com.bmt.SageClient.api_dataTypes.CustomerInfoFields;
+import com.bmt.SageClient.api_dataTypes.User;
 import com.bmt.SageClient.orm.dao.SageAPICustomerHandlerDAO;
 import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
 
@@ -41,7 +42,7 @@ public class MainController
     }
     
     @RequestMapping("/test_sage_connection")
-    public boolean testSageConnection() {
+    public User testSageConnection() {
           return sageAPIHandler.testSageConnection();
     }
 	

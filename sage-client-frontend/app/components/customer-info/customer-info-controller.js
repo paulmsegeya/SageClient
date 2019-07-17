@@ -8,8 +8,23 @@
 		this.customerName = undefined;
 		this.isTableVisible = false;
 		this.isCustomerInfoLoading = false;
+		this.connectionDetails = {connectedToSage: false};
 
 		
+		this.testSageConnection = () => 
+		{
+			let vm = this;
+			$http({
+				method: "GET",
+				url: "http://localhost:8080/test_sage_connection"
+			})
+			.then(function(response) {
+				console.log(response.data);
+				vm.connectionDetails = response.data; 
+			});
+		}
+
+
 		this.getCustomerInfoData = () => 
 		{
 			this.isCustomerInfoLoading = true;
@@ -58,7 +73,7 @@
 		}
 
 
-
+		this.testSageConnection();
 		this.getCustomerInfoFields();
     };
 
