@@ -8,19 +8,43 @@
 		this.customerName = undefined;
 		this.isTableVisible = false;
 		this.isCustomerInfoLoading = false;
-		this.connectionDetails = {connectedToSage: false};
+		this.connectionAPIDetails = {connectedToSage: false};
+		this.connectionInterfaceDetails = {sageInterfaceConnected: false};
+		this.errorMessages = {};
 
 		
-		this.testSageConnection = () => 
+		this.testSageAPIConnection = () => 
 		{
 			let vm = this;
 			$http({
 				method: "GET",
-				url: "http://localhost:8080/test_sage_connection"
+				url: "http://localhost:8080/test_sageAPI_connection"
 			})
 			.then(function(response) {
-				console.log(response.data);
-				vm.connectionDetails = response.data; 
+				vm.connectionAPIDetails = response.data;
+				if(vm.connectionAPIDetails.connectedToSage == false) vm.setError("testSageAPI", "Could not connect to Sage API!");
+				else vm.clearError("testSageAPI"); 
+
+			}
+			,function(response){
+				vm.setError("testSageAPI", "Could not connect to Sage API!");
+			});
+		}
+
+
+		this.testSageInterfaceConnection = () => 
+		{
+			let vm = this;
+			$http({
+				method: "GET",
+				url: "http://localhost:8080/test_sage_interface_connection"
+			})
+			.then(function(response) {
+				vm.connectionInterfaceDetails = response.data;
+				vm.clearError("testSageInterface"); 
+			}
+			,function(response){
+				vm.setError("testSageInterface", "Could not connect to Sage Interface!");
 			});
 		}
 
@@ -37,11 +61,14 @@
 				}
 			})
 			.then(function(response) {
-				console.log(response.data);
 				vm.customerInfoData = response.data;
 				vm.isCustomerInfoLoading = false;
 				vm.isTableVisible = true;
-			});
+				vm.clearError("customerInfoData"); 
+			})
+			,function(response){
+				vm.setError("customerInfoData", "Could not retrieve customer data from Sage!");
+			};
 		}
 
 		this.getCustomerInfoFields = () => 
@@ -52,13 +79,13 @@
 				url: "http://localhost:8080/customer_info/fields"
 			})
 			.then(function(response) {
-				console.log(response.data);
 				vm.fieldNames = response.data.fieldNames;
 				vm.customerInfoAPIFieldNames = response.data.fieldAPINames;
 			});
 		}
 
 		this.getTopCustomerNames = (name) =>{
+			let vm = this;
 			return $http({
 				method: "GET",
 				url: "http://localhost:8080/customers/names",
@@ -67,13 +94,30 @@
 				}
 			})
 			.then(function(response) {
-				console.log(response.data);
+				vm.clearError("topCustomerNames"); 
 				return response.data;
+			}
+			,function(response){
+				vm.setError("topCustomerNames", "Could not retrieve customer search names!");
 			});
 		}
 
 
-		this.testSageConnection();
+		this.setError = (errorSrc, message) =>{
+			this.errorMessages[errorSrc] = message;
+		}
+
+		this.clearError = (errorSrc) =>{
+			if(this.errorMessages.hasOwnProperty(errorSrc) ) delete this.errorMessages[errorSrc];
+		}
+
+		this.isShowErrorMessages = () =>{
+			return Object.keys(this.errorMessages).length > 0 ? true : false;
+		}
+
+
+		this.testSageAPIConnection();
+		this.testSageInterfaceConnection();
 		this.getCustomerInfoFields();
     };
 

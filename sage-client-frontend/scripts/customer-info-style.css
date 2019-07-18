@@ -7,6 +7,16 @@
     float: left;
 }
 
+.tickIcon{
+    color: #33d633;
+    font-size: 15pt;
+}
+
+.crossIcon{
+    color: red;
+    font-size: 15pt;
+}
+
 #customerResults{
     height: 700px;
     overflow-y: auto;
@@ -55,4 +65,14 @@
 
 #searchBtn{
     margin-top: 10px;
+}
+
+#connectionStatusHeader{
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.connectionDetailsDiv{
+    font-size: 10pt;
+    margin-bottom: 30px;
 }

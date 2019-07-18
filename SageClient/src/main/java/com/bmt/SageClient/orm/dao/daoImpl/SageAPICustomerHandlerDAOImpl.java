@@ -47,7 +47,8 @@ public class SageAPICustomerHandlerDAOImpl implements SageAPICustomerHandlerDAO
 		headers.set("ocp-apim-subscription-key", "39cfbba1883b4f71931a6b3c495d3c68"); 
 		headers.set("X-Company", "1"); 
 		headers.set("Content-Type", "application/x-www-form-urlencoded"); 
-		headers.set("X-Site", "c3a91133-a250-c54f-e9ac-08d507348a36");		
+		headers.set("X-Site", "c3a91133-a250-c54f-e9ac-08d507348a36");
+		headers.set("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
 	} 
 	
 	
@@ -129,22 +130,27 @@ public class SageAPICustomerHandlerDAOImpl implements SageAPICustomerHandlerDAO
 							case INTERVIEWS:
 								listData.getInterviews().setMemoID(memo.getId());
 								listData.getInterviews().setData(listArrayData);
+								listData.getInterviews().setName(selectedType);
 								break;
 							case CHOSEN_AGENCIES:
 								listData.getChosenAgencies().setMemoID(memo.getId());
 								listData.getChosenAgencies().setData(listArrayData);
+								listData.getChosenAgencies().setName(selectedType);
 								break;
 							case OFFERS:
 								listData.getOffers().setMemoID(memo.getId());
 								listData.getOffers().setData(listArrayData);
+								listData.getOffers().setName(selectedType);
 								break;
 							case CASTING_DIRECTORIES:
 								listData.getCasting().setMemoID(memo.getId());
 								listData.getCasting().setData(listArrayData);
+								listData.getCasting().setName(selectedType);
 								break;
 							case SELF_TAPES:
 								listData.getSelfTapes().setMemoID(memo.getId());
 								listData.getSelfTapes().setData(listArrayData);
+								listData.getSelfTapes().setName(selectedType);
 								break;
 						}
 					}
@@ -165,95 +171,161 @@ public class SageAPICustomerHandlerDAOImpl implements SageAPICustomerHandlerDAO
 	
 	public List<Customers> requestCustomers(String name)
 	{
-		RestTemplate restTemplate = new RestTemplate();		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customers")
-		        .queryParam("$filter", "name eq '" + name + "'")
-		        .queryParam("$select", "id,reference,name,short_name");
-
-		ResponseEntity<List<Customers>> response = restTemplate.exchange(
-				builder.toUriString().replaceAll("%20", " "),
-				HttpMethod.GET,
-				entity,
-		  new ParameterizedTypeReference<List<Customers>>(){});
-		List<Customers> customers = response.getBody();
-		return customers;
+		try
+		{
+			RestTemplate restTemplate = new RestTemplate();		
+			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customers")
+			        .queryParam("$filter", "name eq '" + name + "'")
+			        .queryParam("$select", "id,reference,name,short_name");
+	
+			ResponseEntity<List<Customers>> response = restTemplate.exchange(
+					builder.toUriString().replaceAll("%20", " "),
+					HttpMethod.GET,
+					entity,
+			  new ParameterizedTypeReference<List<Customers>>(){});
+			List<Customers> customers = response.getBody();
+			return customers;
+		}
+		catch(HttpClientErrorException clientEx)
+		{
+			System.out.println(clientEx);
+		}
+		catch(HttpServerErrorException  serverEx)
+		{
+			System.out.println(serverEx);
+		}
+		
+		return new ArrayList<Customers>();
 
 	}
 	
 	
 	public List<CustomerViews> requestCustomerViews(Long id)
 	{
-		RestTemplate restTemplate = new RestTemplate();		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_views")
-		        .queryParam("$filter", "id eq " + id)
-		        .queryParam("$select", "id,reference,name,short_name,analysis_code_1,analysis_code_2,analysis_code_3,telephone_subscriber_number");
+		try
+		{
+			RestTemplate restTemplate = new RestTemplate();		
+			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_views")
+			        .queryParam("$filter", "id eq " + id)
+			        .queryParam("$select", "id,reference,name,short_name,analysis_code_1,analysis_code_2,analysis_code_3,telephone_subscriber_number");
+			
+			ResponseEntity<List<CustomerViews>> response = restTemplate.exchange(
+					builder.toUriString().replaceAll("%20", " "),
+					HttpMethod.GET,
+					entity,
+			  new ParameterizedTypeReference<List<CustomerViews>>(){});
+			List<CustomerViews> customerViews = response.getBody();
+	
+			return customerViews;
+		}
+		catch(HttpClientErrorException clientEx)
+		{
+			System.out.println(clientEx);
+		}
+		catch(HttpServerErrorException  serverEx)
+		{
+			System.out.println(serverEx);
+		}
 		
-		ResponseEntity<List<CustomerViews>> response = restTemplate.exchange(
-				builder.toUriString().replaceAll("%20", " "),
-				HttpMethod.GET,
-				entity,
-		  new ParameterizedTypeReference<List<CustomerViews>>(){});
-		List<CustomerViews> customerViews = response.getBody();
-
-		return customerViews;
+		return new ArrayList<CustomerViews>();
 	}
 	
 	
 	public List<CustomersContacts> requestCustomerContacts(Long id)
 	{
-		RestTemplate restTemplate = new RestTemplate();		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_contacts")
-		        .queryParam("$filter", "customer_id eq " + id)
-		        .queryParam("$select", "id,name,default_email");
+		try
+		{
+			RestTemplate restTemplate = new RestTemplate();		
+			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_contacts")
+			        .queryParam("$filter", "customer_id eq " + id)
+			        .queryParam("$select", "id,name,default_email");
+			
+			ResponseEntity<List<CustomersContacts>> response = restTemplate.exchange(
+					builder.toUriString().replaceAll("%20", " "),
+					HttpMethod.GET,
+					entity,
+			  new ParameterizedTypeReference<List<CustomersContacts>>(){});
+			List<CustomersContacts> customerContacts = response.getBody();
+			return customerContacts;
+		}
+		catch(HttpClientErrorException clientEx)
+		{
+			System.out.println(clientEx);
+		}
+		catch(HttpServerErrorException  serverEx)
+		{
+			System.out.println(serverEx);
+		}
 		
-		ResponseEntity<List<CustomersContacts>> response = restTemplate.exchange(
-				builder.toUriString().replaceAll("%20", " "),
-				HttpMethod.GET,
-				entity,
-		  new ParameterizedTypeReference<List<CustomersContacts>>(){});
-		List<CustomersContacts> customerContacts = response.getBody();
-		return customerContacts;
+		return new ArrayList<CustomersContacts>();
 	}
 	
 	
 	public List<Transactions> requestTransactions(Long id)
 	{
-		RestTemplate restTemplate = new RestTemplate();		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/sales_posted_transactions")
-		        .queryParam("$filter", "customer_id eq " + id)
-		        .queryParam("$select", "id,customer_id,transaction_date,reference,document_gross_value,document_outstanding_value")
-		        .queryParam("$orderby", "urn asc")
-		        .queryParam("$top", 1);
+		try
+		{
+			RestTemplate restTemplate = new RestTemplate();		
+			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/sales_posted_transactions")
+			        .queryParam("$filter", "customer_id eq " + id)
+			        .queryParam("$select", "id,customer_id,transaction_date,reference,document_gross_value,document_outstanding_value")
+			        .queryParam("$orderby", "urn asc")
+			        .queryParam("$top", 1);
+			
+			ResponseEntity<List<Transactions>> response = restTemplate.exchange(
+					builder.toUriString().replaceAll("%20", " "),
+					HttpMethod.GET,
+					entity,
+			  new ParameterizedTypeReference<List<Transactions>>(){});
+			List<Transactions> transactions = response.getBody();
+			return transactions;
+		}
+		catch(HttpClientErrorException clientEx)
+		{
+			System.out.println(clientEx);
+		}
+		catch(HttpServerErrorException  serverEx)
+		{
+			System.out.println(serverEx);
+		}
 		
-		ResponseEntity<List<Transactions>> response = restTemplate.exchange(
-				builder.toUriString().replaceAll("%20", " "),
-				HttpMethod.GET,
-				entity,
-		  new ParameterizedTypeReference<List<Transactions>>(){});
-		List<Transactions> transactions = response.getBody();
-		return transactions;
+		return new ArrayList<Transactions>();
+		
 	}
 	
 	
 	public List<CustomerMemos> requestMemos(Long id)
 	{
-		RestTemplate restTemplate = new RestTemplate();		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_memos")
-		        .queryParam("$filter", "customer_id eq " + id)
-		        .queryParam("$select", "id,customer_id,note");
+		try
+		{
+			RestTemplate restTemplate = new RestTemplate();		
+			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_memos")
+			        .queryParam("$filter", "customer_id eq " + id)
+			        .queryParam("$select", "id,customer_id,note");
+			
+			ResponseEntity<List<CustomerMemos>> response = restTemplate.exchange(
+					builder.toUriString().replaceAll("%20", " "),
+					HttpMethod.GET,
+					entity,
+			  new ParameterizedTypeReference<List<CustomerMemos>>(){});
+			List<CustomerMemos> memos = response.getBody();
+			return memos;
+		}
+		catch(HttpClientErrorException clientEx)
+		{
+			System.out.println(clientEx);
+		}
+		catch(HttpServerErrorException  serverEx)
+		{
+			System.out.println(serverEx);
+		}
 		
-		ResponseEntity<List<CustomerMemos>> response = restTemplate.exchange(
-				builder.toUriString().replaceAll("%20", " "),
-				HttpMethod.GET,
-				entity,
-		  new ParameterizedTypeReference<List<CustomerMemos>>(){});
-		List<CustomerMemos> memos = response.getBody();
-		return memos;
+		return new ArrayList<CustomerMemos>();
 	}
 	
 	
@@ -293,7 +365,7 @@ public class SageAPICustomerHandlerDAOImpl implements SageAPICustomerHandlerDAO
 			System.out.println(serverEx);
 		}
 		
-		return null;
+		return new ArrayList<String>();
 	}
 	
 	

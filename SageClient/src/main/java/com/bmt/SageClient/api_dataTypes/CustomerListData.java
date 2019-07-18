@@ -2,6 +2,8 @@ package com.bmt.SageClient.api_dataTypes;
 
 import java.util.List;
 
+import com.bmt.SageClient.sage200api.CustomerMemoListData.MemoListDataTypes;
+
 public class CustomerListData
 {
 	
@@ -9,6 +11,7 @@ public class CustomerListData
 		private List<String> data;
 		private Long memoID;
 		private boolean shouldBeUpdated;
+		private MemoListDataTypes name;
 		
 		
 		public List<String> getData() {
@@ -29,6 +32,12 @@ public class CustomerListData
 		public void setShouldBeUpdated(boolean shouldBeUpdated) {
 			this.shouldBeUpdated = shouldBeUpdated;
 		}
+		public MemoListDataTypes getName() {
+			return name;
+		}
+		public void setName(MemoListDataTypes name) {
+			this.name = name;
+		}
 	}
 	
 	
@@ -41,7 +50,7 @@ public class CustomerListData
 	
 	
 	public CustomerListData() {
-		this.customerID = (long) 0;
+		this.customerID = null;
 		this.interviews = new ListData();
 		this.chosenAgencies = new ListData();
 		this.offers = new ListData();

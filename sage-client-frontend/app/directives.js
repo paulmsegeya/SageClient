@@ -30,3 +30,14 @@ sageClientApp.directive("customerListData", function(){
 		templateUrl: "app/components/customer-info/directives/listData.html"
 	};
 });
+
+sageClientApp.directive("connectionInfo", function(){
+	return{
+        retrict: "E",
+        scope: {
+            apiDetails: '=',
+            interfaceDetails: '='
+        },
+		templateUrl: "app/components/customer-info/directives/connectionInfo.html"
+	};
+});

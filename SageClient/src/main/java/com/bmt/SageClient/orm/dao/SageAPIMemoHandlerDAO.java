@@ -1,13 +1,15 @@
 package com.bmt.SageClient.orm.dao;
 
-import org.springframework.http.HttpStatus;
+import java.util.List;
+
 import com.bmt.SageClient.api_dataTypes.CustomerListData;
 import com.bmt.SageClient.api_dataTypes.CustomerListData.ListData;
+import com.bmt.SageClient.api_dataTypes.ServerResponse;
 
 public interface SageAPIMemoHandlerDAO 
 {
-	public HttpStatus addUpdateInterviews(CustomerListData interviews);
-	public HttpStatus updateInterviews(ListData interviews );
-	public HttpStatus addInterviews(Long customerID, ListData interviews );
+	public List<ServerResponse> addUpdateListData(CustomerListData listData);
+	public ServerResponse updateListData(ListData listData );
+	public ServerResponse addListData(Long customerID, ListData listData );
 
 }

@@ -1,6 +1,9 @@
 package com.bmt.SageClient.orm.dao.daoImpl;
 
 import com.bmt.SageClient.GlobalVars;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,7 +25,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.bmt.SageClient.api_dataTypes.CustomerInfo;
 import com.bmt.SageClient.api_dataTypes.CustomerListData;
-import com.bmt.SageClient.api_dataTypes.User;
+import com.bmt.SageClient.api_dataTypes.SageConnectionTest;
+import com.bmt.SageClient.api_dataTypes.SageInterfaceConnection;
+import com.bmt.SageClient.api_dataTypes.ServerResponse;
 import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
 import com.bmt.SageClient.sage200api.CustomerMemoListData.MemoListDataTypes;
 import com.bmt.SageClient.sage200api.entities.CustomerMemos;
@@ -48,6 +53,7 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 		headers.set("X-Company", "1"); 
 		headers.set("Content-Type", "application/x-www-form-urlencoded"); 
 		headers.set("X-Site", "c3a91133-a250-c54f-e9ac-08d507348a36");		
+		headers.set("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
 	} 
 	
 	
@@ -55,7 +61,7 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 		headers.set("Authorization", "Bearer " +  GlobalVars.accessToken.replace(" ", ""));
 	}
 	
-	public User testSageConnection() 
+	public SageConnectionTest testSageAPIConnection() 
 	{		
 		setToken();
 		try 
@@ -64,26 +70,68 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
 			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/current_user");
 			
-			ResponseEntity<User> response = restTemplate.exchange(
+			ResponseEntity<SageConnectionTest> response = restTemplate.exchange(
 					builder.toUriString().replaceAll("%20", " "),
 					HttpMethod.GET,
 					entity,
-			  new ParameterizedTypeReference<User>(){});
-			User user = response.getBody();
-			user.setConnectedToSage(true);
-			return user;
+			  new ParameterizedTypeReference<SageConnectionTest>(){});
+			
+			SageConnectionTest connTest = response.getBody();
+			connTest.setConnectedToSage(true);
+			ServerResponse serverResponse = new ServerResponse();
+			serverResponse.setSuccess(true);
+			serverResponse.setHttpStatus( String.valueOf(response.getStatusCodeValue()) );
+			connTest.setServerResponse(serverResponse);
+			return connTest;
 		}
 		catch(HttpClientErrorException clientEx)
 		{
-			System.out.println(clientEx);
+			SageConnectionTest connTest = new SageConnectionTest();
+			connTest.setConnectedToSage(false);
+			ServerResponse serverResponse = new ServerResponse();
+			serverResponse.setSuccess(false);
+			serverResponse.setHttpStatus( clientEx.getStatusText() );
+			serverResponse.setErrorSource("Client");
+			serverResponse.setMessage("Client error connecting to sage, attempted to retireve current user. ");
 		}
 		catch(HttpServerErrorException  serverEx)
 		{
-			System.out.println(serverEx);
+			SageConnectionTest connTest = new SageConnectionTest();
+			connTest.setConnectedToSage(false);
+			ServerResponse serverResponse = new ServerResponse();
+			serverResponse.setSuccess(false);
+			serverResponse.setHttpStatus( serverEx.getStatusText() );
+			serverResponse.setErrorSource("Server");
+			serverResponse.setMessage("Server error connecting to sage, attempted to retireve current user. ");
 		}
-		User user = new User();
-		user.setConnectedToSage(false);
-		return user;
+		
+		SageConnectionTest connTest = new SageConnectionTest();
+		connTest.setConnectedToSage(false);
+		ServerResponse serverResponse = new ServerResponse();
+		serverResponse.setSuccess(false);
+		serverResponse.setHttpStatus( "Unknown" );
+		serverResponse.setErrorSource("Unknown");
+		serverResponse.setMessage("Unknown");
+		connTest.setServerResponse(serverResponse);
+		return connTest;
+	}
+
+
+	@Override
+	public SageInterfaceConnection testSageInterfaceConnection() 
+	{
+		SageInterfaceConnection interfaceConn = new SageInterfaceConnection();
+		interfaceConn.setSageInterfaceConnected(true);
+		try {
+			InetAddress inetAddress = InetAddress.getLocalHost();
+			interfaceConn.setHostName(inetAddress.getHostName());
+			interfaceConn.setIpAddress(inetAddress.getHostAddress());
+			
+		} catch (UnknownHostException e) {
+			interfaceConn.setHostName("Unknown");
+			interfaceConn.setIpAddress("Unknown");
+		}
+		return interfaceConn;
 	}
 	
 	

@@ -24,12 +24,18 @@
 			</div>
 		</div>
 
-
-		<div id="connectionStatus" class="col-md-2 offset-md-2">
-			<span ng-show="customerCtrl.connectionDetails.connectedToSage"> Connected to Sage  </span>
-			<span ng-hide="customerCtrl.connectionDetails.connectedToSage"> Not connected to Sage  </span>
+		<div id="connectionStatus" class="col-md-4 offset-md-2">
+			<connection-info api-details="customerCtrl.connectionAPIDetails" interface-details="customerCtrl.connectionInterfaceDetails"></connection-info>
 		</div>
 
+
+		<div class="col-md-12 card text-white bg-danger mb-3" ng-show="customerCtrl.isShowErrorMessages()">
+			<div class="card-header">Warning</div>
+			<div class="card-body">
+				<h6 class="card-title">Unfortunately error/s have occured, please ensure the Sage Interface is running on the host machine, refresh and try again</h5>
+				<p class="card-text" ng-repeat="msg in customerCtrl.errorMessages">{{msg}}</p>
+			</div>
+		</div>
 
 
 

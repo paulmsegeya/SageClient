@@ -1,9 +1,11 @@
 package com.bmt.SageClient.orm.dao;
 
-import com.bmt.SageClient.api_dataTypes.User;
+import com.bmt.SageClient.api_dataTypes.SageConnectionTest;
+import com.bmt.SageClient.api_dataTypes.SageInterfaceConnection;
 
 public interface SageAPIHandlerDAO 
 {
-	public User testSageConnection();
+	public SageConnectionTest testSageAPIConnection();
+	public SageInterfaceConnection testSageInterfaceConnection();
 
 }
