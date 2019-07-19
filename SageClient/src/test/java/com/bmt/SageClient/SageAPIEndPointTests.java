@@ -15,6 +15,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.bmt.SageClient.api_dataTypes.CustomerInfo;
+import com.bmt.SageClient.orm.dao.SageAPICustomerHandlerDAO;
 import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
 import com.bmt.SageClient.sage200api.entities.CustomerMemos;
 import com.bmt.SageClient.sage200api.entities.CustomerViews;
@@ -30,7 +31,7 @@ public class SageAPIEndPointTests {
 	@Autowired
 	ResourceLoader resourceLoader;
 	@Autowired
-	SageAPIHandlerDAO sageAPIHandler;
+	SageAPICustomerHandlerDAO sageAPICustomerHandler;
 	
 	
 	@Test
@@ -43,7 +44,7 @@ public class SageAPIEndPointTests {
 	@Test
 	public void testGetCustomerInfo()
 	{
-		CustomerInfo customerInfo = sageAPIHandler.getCustomerInfo("donnell abankwa");
+		CustomerInfo customerInfo = sageAPICustomerHandler.getCustomerInfo("donnell abankwa");
 		System.out.println( customerInfo.getAccountRef() );
 	}
 
@@ -51,14 +52,14 @@ public class SageAPIEndPointTests {
 	@Test
 	public void testRequestCustomers()
 	{
-		List<Customers> customers = sageAPIHandler.requestCustomers("donnell abankwa");
+		List<Customers> customers = sageAPICustomerHandler.requestCustomers("donnell abankwa");
 		System.out.println( customers.get(0).getName() + ", " + customers.get(0).getReference() );
 	}
 	
 	@Test
 	public void testRequestCustomerViews()
 	{		
-		List<CustomerViews> customersViews = sageAPIHandler.requestCustomerViews((long)85680);
+		List<CustomerViews> customersViews = sageAPICustomerHandler.requestCustomerViews((long)85680);
 		System.out.println( customersViews.get(0).getName() + ", " + customersViews.get(0).getReference() + ", " + customersViews.get(0).getAnalysisCode1() );
 	}
 	 
@@ -66,7 +67,7 @@ public class SageAPIEndPointTests {
 	@Test
 	public void testRequestCustomerContacts()
 	{		
-		List<CustomersContacts> customersContacts = sageAPIHandler.requestCustomerContacts((long)85680);
+		List<CustomersContacts> customersContacts = sageAPICustomerHandler.requestCustomerContacts((long)85680);
 		for(CustomersContacts contact : customersContacts){
 			System.out.println( contact.getName() + ", " + contact.getDefaultEmail() + ", " + contact.getDefaultTelephone() );
 		}		
@@ -76,7 +77,7 @@ public class SageAPIEndPointTests {
 	@Test
 	public void testRequestTransactions()
 	{		
-		List<Transactions> transactions = sageAPIHandler.requestTransactions((long)85680);
+		List<Transactions> transactions = sageAPICustomerHandler.requestTransactions((long)85680);
 		for(Transactions transaction : transactions){
 			System.out.println(transaction.getReference() + ", " + transaction.getTransactionDate() + ", " + transaction.getDocumentGrossValue() );
 		}		
@@ -86,7 +87,7 @@ public class SageAPIEndPointTests {
 	@Test
 	public void testRequestMemos()
 	{		
-		List<CustomerMemos> memos = sageAPIHandler.requestMemos((long)85680);
+		List<CustomerMemos> memos = sageAPICustomerHandler.requestMemos((long)85680);
 		for(CustomerMemos memo : memos){
 			System.out.println(memo.getId() + ", " +memo.getCustomerId() + ", " + memo.getNote() );
 		}		
@@ -96,7 +97,7 @@ public class SageAPIEndPointTests {
 	@Test
 	public void testRequestCustomerNames()
 	{		
-		List<String> customerNames = sageAPIHandler.requestCustomerNames("do");
+		List<String> customerNames = sageAPICustomerHandler.requestCustomerNames("do");
 		for(String name : customerNames){
 			System.out.println(name);
 		}		

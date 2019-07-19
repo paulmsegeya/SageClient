@@ -1,6 +1,9 @@
 package com.bmt.SageClient.orm.dao.daoImpl;
 
 import com.bmt.SageClient.GlobalVars;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,6 +14,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
@@ -20,12 +24,20 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.bmt.SageClient.api_dataTypes.CustomerInfo;
+import com.bmt.SageClient.api_dataTypes.CustomerListData;
+import com.bmt.SageClient.api_dataTypes.SageConnectionTest;
+import com.bmt.SageClient.api_dataTypes.SageInterfaceConnection;
+import com.bmt.SageClient.api_dataTypes.ServerResponse;
 import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
+import com.bmt.SageClient.sage200api.CustomerMemoListData.MemoListDataTypes;
 import com.bmt.SageClient.sage200api.entities.CustomerMemos;
 import com.bmt.SageClient.sage200api.entities.CustomerViews;
 import com.bmt.SageClient.sage200api.entities.Customers;
 import com.bmt.SageClient.sage200api.entities.CustomersContacts;
-import com.bmt.SageClient.sage200api.entities.Transactions;;
+import com.bmt.SageClient.sage200api.entities.Transactions;
+import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
+import com.google.gson.reflect.TypeToken;;
 
 
 @Repository
@@ -41,6 +53,7 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 		headers.set("X-Company", "1"); 
 		headers.set("Content-Type", "application/x-www-form-urlencoded"); 
 		headers.set("X-Site", "c3a91133-a250-c54f-e9ac-08d507348a36");		
+		headers.set("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
 	} 
 	
 	
@@ -48,188 +61,77 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 		headers.set("Authorization", "Bearer " +  GlobalVars.accessToken.replace(" ", ""));
 	}
 	
-	public CustomerInfo getCustomerInfo(String name)
-	{
-		setToken();
-		CustomerInfo customerInfo = new CustomerInfo();
-		List<Customers> customers = requestCustomers(name);
-		if(customers.size() > 0) 
-		{
-			Customers customer = customers.get(0);
-			List<CustomerViews> customerViews = requestCustomerViews(customer.getId());
-			List<CustomersContacts> customersContacts = requestCustomerContacts(customer.getId());
-			List<Transactions> transactions = requestTransactions(customer.getId());
-			List<CustomerMemos> memos = requestMemos(customer.getId());
-			
-			
-			if(customerViews.size() > 0)
-			{
-				CustomerViews customerView = customerViews.get(0);
-				customerInfo.setAccountRef(customerView.getReference());
-				customerInfo.setAccountName(customerView.getName());
-				customerInfo.setShortName(customerView.getShortName());
-				customerInfo.setSignedDate(customerView.getAnalysisCode2());
-				customerInfo.setType(customerView.getAnalysisCode1());
-				customerInfo.setTel(customerView.getTelephoneSubscriberNumber());
-				customerInfo.setSeenContact(customerView.getAnalysisCode3());
-			}			
-			
-			if(customersContacts.size() > 0){
-				customerInfo.setCustomerName(customersContacts.get(0).getName());
-				customerInfo.setEmail(customersContacts.get(0).getDefaultEmail());
-				if(customersContacts.size() >= 2) customerInfo.setEmail2(customersContacts.get(1).getDefaultEmail());				
-			}
-			
-			if(transactions.size() > 0){
-				Transactions transaction = transactions.get(0);
-				customerInfo.setDateOfShoot(transaction.getTransactionDate());
-				customerInfo.setTransPackage(transaction.getReference());
-				customerInfo.setTotal(transaction.getDocumentGrossValue());
-				customerInfo.setInvoiceBalance(transaction.getDocumentOutstandingValue());
-			}
-			
-			String notes = "";
-			for(CustomerMemos memo : memos) {
-				notes = notes.concat(memo.getNote());
-			}	
-			customerInfo.setNotes(notes);			
-		}		
-		
-		return customerInfo;
-		
-	}
-	
-	
-	public List<Customers> requestCustomers(String name)
-	{
-		RestTemplate restTemplate = new RestTemplate();		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customers")
-		        .queryParam("$filter", "name eq '" + name + "'")
-		        .queryParam("$select", "id,reference,name,short_name");
-
-		ResponseEntity<List<Customers>> response = restTemplate.exchange(
-				builder.toUriString().replaceAll("%20", " "),
-				HttpMethod.GET,
-				entity,
-		  new ParameterizedTypeReference<List<Customers>>(){});
-		List<Customers> customers = response.getBody();
-		return customers;
-
-	}
-	
-	
-	public List<CustomerViews> requestCustomerViews(Long id)
-	{
-		RestTemplate restTemplate = new RestTemplate();		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_views")
-		        .queryParam("$filter", "id eq " + id)
-		        .queryParam("$select", "id,reference,name,short_name,analysis_code_1,analysis_code_2,analysis_code_3,telephone_subscriber_number");
-		
-		ResponseEntity<List<CustomerViews>> response = restTemplate.exchange(
-				builder.toUriString().replaceAll("%20", " "),
-				HttpMethod.GET,
-				entity,
-		  new ParameterizedTypeReference<List<CustomerViews>>(){});
-		List<CustomerViews> customerViews = response.getBody();
-		return customerViews;
-	}
-	
-	
-	public List<CustomersContacts> requestCustomerContacts(Long id)
-	{
-		RestTemplate restTemplate = new RestTemplate();		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_contacts")
-		        .queryParam("$filter", "customer_id eq " + id)
-		        .queryParam("$select", "id,name,default_email");
-		
-		ResponseEntity<List<CustomersContacts>> response = restTemplate.exchange(
-				builder.toUriString().replaceAll("%20", " "),
-				HttpMethod.GET,
-				entity,
-		  new ParameterizedTypeReference<List<CustomersContacts>>(){});
-		List<CustomersContacts> customerContacts = response.getBody();
-		return customerContacts;
-	}
-	
-	
-	public List<Transactions> requestTransactions(Long id)
-	{
-		RestTemplate restTemplate = new RestTemplate();		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/sales_posted_transactions")
-		        .queryParam("$filter", "customer_id eq " + id)
-		        .queryParam("$select", "id,customer_id,transaction_date,reference,document_gross_value,document_outstanding_value")
-		        .queryParam("$orderby", "urn asc")
-		        .queryParam("$top", 1);
-		
-		ResponseEntity<List<Transactions>> response = restTemplate.exchange(
-				builder.toUriString().replaceAll("%20", " "),
-				HttpMethod.GET,
-				entity,
-		  new ParameterizedTypeReference<List<Transactions>>(){});
-		List<Transactions> transactions = response.getBody();
-		return transactions;
-	}
-	
-	
-	public List<CustomerMemos> requestMemos(Long id)
-	{
-		RestTemplate restTemplate = new RestTemplate();		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_memos")
-		        .queryParam("$filter", "customer_id eq " + id)
-		        .queryParam("$select", "id,customer_id,note");
-		
-		ResponseEntity<List<CustomerMemos>> response = restTemplate.exchange(
-				builder.toUriString().replaceAll("%20", " "),
-				HttpMethod.GET,
-				entity,
-		  new ParameterizedTypeReference<List<CustomerMemos>>(){});
-		List<CustomerMemos> memos = response.getBody();
-		return memos;
-	}
-	
-	
-	public List<String> requestCustomerNames(String namePart)
-	{
+	public SageConnectionTest testSageAPIConnection() 
+	{		
 		setToken();
 		try 
 		{
 			RestTemplate restTemplate = new RestTemplate();		
 			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
-			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customers")
-			        .queryParam("$filter", "contains(name, '" + namePart + "')")
-			        .queryParam("$select", "name")
-			        .queryParam("$top", 10);
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/current_user");
 			
-			ResponseEntity<List<Customers>> response = restTemplate.exchange(
+			ResponseEntity<SageConnectionTest> response = restTemplate.exchange(
 					builder.toUriString().replaceAll("%20", " "),
 					HttpMethod.GET,
 					entity,
-			  new ParameterizedTypeReference<List<Customers>>(){});
-			List<Customers> customers = response.getBody();
+			  new ParameterizedTypeReference<SageConnectionTest>(){});
 			
-			String[] customerNames = new String[customers.size()];
-			for(int x = 0; x < customers.size(); x++) {
-				customerNames[x] = customers.get(x).getName();
-			}
-			Arrays.sort(customerNames);
-			
-			return new ArrayList<>(Arrays.asList(customerNames));
+			SageConnectionTest connTest = response.getBody();
+			connTest.setConnectedToSage(true);
+			ServerResponse serverResponse = new ServerResponse();
+			serverResponse.setSuccess(true);
+			serverResponse.setHttpStatus( String.valueOf(response.getStatusCodeValue()) );
+			connTest.setServerResponse(serverResponse);
+			return connTest;
 		}
 		catch(HttpClientErrorException clientEx)
 		{
-			System.out.println(clientEx);
+			SageConnectionTest connTest = new SageConnectionTest();
+			connTest.setConnectedToSage(false);
+			ServerResponse serverResponse = new ServerResponse();
+			serverResponse.setSuccess(false);
+			serverResponse.setHttpStatus( clientEx.getStatusText() );
+			serverResponse.setErrorSource("Client");
+			serverResponse.setMessage("Client error connecting to sage, attempted to retireve current user. ");
 		}
 		catch(HttpServerErrorException  serverEx)
 		{
-			System.out.println(serverEx);
+			SageConnectionTest connTest = new SageConnectionTest();
+			connTest.setConnectedToSage(false);
+			ServerResponse serverResponse = new ServerResponse();
+			serverResponse.setSuccess(false);
+			serverResponse.setHttpStatus( serverEx.getStatusText() );
+			serverResponse.setErrorSource("Server");
+			serverResponse.setMessage("Server error connecting to sage, attempted to retireve current user. ");
 		}
 		
-		return null;
+		SageConnectionTest connTest = new SageConnectionTest();
+		connTest.setConnectedToSage(false);
+		ServerResponse serverResponse = new ServerResponse();
+		serverResponse.setSuccess(false);
+		serverResponse.setHttpStatus( "Unknown" );
+		serverResponse.setErrorSource("Unknown");
+		serverResponse.setMessage("Unknown");
+		connTest.setServerResponse(serverResponse);
+		return connTest;
+	}
+
+
+	@Override
+	public SageInterfaceConnection testSageInterfaceConnection() 
+	{
+		SageInterfaceConnection interfaceConn = new SageInterfaceConnection();
+		interfaceConn.setSageInterfaceConnected(true);
+		try {
+			InetAddress inetAddress = InetAddress.getLocalHost();
+			interfaceConn.setHostName(inetAddress.getHostName());
+			interfaceConn.setIpAddress(inetAddress.getHostAddress());
+			
+		} catch (UnknownHostException e) {
+			interfaceConn.setHostName("Unknown");
+			interfaceConn.setIpAddress("Unknown");
+		}
+		return interfaceConn;
 	}
 	
 	
