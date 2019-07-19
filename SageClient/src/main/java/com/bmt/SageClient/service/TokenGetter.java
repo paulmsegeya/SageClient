@@ -1,4 +1,4 @@
-package com.bmt.SageClient;
+package com.bmt.SageClient.service;
 
 import java.awt.AWTException;
 import java.awt.Robot;
@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+
+import com.bmt.SageClient.GlobalVars;
 
 public class TokenGetter 
 {
