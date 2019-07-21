@@ -93,6 +93,8 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 			serverResponse.setHttpStatus( clientEx.getStatusText() );
 			serverResponse.setErrorSource("Client");
 			serverResponse.setMessage("Client error connecting to sage, attempted to retireve current user. ");
+			connTest.setServerResponse(serverResponse);
+			return connTest;
 		}
 		catch(HttpServerErrorException  serverEx)
 		{
@@ -103,9 +105,11 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 			serverResponse.setHttpStatus( serverEx.getStatusText() );
 			serverResponse.setErrorSource("Server");
 			serverResponse.setMessage("Server error connecting to sage, attempted to retireve current user. ");
+			connTest.setServerResponse(serverResponse);
+			return connTest;
 		}
 		
-		SageConnectionTest connTest = new SageConnectionTest();
+		/*SageConnectionTest connTest = new SageConnectionTest();
 		connTest.setConnectedToSage(false);
 		ServerResponse serverResponse = new ServerResponse();
 		serverResponse.setSuccess(false);
@@ -113,7 +117,7 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 		serverResponse.setErrorSource("Unknown");
 		serverResponse.setMessage("Unknown");
 		connTest.setServerResponse(serverResponse);
-		return connTest;
+		return connTest;*/
 	}
 
 

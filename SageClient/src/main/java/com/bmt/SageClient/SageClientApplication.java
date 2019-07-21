@@ -27,12 +27,13 @@ public class SageClientApplication {
 	{		
 			while(true) 
 			{
-				System.out.println("Enter 'T' to get access token or 'Q' to terminate program.");
+				System.out.println("Enter 'T' to get access token    /      'Q' to terminate program   /     'R' to read token from file  ");
 				Scanner scanner = new Scanner(System.in);
 				String option = scanner.nextLine();
 				
 				if(option.toLowerCase().equals("q")) System.exit(0);				
 				else if(option.toLowerCase().equals("t")) TokenGetter.getToken();
+				else if(option.toLowerCase().equals("r")) TokenGetter.readToken();						
 			}
 			
 

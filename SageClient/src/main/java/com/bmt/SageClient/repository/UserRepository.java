@@ -10,6 +10,11 @@ public interface UserRepository  extends CrudRepository<Users, Integer> {
 	
 	
 	@Query("SELECT u FROM Users u WHERE u.userName = :userName")
-	Users findUserByStatusAndNameNamedParams( @Param("userName") String userName);
+	Users findTopByUserName( @Param("userName") String userName);
+	
+	
+	@Query("SELECT u FROM Users u WHERE u.userName = :userName AND u.password = :password")
+	Users authenticateUser( @Param("userName") String userName, @Param("password") String password);
 
 }
+

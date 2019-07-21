@@ -24,7 +24,7 @@
 				vm.connectionAPIDetails = response.data;
 				if(vm.connectionAPIDetails.connectedToSage == false) vm.setError("testSageAPI", "Could not connect to Sage API!");
 				else vm.clearError("testSageAPI"); 
-
+				console.log(vm.connectionAPIDetails);
 			}
 			,function(response){
 				vm.setError("testSageAPI", "Could not connect to Sage API!");

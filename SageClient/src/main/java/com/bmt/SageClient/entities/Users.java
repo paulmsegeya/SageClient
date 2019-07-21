@@ -30,7 +30,7 @@ public class Users
 	    	this.id  = id;
 	    }
 
-	    @Column(name = "NAME", nullable = false)
+	    @Column(name = "NAME")
 		public String getName() {
 			return name;
 		}
@@ -39,7 +39,7 @@ public class Users
 			this.name = name;
 		}
 
-	    @Column(name = "ROLL", nullable = false)
+	    @Column(name = "ROLL")
 		public String getRoll() {
 			return roll;
 		}
