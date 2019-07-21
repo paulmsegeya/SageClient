@@ -67,17 +67,18 @@
 				</table>
 
 				<div id="customerListDataDiv">
-					<customer-list-data header="Interviews" data="customerCtrl.customerInfoData.listData.interviews.data" ></customer-list-data>
-					<customer-list-data header="Chosen Agencies" data="customerCtrl.customerInfoData.listData.chosenAgencies.data" ></customer-list-data>
-					<customer-list-data header="Offers" data="customerCtrl.customerInfoData.listData.offers.data" ></customer-list-data>
-					<customer-list-data header="Casting Directories" data="customerCtrl.customerInfoData.listData.casting.data" ></customer-list-data>
-					<customer-list-data header="Self Tapes" data="customerCtrl.customerInfoData.listData.selfTapes.data" ></customer-list-data>
+					<customer-list-data header="Interviews" list-data="customerCtrl.customerInfoData.listData.interviews" save-data-fn="customerCtrl.saveListData()"></customer-list-data>					
+					<customer-list-data header="Chosen Agencies" list-data="customerCtrl.customerInfoData.listData.chosenAgencies" save-data-fn="customerCtrl.saveListData()" ></customer-list-data>
+					<customer-list-data header="Offers" list-data="customerCtrl.customerInfoData.listData.offers" save-data-fn="customerCtrl.saveListData()" ></customer-list-data>
+					<customer-list-data header="Casting Directories" list-data="customerCtrl.customerInfoData.listData.casting" save-data-fn="customerCtrl.saveListData()" ></customer-list-data>
+					<customer-list-data header="Self Tapes" list-data="customerCtrl.customerInfoData.listData.selfTapes" save-data-fn="customerCtrl.saveListData()" ></customer-list-data>
 				</div>
 			</div>
 
-			<div id="memosDiv" class="col-md-4>"   ng-show="customerCtrl.isTableVisible">
+			<div id="memosDiv" class="col-md-4>"  ng-show="customerCtrl.isTableVisible">
 				<div class="card">
 					<div class="card-header">
+
 						Memos
 					</div>
 					<div class="card-body">

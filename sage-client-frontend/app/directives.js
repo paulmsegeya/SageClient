@@ -25,7 +25,8 @@ sageClientApp.directive("customerListData", function(){
         retrict: "A",
         scope: {
             header: '@',
-            data: "="
+            listData: "=",
+            saveDataFn: "&"
         },
 		templateUrl: "app/components/customer-info/directives/listData.html"
 	};
@@ -41,3 +42,17 @@ sageClientApp.directive("connectionInfo", function(){
 		templateUrl: "app/components/customer-info/directives/connectionInfo.html"
 	};
 });
+
+
+sageClientApp.directive("editListData", function(){
+	return{
+        retrict: "E",
+        scope: {
+            listData: '=',
+            listDataType: '=',
+            saveDataFn: "&"
+        },
+		templateUrl: "app/components/customer-info/directives/editListData.html"
+	};
+});
+

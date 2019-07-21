@@ -62,6 +62,7 @@
 			})
 			.then(function(response) {
 				vm.customerInfoData = response.data;
+				console.log(vm.customerInfoData);
 				vm.isCustomerInfoLoading = false;
 				vm.isTableVisible = true;
 				vm.clearError("customerInfoData"); 
@@ -100,6 +101,22 @@
 			,function(response){
 				vm.setError("topCustomerNames", "Could not retrieve customer search names!");
 			});
+		}
+
+
+		this.saveListData = () =>{
+			let listData = this.customerInfoData.listData;
+			console.log(listData);
+		
+			/*let vm = this;
+			$http({
+				method: "POST",
+				url: "http://localhost:8080/customer_info/addNotes",
+				data: listData
+			})
+			.then(function(response) {
+				
+			});*/
 		}
 
 
