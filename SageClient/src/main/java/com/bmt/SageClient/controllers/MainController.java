@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bmt.SageClient.api_dataTypes.CustomerInfo;
 import com.bmt.SageClient.api_dataTypes.CustomerInfoFields;
 import com.bmt.SageClient.api_dataTypes.CustomerListData;
+import com.bmt.SageClient.api_dataTypes.CustomerListData.ListData;
 import com.bmt.SageClient.api_dataTypes.SageConnectionTest;
 import com.bmt.SageClient.api_dataTypes.SageInterfaceConnection;
 import com.bmt.SageClient.api_dataTypes.ServerResponse;
@@ -58,10 +59,14 @@ public class MainController
           return sageAPIHandler.testSageInterfaceConnection();
     }    
     
-    @PostMapping("/addNotes")
+    @PostMapping("/add-all-list-data")
     public List<ServerResponse> addUpdateListData(@RequestBody(required=true) CustomerListData listData) {
           return sageAPMemoIHandler.addUpdateListData(listData);
+    } 
+	
+    @PostMapping("/add_list_data")
+    public ServerResponse addUpdateListData(@RequestParam(name = "customerID", required=true ) Long customerID, @RequestBody(required=true) ListData listData) {
+          return sageAPMemoIHandler.addUpdateListData(customerID, listData);
     }
-	
-	
+    
 }

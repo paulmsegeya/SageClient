@@ -76,6 +76,14 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 		return serverResponses;
 	}
 
+	
+	@Override
+	public ServerResponse addUpdateListData(Long customerID, ListData listData) {
+		if(listData.getMemoID() != null) return updateListData(listData);
+		else return addListData(customerID, listData);
+	}
+	
+	
 
 	@Override
 	public ServerResponse updateListData(ListData listData )
@@ -175,6 +183,9 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 		
 		return serverResponse;
 	}
+
+
+
 	
 
 	
