@@ -9,13 +9,13 @@
         </div>
 
         <!-- Modal body -->
-        <div class="modal-body" ng-init="listData.shouldBeUpdated = true">
+        <div class="modal-body">
             <input type="text" class="form-control" ng-repeat="data in listData.data track by $index" ng-model="listData.data[$index]">
         </div>
 
         <!-- Modal footer -->
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="saveDataFn()">Save</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="saveDataFn(listDataKey)">Save</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
 

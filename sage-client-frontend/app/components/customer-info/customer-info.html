@@ -67,20 +67,17 @@
 				</table>
 
 				<div id="customerListDataDiv">
-					<customer-list-data header="Interviews" list-data="customerCtrl.customerInfoData.listData.interviews" save-data-fn="customerCtrl.saveListData()"></customer-list-data>					
-					<customer-list-data header="Chosen Agencies" list-data="customerCtrl.customerInfoData.listData.chosenAgencies" save-data-fn="customerCtrl.saveListData()" ></customer-list-data>
-					<customer-list-data header="Offers" list-data="customerCtrl.customerInfoData.listData.offers" save-data-fn="customerCtrl.saveListData()" ></customer-list-data>
-					<customer-list-data header="Casting Directories" list-data="customerCtrl.customerInfoData.listData.casting" save-data-fn="customerCtrl.saveListData()" ></customer-list-data>
-					<customer-list-data header="Self Tapes" list-data="customerCtrl.customerInfoData.listData.selfTapes" save-data-fn="customerCtrl.saveListData()" ></customer-list-data>
+					<customer-list-data header="Interviews" list-data-key="interviews" list-data="customerCtrl.customerInfoData.listData.interviews" save-data-fn="customerCtrl.saveListData"></customer-list-data>					
+					<customer-list-data header="Chosen Agencies" list-data="customerCtrl.customerInfoData.listData.chosenAgencies" save-data-fn="zcustomerCtrl.saveListData()" ></customer-list-data>
+					<customer-list-data header="Offers" list-data="customerCtrl.customerInfoData.listData.offers" save-data-fn="zcustomerCtrl.saveListData()" ></customer-list-data>
+					<customer-list-data header="Casting Directories" list-data="customerCtrl.customerInfoData.listData.casting" save-data-fn="zcustomerCtrl.saveListData()" ></customer-list-data>
+					<customer-list-data header="Self Tapes" list-data="customerCtrl.customerInfoData.listData.selfTapes" save-data-fn="zcustomerCtrl.saveListData()" ></customer-list-data>
 				</div>
 			</div>
 
 			<div id="memosDiv" class="col-md-4>"  ng-show="customerCtrl.isTableVisible">
 				<div class="card">
-					<div class="card-header">
-
-						Memos
-					</div>
+					<div class="card-header"> Memos </div>
 					<div class="card-body">
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item" ng-repeat="memo in customerCtrl.customerInfoData.memos">{{memo}}</li>

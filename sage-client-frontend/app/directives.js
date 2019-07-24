@@ -26,7 +26,8 @@ sageClientApp.directive("customerListData", function(){
         scope: {
             header: '@',
             listData: "=",
-            saveDataFn: "&"
+            saveDataFn: "=",
+            listDataKey: "@"
         },
 		templateUrl: "app/components/customer-info/directives/listData.html"
 	};
@@ -50,8 +51,10 @@ sageClientApp.directive("editListData", function(){
         scope: {
             listData: '=',
             listDataType: '=',
-            saveDataFn: "&"
+            saveDataFn: "=",
+            listDataKey: "="
         },
+
 		templateUrl: "app/components/customer-info/directives/editListData.html"
 	};
 });
