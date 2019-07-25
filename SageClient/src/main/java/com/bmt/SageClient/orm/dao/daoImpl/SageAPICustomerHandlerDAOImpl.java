@@ -22,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.bmt.SageClient.api_dataTypes.CustomerInfo;
 import com.bmt.SageClient.api_dataTypes.CustomerListData;
+import com.bmt.SageClient.api_dataTypes.Note;
 import com.bmt.SageClient.orm.dao.SageAPICustomerHandlerDAO;
 import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
 import com.bmt.SageClient.sage200api.CustomerMemoListData.MemoListDataTypes;
@@ -163,7 +164,7 @@ public class SageAPICustomerHandlerDAOImpl implements SageAPICustomerHandlerDAO
 				}
 				
 			}
-			else customerInfo.addMemo(memo.getNote());	//regular memo
+			else customerInfo.addMemo(new Note(memo.getId(), memo.getCustomerId(), memo.getNote())    );	//regular memo
 		}			
 		customerInfo.setListData(listData);
 	}

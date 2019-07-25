@@ -107,13 +107,19 @@
 		this.saveListData = (listDataKey) =>{
 			let listData = this.customerInfoData.listData;
 			listData[listDataKey].shouldBeUpdated = true;
-			console.log(listData[listDataKey]);
+			console.log({
+				listData: listData[listDataKey],
+				customerID: listData.customerID
+			});
 		
 			let vm = this;
 			$http({
 				method: "POST",
-				url: "http://localhost:8080/customer_info/add_list_data?customerID=" + listData.customerID,
-				data: listData[listDataKey]
+				url: "http://localhost:8080/add/list_data",
+				data: {
+					listData: listData[listDataKey],
+					customerID: listData.customerID
+				}
 			})
 			.then(function(response) {
 				console.log(response);

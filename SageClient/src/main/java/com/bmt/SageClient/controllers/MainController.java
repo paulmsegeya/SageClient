@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bmt.SageClient.api_dataTypes.CustomerInfo;
 import com.bmt.SageClient.api_dataTypes.CustomerInfoFields;
 import com.bmt.SageClient.api_dataTypes.CustomerListData;
-import com.bmt.SageClient.api_dataTypes.CustomerListData.ListData;
+import com.bmt.SageClient.api_dataTypes.ListDataForm;
+import com.bmt.SageClient.api_dataTypes.Note;
 import com.bmt.SageClient.api_dataTypes.SageConnectionTest;
 import com.bmt.SageClient.api_dataTypes.SageInterfaceConnection;
 import com.bmt.SageClient.api_dataTypes.ServerResponse;
@@ -59,14 +60,19 @@ public class MainController
           return sageAPIHandler.testSageInterfaceConnection();
     }    
     
-    @PostMapping("/add-all-list-data")
+    @PostMapping("/add/all-list-data")
     public List<ServerResponse> addUpdateListData(@RequestBody(required=true) CustomerListData listData) {
           return sageAPMemoIHandler.addUpdateListData(listData);
     } 
 	
-    @PostMapping("/add_list_data")
-    public ServerResponse addUpdateListData(@RequestParam(name = "customerID", required=true ) Long customerID, @RequestBody(required=true) ListData listData) {
-          return sageAPMemoIHandler.addUpdateListData(customerID, listData);
+    @PostMapping("/add/list_data")
+    public ServerResponse addUpdateListData(@RequestBody(required=true) ListDataForm listDataForm) {
+          return sageAPMemoIHandler.addUpdateListData(listDataForm);
+    }
+    
+    @PostMapping("/add/notes")
+    public List<ServerResponse> addUpdateNotes(@RequestBody(required=true) List<Note> memos) {
+          return sageAPMemoIHandler.CUDNotes(memos);
     }
     
 }

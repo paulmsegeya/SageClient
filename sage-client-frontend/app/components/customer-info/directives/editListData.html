@@ -11,6 +11,7 @@
         <!-- Modal body -->
         <div class="modal-body">
             <input type="text" class="form-control" ng-repeat="data in listData.data track by $index" ng-model="listData.data[$index]">
+            <button type="button" ng-click="listData.data.push('')" ><i class="fas fa-plus-square"></i></button>
         </div>
 
         <!-- Modal footer -->
