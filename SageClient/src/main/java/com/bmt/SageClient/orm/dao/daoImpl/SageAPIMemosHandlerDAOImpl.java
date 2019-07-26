@@ -40,7 +40,7 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 		headers.set("Authorization", "Bearer " + GlobalVars.accessToken);		
 		headers.set("ocp-apim-subscription-key", "39cfbba1883b4f71931a6b3c495d3c68"); 
 		headers.set("X-Company", "1"); 
-		headers.set("Content-Type", "application/x-www-form-urlencoded"); 
+		headers.set("Content-Type", "application/json"); //"application/x-www-form-urlencoded"); 
 		headers.set("X-Site", "c3a91133-a250-c54f-e9ac-08d507348a36");
 		headers.set("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
 	} 
@@ -123,32 +123,9 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 			serverResponse.setSuccess(true);
 			serverResponse.setHttpStatus( String.valueOf(response.getStatusCodeValue()) );
 		}
-		catch(HttpClientErrorException clientEx)
-		{
-			serverResponse = new ServerResponse();
-			serverResponse.setSuccess(false);
-			serverResponse.setHttpStatus( clientEx.getStatusText() );
-			serverResponse.setErrorSource("Client");
-			serverResponse.setMessage("Client error updating " + listData.getName());
-		}
-		catch(HttpServerErrorException  serverEx)
-		{
-			serverResponse = new ServerResponse();
-			serverResponse.setSuccess(false);
-			serverResponse.setHttpStatus( serverEx.getStatusText() );
-			serverResponse.setErrorSource("Server");
-			serverResponse.setMessage("Server error updating " + listData.getName());
-		}
-		catch(Exception e) {
-			serverResponse = new ServerResponse();
-			serverResponse.setSuccess(false);
-			serverResponse.setHttpStatus( "Unknown" );
-			serverResponse.setErrorSource("Unknown");
-			serverResponse.setMessage("Unknown");
-			System.out.println(e.getMessage());
-		}
-		
-		
+		catch(HttpClientErrorException clientEx){ return runClientException(clientEx, "Client error updating " + listData.getName()); }
+		catch(HttpServerErrorException  serverEx){ return runServerException(serverEx, "Server error updating " + listData.getName()); }
+		catch(Exception e){  return runUnknownException(e); }
 		return serverResponse;
 	}
 	
@@ -158,6 +135,7 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 	public ServerResponse addListData(Long customerID, ListData listData )
 	{
 		setToken();
+		ServerResponse serverResponse;
 		try
 		{
 			String interviewArrStr =  listData.getName() + ( new Gson().toJson(listData.getData()) );
@@ -175,43 +153,15 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 					entity,
 			  new ParameterizedTypeReference<CustomerMemos>(){});
 			
-			ServerResponse serverResponse = new ServerResponse();
+			serverResponse = new ServerResponse();
 			serverResponse.setSuccess(true);
 			serverResponse.setHttpStatus( String.valueOf(response.getStatusCodeValue()) );
 		}
-		catch(HttpClientErrorException clientEx)
-		{
-			ServerResponse serverResponse = new ServerResponse();
-			serverResponse.setSuccess(false);
-			serverResponse.setHttpStatus( clientEx.getStatusText() );
-			serverResponse.setErrorSource("Client");
-			serverResponse.setMessage("Client error adding " + listData.getName());
-		}
-		catch(HttpServerErrorException  serverEx)
-		{
-			ServerResponse serverResponse = new ServerResponse();
-			serverResponse.setSuccess(false);
-			serverResponse.setHttpStatus( serverEx.getStatusText() );
-			serverResponse.setErrorSource("Server");
-			serverResponse.setMessage("Server error adding " + listData.getName());
-		}
-		
-		ServerResponse serverResponse = new ServerResponse();
-		serverResponse.setSuccess(false);
-		serverResponse.setHttpStatus( "Unknown" );
-		serverResponse.setErrorSource("Unknown");
-		serverResponse.setMessage("Unknown");
-		
+		catch(HttpClientErrorException clientEx){ return runClientException(clientEx, "Client error adding " + listData.getName()); }
+		catch(HttpServerErrorException  serverEx){ return runServerException(serverEx, "Server error adding " + listData.getName()); }
+		catch(Exception e){  return runUnknownException(e); }
 		return serverResponse;
 	}
-
-
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -261,35 +211,80 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 			serverResponse.setSuccess(true);
 			serverResponse.setHttpStatus( String.valueOf(response.getStatusCodeValue()) );
 		}
-		catch(HttpClientErrorException clientEx){
-			return runClientException(clientEx, "Client error adding memo");
-		}
-		catch(HttpServerErrorException  serverEx){
-			return runServerException(serverEx, "Server error adding memo");
-		}
-		catch(Exception e) {
-			return runUnknownException();
-		}
+		catch(HttpClientErrorException clientEx){ return runClientException(clientEx, "Client error adding memo"); }
+		catch(HttpServerErrorException  serverEx){ return runServerException(serverEx, "Server error adding memo"); }
+		catch(Exception e) { return runUnknownException(e); }
 		
 		return serverResponse;
 	}
 
 
 	@Override
-	public ServerResponse updateNote(Note notes) {
-		// TODO Auto-generated method stub
-		return null;
+	public ServerResponse updateNote(Note note) 
+	{
+		setToken();
+		ServerResponse serverResponse;
+		try
+		{
+			RestTemplate restTemplate = new RestTemplate();		
+			CustomerMemosPUT memoRequestBody = new CustomerMemosPUT();
+			memoRequestBody.setNote(note.getNote());
+			HttpEntity<CustomerMemosPUT> entity = new HttpEntity<CustomerMemosPUT>(memoRequestBody, headers);		
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_memos/"+ note.getId());
+	
+			ResponseEntity<CustomerMemos> response = restTemplate.exchange(
+					builder.toUriString().replaceAll("%20", " "),
+					HttpMethod.PUT,
+					entity,
+			  new ParameterizedTypeReference<CustomerMemos>(){});
+			
+			serverResponse = new ServerResponse();
+			serverResponse.setSuccess(true);
+			serverResponse.setHttpStatus( String.valueOf(response.getStatusCodeValue()) );
+		}
+		catch(HttpClientErrorException clientEx){ return runClientException(clientEx, "Client error adding memo"); }
+		catch(HttpServerErrorException  serverEx){ return runServerException(serverEx, "Server error adding memo"); }
+		catch(Exception e) { return runUnknownException(e); }
+		
+		return serverResponse;
 	}
 
 
 	@Override
-	public ServerResponse deleteNotes(Note notes) {
-		// TODO Auto-generated method stub
-		return null;
+	public ServerResponse deleteNotes(Note note) 
+	{
+		setToken();
+		ServerResponse serverResponse;
+		try
+		{
+			RestTemplate restTemplate = new RestTemplate();		
+			CustomerMemosPOST memoRequestBody = new CustomerMemosPOST(); //change
+			memoRequestBody.setCustomerId(note.getCustomerId());//...
+			memoRequestBody.setNote(note.getNote());//...
+			HttpEntity<CustomerMemosPOST> entity = new HttpEntity<CustomerMemosPOST>(memoRequestBody, headers);		
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_memos"+ note.getId());
+	
+			ResponseEntity<CustomerMemos> response = restTemplate.exchange(
+					builder.toUriString().replaceAll("%20", " "),
+					HttpMethod.DELETE,
+					entity,
+			  new ParameterizedTypeReference<CustomerMemos>(){});
+			
+			serverResponse = new ServerResponse();
+			serverResponse.setSuccess(true);
+			serverResponse.setHttpStatus( String.valueOf(response.getStatusCodeValue()) );
+		}
+		catch(HttpClientErrorException clientEx){ return runClientException(clientEx, "Client error deleting memo"); }
+		catch(HttpServerErrorException  serverEx){ return runServerException(serverEx, "Server error deleting memo"); }
+		catch(Exception e) { return runUnknownException(e); }
+		
+		return serverResponse;
 	}
 
 
-	public ServerResponse runServerException(HttpServerErrorException  serverEx, String msg) {
+	
+	
+	private ServerResponse runServerException(HttpServerErrorException  serverEx, String msg) {
 		ServerResponse serverResponse = new ServerResponse();
 		serverResponse.setSuccess(false);
 		serverResponse.setHttpStatus( serverEx.getStatusText() );
@@ -298,7 +293,7 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 		return serverResponse;
 	}
 
-	public ServerResponse runClientException(HttpClientErrorException clientEx, String msg) {
+	private ServerResponse runClientException(HttpClientErrorException clientEx, String msg) {
 		ServerResponse serverResponse = new ServerResponse();
 		serverResponse.setSuccess(false);
 		serverResponse.setHttpStatus( clientEx.getStatusText() );
@@ -307,7 +302,8 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 		return serverResponse;
 	}
 	
-	public ServerResponse runUnknownException() {
+	private ServerResponse runUnknownException(Exception e) {
+		System.out.println(e.getMessage());
 		ServerResponse serverResponse = new ServerResponse();
 		serverResponse.setSuccess(false);
 		serverResponse.setHttpStatus( "Unknown" );

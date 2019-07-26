@@ -107,11 +107,7 @@
 		this.saveListData = (listDataKey) =>{
 			let listData = this.customerInfoData.listData;
 			listData[listDataKey].shouldBeUpdated = true;
-			console.log({
-				listData: listData[listDataKey],
-				customerID: listData.customerID
-			});
-		
+					
 			let vm = this;
 			$http({
 				method: "POST",

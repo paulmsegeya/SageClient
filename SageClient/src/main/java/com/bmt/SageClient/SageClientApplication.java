@@ -1,6 +1,9 @@
 package com.bmt.SageClient;
 
+import java.io.IOException;
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +21,8 @@ public class SageClientApplication {
         builder.headless(false).run(args);
 		TokenGetter.scheduleTokenGetter();
 		//new HideToSystemTray();
-		getInput();
+		//getInput();
+		//startFrontEnd();
 	}
 
 	
@@ -35,8 +39,18 @@ public class SageClientApplication {
 				else if(option.toLowerCase().equals("t")) TokenGetter.getToken();
 				else if(option.toLowerCase().equals("r")) TokenGetter.readToken();						
 			}
-			
-
+	}
+	
+	
+	public static void startFrontEnd()
+	{
+		try {
+			System.out.println(Runtime.getRuntime().exec("cmd /c dir"));
+			//Runtime.getRuntime().exec("http-server -p 3000  -o");
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null,  "Could not start browser user interface!\nSystem will terminate.");
+			e.printStackTrace();
+		}
 	}
 
 }
