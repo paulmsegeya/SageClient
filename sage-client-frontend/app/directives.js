@@ -24,12 +24,26 @@ sageClientApp.directive("customerListData", function(){
 	return{
         retrict: "A",
         scope: {
-            header: '@',
+            header: "@",
             listData: "=",
             saveDataFn: "=",
             listDataKey: "@"
         },
 		templateUrl: "app/components/customer-info/directives/listData.html"
+	};
+});
+
+sageClientApp.directive("editListData", function(){
+	return{
+        retrict: "A",
+        scope: {
+            header: '=',
+            listData: '=',
+            saveDataFn: "=",
+            listDataKey: "="
+        },
+
+		templateUrl: "app/components/customer-info/directives/editListData.html"
 	};
 });
 
@@ -45,17 +59,4 @@ sageClientApp.directive("connectionInfo", function(){
 });
 
 
-sageClientApp.directive("editListData", function(){
-	return{
-        retrict: "E",
-        scope: {
-            listData: '=',
-            listDataType: '=',
-            saveDataFn: "=",
-            listDataKey: "="
-        },
-
-		templateUrl: "app/components/customer-info/directives/editListData.html"
-	};
-});
 

@@ -16,11 +16,11 @@ public class CustomerListData
 	
 	public CustomerListData() {
 		this.customerID = null;
-		this.interviews = new ListData();
-		this.chosenAgencies = new ListData();
-		this.offers = new ListData();
-		this.casting = new ListData();
-		this.selfTapes = new ListData();
+		this.interviews = new ListData(MemoListDataTypes.INTERVIEWS);
+		this.chosenAgencies = new ListData(MemoListDataTypes.CHOSEN_AGENCIES);
+		this.offers = new ListData(MemoListDataTypes.OFFERS);
+		this.casting = new ListData(MemoListDataTypes.CASTING_DIRECTORIES);
+		this.selfTapes = new ListData(MemoListDataTypes.SELF_TAPES);
 	}
 	
 	public Long getCustomerID() {

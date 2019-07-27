@@ -1,5 +1,6 @@
 package com.bmt.SageClient.api_dataTypes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.bmt.SageClient.sage200api.CustomerMemoListData.MemoListDataTypes;
@@ -9,6 +10,14 @@ public  class ListData {
 	private Long memoID;
 	private boolean shouldBeUpdated;
 	private MemoListDataTypes name;
+	
+	
+	public ListData(MemoListDataTypes name) {
+		this.data = new ArrayList<String>();
+		this.name = name;
+	}
+	
+	public ListData() {	}
 	
 	
 	public List<String> getData() {

@@ -1,9 +1,9 @@
 <div class="customerListData">
-    <div class="customerListDataHeader" ng-click="isCollapsedHorizontal = !isCollapsedHorizontal">
+    <div class="customerListDataHeader">
             {{header}} <span class="glyphicon glyphicon-triangle-bottom"></span>    
-            <button data-toggle="modal" data-target="#listDataEditModal"> <i class="fas fa-edit"></i> </button>
+            <button data-toggle="modal" data-target="{{'#' + listDataKey + 'listDataEditModal'}}"> <i class="fas fa-edit"></i> </button>
     </div>
-    <div class="horizontal-collapse" uib-collapse="isCollapsedHorizontal" horizontal>
+    <div class="horizontal-collapse" uib-collapse="isCollapsedHorizontal" horizontal >
         <div class="card">
             <div class="card-body">
                 <ul class="list-group list-group-flush">
@@ -17,4 +17,4 @@
 </div>
 
 
-<edit-list-data list-data="listData"  list-data-key="listDataKey" list-data-type="header" save-data-fn="saveDataFn"></edit-list-data>
+<edit-list-data list-data="listData"  list-data-key="listDataKey" header="header" save-data-fn="saveDataFn"></edit-list-data>

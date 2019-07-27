@@ -104,7 +104,6 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 		{
 			String interviewArrStr =  listData.getName() + " " +  ( new Gson().toJson(listData.getData()) );
 			interviewArrStr = interviewArrStr.replaceAll("\"","\\\"");
-			System.out.println(interviewArrStr);
 			
 			RestTemplate restTemplate = new RestTemplate();		
 			CustomerMemosPUT memoRequestBody = new CustomerMemosPUT();
@@ -139,6 +138,7 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 		try
 		{
 			String interviewArrStr =  listData.getName() + ( new Gson().toJson(listData.getData()) );
+			interviewArrStr = interviewArrStr.replaceAll("\"","\\\"");
 			
 			RestTemplate restTemplate = new RestTemplate();		
 			CustomerMemosPOST memoRequestBody = new CustomerMemosPOST();

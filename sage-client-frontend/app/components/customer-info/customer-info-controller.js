@@ -24,7 +24,6 @@
 				vm.connectionAPIDetails = response.data;
 				if(vm.connectionAPIDetails.connectedToSage == false) vm.setError("testSageAPI", "Could not connect to Sage API!");
 				else vm.clearError("testSageAPI"); 
-				console.log(vm.connectionAPIDetails);
 			}
 			,function(response){
 				vm.setError("testSageAPI", "Could not connect to Sage API!");
@@ -104,7 +103,8 @@
 		}
 
 
-		this.saveListData = (listDataKey) =>{
+		this.saveListData = (listDataKey) =>
+		{
 			let listData = this.customerInfoData.listData;
 			listData[listDataKey].shouldBeUpdated = true;
 					
@@ -118,7 +118,14 @@
 				}
 			})
 			.then(function(response) {
-				console.log(response);
+				if(response.data.success){
+					vm.clearError("listData");
+					alert("Data successfully updated!");
+				} 
+				else vm.setError("listData", "Error updating data!")
+			}
+			,function(response){
+				vm.setError("listData", "Error updating data!");
 			});
 		}
 

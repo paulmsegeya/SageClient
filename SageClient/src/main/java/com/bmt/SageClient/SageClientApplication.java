@@ -21,7 +21,7 @@ public class SageClientApplication {
         builder.headless(false).run(args);
 		TokenGetter.scheduleTokenGetter();
 		//new HideToSystemTray();
-		//getInput();
+		getInput();
 		//startFrontEnd();
 	}
 
