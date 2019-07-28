@@ -1,10 +1,11 @@
 <div class="customerListData">
-    <div class="customerListDataHeader">
-            {{header}} <span class="glyphicon glyphicon-triangle-bottom"></span>    
-            <button data-toggle="modal" data-target="{{'#' + listDataKey + 'listDataEditModal'}}"> <i class="fas fa-edit"></i> </button>
-    </div>
+    
     <div class="horizontal-collapse" uib-collapse="isCollapsedHorizontal" horizontal >
         <div class="card">
+            <div class="customerListDataHeader card-header">
+                    {{header}}  
+                    <button data-toggle="modal" class="btn btn-dark editMemoButton" data-target="{{'#' + listDataKey + 'listDataEditModal'}}"> <i class="far fa-edit"></i> </button>
+            </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" ng-repeat="value in listData.data"> {{value}}</li>

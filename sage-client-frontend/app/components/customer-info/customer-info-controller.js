@@ -11,6 +11,12 @@
 		this.connectionAPIDetails = {connectedToSage: false};
 		this.connectionInterfaceDetails = {sageInterfaceConnected: false};
 		this.errorMessages = {};
+		this.newNote = {
+			customerId: this.customerInfoData.customerID,
+			id: 0,
+			note: "",
+			shouldBeDeleted: false
+		};
 
 		
 		this.testSageAPIConnection = () => 
@@ -61,6 +67,7 @@
 			})
 			.then(function(response) {
 				vm.customerInfoData = response.data;
+				vm.newNote.customerId = vm.customerInfoData.customerID;
 				console.log(vm.customerInfoData);
 				vm.isCustomerInfoLoading = false;
 				vm.isTableVisible = true;
@@ -126,6 +133,35 @@
 			}
 			,function(response){
 				vm.setError("listData", "Error updating data!");
+			});
+		}
+
+
+		this.saveNotes = () =>
+		{
+			console.log(this.customerInfoData.memos);
+			let vm = this;
+			$http({
+				method: "POST",
+				url: "http://localhost:8080/add/notes",
+				data: vm.customerInfoData.memos
+			})
+			.then(function(response) {
+				let isSuccess = true;
+				for(let serverResponse of response.data){
+					if(serverResponse.success == false){
+						isSuccess = false;
+						break;
+					}						
+				}
+				if(isSuccess){
+					vm.clearError("Memos");
+					alert("Memos successfully updated!");	
+				}		
+				else vm.setError("Memos", "Error updating memos!");
+			}
+			,function(response){
+				vm.setError("Memos", "Error updating memos!");
 			});
 		}
 

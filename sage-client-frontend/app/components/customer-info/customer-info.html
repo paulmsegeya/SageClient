@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="scripts/customer-info-style.css"> 
 
 <div class="row" ng-controller="customerInfoController as customerCtrl">
-	<div class="col-md-10">
+	<div class="col-md-12">
 
 		<div id="customerSearch" class="col-md-6">
 			<div class="form-group">
@@ -77,13 +77,17 @@
 
 			<div id="memosDiv" class="col-md-4>"  ng-show="customerCtrl.isTableVisible">
 				<div class="card">
-					<div class="card-header"> Memos </div>
+					<div class="card-header"> 
+						Memos					
+						<button data-toggle="modal" class="btn btn-dark editMemoButton" data-target="#notesEditModal"> <i class="far fa-edit"></i> </button>
+					</div>
 					<div class="card-body">
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item" ng-repeat="memo in customerCtrl.customerInfoData.memos">{{memo.note}}</li>
+							<li class="list-group-item" ng-repeat="memo in customerCtrl.customerInfoData.memos" ng-hide="memo.shouldBeDeleted">{{memo.note}}</li>
 						</ul>
 					</div>
 				</div>
+				<edit-notes memos="customerCtrl.customerInfoData.memos" save-notes-fn="customerCtrl.saveNotes" new-note="customerCtrl.newNote"></edit-notes>
 			</div>
 
 		</div>

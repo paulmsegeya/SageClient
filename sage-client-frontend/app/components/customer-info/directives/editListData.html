@@ -10,9 +10,9 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-            <div ng-repeat="data in listData.data track by $index">
-                <input type="text" class="form-control" ng-model="listData.data[$index]">
-                <button type="button" ng-click="listData.data.splice($index, 1)"><i class="fas fa-minus-square"></i></button>
+            <div ng-repeat="data in listData.data track by $index"  class="editMemoDiv">
+                <input type="text" class="editMemoTxt form-control" ng-model="listData.data[$index]">
+                <button type="button" class="removeMemoBtn btn btn-danger" ng-click="listData.data.splice($index, 1)"><i class="fas fa-minus-square"></i></button>
             </div>
             <button type="button" ng-click="listData.data.push('')" ><i class="fas fa-plus-square"></i></button>
         </div>

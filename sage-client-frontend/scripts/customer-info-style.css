@@ -17,7 +17,7 @@
     font-size: 15pt;
 }
 
-#customerResults{
+#xcustomerResults{
     height: 700px;
     overflow-y: auto;
 }
@@ -75,4 +75,24 @@
 .connectionDetailsDiv{
     font-size: 10pt;
     margin-bottom: 30px;
+}
+
+.editMemoDiv{
+    margin-bottom: 10px;
+}
+
+.editMemoButton{
+    float: right;
+    margin-left: 10px;
+    width: 40px;
+    height: 35px;
+}
+
+.editMemoTxt{
+    display: inline-block;
+    width: 80%
+}
+
+.removeMemoBtn{
+    display: inline-block;
 }

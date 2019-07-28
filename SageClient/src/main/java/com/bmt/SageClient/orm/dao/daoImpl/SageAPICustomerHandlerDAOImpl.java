@@ -46,7 +46,7 @@ public class SageAPICustomerHandlerDAOImpl implements SageAPICustomerHandlerDAO
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.set("Authorization", "Bearer " + GlobalVars.accessToken);		
 		headers.set("ocp-apim-subscription-key", "39cfbba1883b4f71931a6b3c495d3c68"); 
-		headers.set("X-Company", "1"); 
+		headers.set("X-Company",  GlobalVars.SageAPICompanyID); 
 		headers.set("Content-Type", "application/x-www-form-urlencoded"); 
 		headers.set("X-Site", "c3a91133-a250-c54f-e9ac-08d507348a36");
 		headers.set("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");

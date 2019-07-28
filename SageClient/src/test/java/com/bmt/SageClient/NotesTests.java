@@ -1,7 +1,5 @@
 package com.bmt.SageClient;
 
-import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.List;
 
 /*import static org.junit.Assert.assertArrayEquals;
@@ -13,24 +11,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.bmt.SageClient.api_dataTypes.CustomerInfo;
-import com.bmt.SageClient.api_dataTypes.LicenseForm;
+import com.bmt.SageClient.api_dataTypes.Note;
 import com.bmt.SageClient.api_dataTypes.ServerResponse;
-import com.bmt.SageClient.entities.Users;
-import com.bmt.SageClient.orm.dao.LicenseDAO;
-import com.bmt.SageClient.orm.dao.SageAPICustomerHandlerDAO;
-import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
 import com.bmt.SageClient.orm.dao.SageAPIMemoHandlerDAO;
-import com.bmt.SageClient.orm.dao.UserDAO;
-import com.bmt.SageClient.sage200api.entities.CustomerMemos;
-import com.bmt.SageClient.sage200api.entities.CustomerViews;
-import com.bmt.SageClient.sage200api.entities.Customers;
-import com.bmt.SageClient.sage200api.entities.CustomersContacts;
-import com.bmt.SageClient.sage200api.entities.Transactions;
+import com.bmt.SageClient.service.TokenGetter;
 
 
 
@@ -46,7 +32,17 @@ public class NotesTests {
 	} 
 	
 	
-
+	@Test
+	public void testAddNote()
+	{
+		TokenGetter.getToken();
+		TokenGetter.readToken();
+		Note note = new Note();
+		note.setCustomerId(85680);
+		note.setNote("my test note 2");
+		ServerResponse response = memoHandler.addNotes(note);
+		System.out.println(response.isSuccess());
+	}
 	
 }
 

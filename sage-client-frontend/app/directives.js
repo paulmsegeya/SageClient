@@ -47,6 +47,20 @@ sageClientApp.directive("editListData", function(){
 	};
 });
 
+sageClientApp.directive("editNotes", function(){
+	return{
+        retrict: "A",
+        scope: {
+            memos: '=',
+            saveNotesFn: "=",
+            newNote: "="
+        },
+
+		templateUrl: "app/components/customer-info/directives/editNotes.html"
+	};
+});
+
+
 sageClientApp.directive("connectionInfo", function(){
 	return{
         retrict: "E",

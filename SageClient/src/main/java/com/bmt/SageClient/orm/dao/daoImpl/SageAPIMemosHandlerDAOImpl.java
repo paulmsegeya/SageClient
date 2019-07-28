@@ -39,7 +39,7 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.set("Authorization", "Bearer " + GlobalVars.accessToken);		
 		headers.set("ocp-apim-subscription-key", "39cfbba1883b4f71931a6b3c495d3c68"); 
-		headers.set("X-Company", "1"); 
+		headers.set("X-Company", GlobalVars.SageAPICompanyID); 
 		headers.set("Content-Type", "application/json"); //"application/x-www-form-urlencoded"); 
 		headers.set("X-Site", "c3a91133-a250-c54f-e9ac-08d507348a36");
 		headers.set("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
@@ -195,17 +195,17 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 		try
 		{
 			RestTemplate restTemplate = new RestTemplate();		
-			CustomerMemosPOST memoRequestBody = new CustomerMemosPOST();
-			memoRequestBody.setCustomerId(note.getCustomerId());
-			memoRequestBody.setNote(note.getNote());
-			HttpEntity<CustomerMemosPOST> entity = new HttpEntity<CustomerMemosPOST>(memoRequestBody, headers);		
 			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_memos");
-	
+			CustomerMemosPOST memoRequestBody = new CustomerMemosPOST();
+			memoRequestBody.setNote(note.getNote());
+			memoRequestBody.setCustomerId(note.getCustomerId());
+			HttpEntity<CustomerMemosPOST> entity = new HttpEntity<CustomerMemosPOST>(memoRequestBody, headers);		
+			
+			
+			
 			ResponseEntity<CustomerMemos> response = restTemplate.exchange(
 					builder.toUriString().replaceAll("%20", " "),
-					HttpMethod.POST,
-					entity,
-			  new ParameterizedTypeReference<CustomerMemos>(){});
+					HttpMethod.POST, entity, new ParameterizedTypeReference<CustomerMemos>(){}) ;
 			
 			serverResponse = new ServerResponse();
 			serverResponse.setSuccess(true);
@@ -235,7 +235,7 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 			ResponseEntity<CustomerMemos> response = restTemplate.exchange(
 					builder.toUriString().replaceAll("%20", " "),
 					HttpMethod.PUT,
-					entity,
+					entity,					
 			  new ParameterizedTypeReference<CustomerMemos>(){});
 			
 			serverResponse = new ServerResponse();
@@ -258,17 +258,13 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 		try
 		{
 			RestTemplate restTemplate = new RestTemplate();		
-			CustomerMemosPOST memoRequestBody = new CustomerMemosPOST(); //change
-			memoRequestBody.setCustomerId(note.getCustomerId());//...
-			memoRequestBody.setNote(note.getNote());//...
-			HttpEntity<CustomerMemosPOST> entity = new HttpEntity<CustomerMemosPOST>(memoRequestBody, headers);		
-			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_memos"+ note.getId());
-	
-			ResponseEntity<CustomerMemos> response = restTemplate.exchange(
+			
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_memos/"+ note.getId());
+			HttpEntity<?> request = new HttpEntity<Object>(headers);
+			
+			ResponseEntity response = restTemplate.exchange(
 					builder.toUriString().replaceAll("%20", " "),
-					HttpMethod.DELETE,
-					entity,
-			  new ParameterizedTypeReference<CustomerMemos>(){});
+					HttpMethod.DELETE, request, String.class);
 			
 			serverResponse = new ServerResponse();
 			serverResponse.setSuccess(true);
@@ -285,6 +281,8 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 	
 	
 	private ServerResponse runServerException(HttpServerErrorException  serverEx, String msg) {
+		System.out.println(serverEx.getMessage());
+		System.out.println(serverEx.getStackTrace());
 		ServerResponse serverResponse = new ServerResponse();
 		serverResponse.setSuccess(false);
 		serverResponse.setHttpStatus( serverEx.getStatusText() );
@@ -294,6 +292,8 @@ public class SageAPIMemosHandlerDAOImpl implements SageAPIMemoHandlerDAO
 	}
 
 	private ServerResponse runClientException(HttpClientErrorException clientEx, String msg) {
+		System.out.println(clientEx.getMessage());
+		System.out.println(clientEx.getStackTrace());
 		ServerResponse serverResponse = new ServerResponse();
 		serverResponse.setSuccess(false);
 		serverResponse.setHttpStatus( clientEx.getStatusText() );
