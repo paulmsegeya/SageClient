@@ -24,12 +24,42 @@ sageClientApp.directive("customerListData", function(){
 	return{
         retrict: "A",
         scope: {
-            header: '@',
-            data: "="
+            header: "@",
+            listData: "=",
+            saveDataFn: "=",
+            listDataKey: "@"
         },
 		templateUrl: "app/components/customer-info/directives/listData.html"
 	};
 });
+
+sageClientApp.directive("editListData", function(){
+	return{
+        retrict: "A",
+        scope: {
+            header: '=',
+            listData: '=',
+            saveDataFn: "=",
+            listDataKey: "="
+        },
+
+		templateUrl: "app/components/customer-info/directives/editListData.html"
+	};
+});
+
+sageClientApp.directive("editNotes", function(){
+	return{
+        retrict: "A",
+        scope: {
+            memos: '=',
+            saveNotesFn: "=",
+            newNote: "="
+        },
+
+		templateUrl: "app/components/customer-info/directives/editNotes.html"
+	};
+});
+
 
 sageClientApp.directive("connectionInfo", function(){
 	return{
@@ -41,3 +71,6 @@ sageClientApp.directive("connectionInfo", function(){
 		templateUrl: "app/components/customer-info/directives/connectionInfo.html"
 	};
 });
+
+
+

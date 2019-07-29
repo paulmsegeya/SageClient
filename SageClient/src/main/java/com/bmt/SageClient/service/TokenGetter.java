@@ -33,6 +33,8 @@ public class TokenGetter
 		
 		try 
 		{
+			
+			
 			Runtime.getRuntime().exec( System.getProperty("user.dir") + "/tokenGetter/APISampleWinFormsApp.exe", null, new java.io.File(System.getProperty("user.dir") + "/tokenGetter/")); //run seperate application to generate new token
 			
 			java.util.Timer timer = new java.util.Timer();
@@ -78,5 +80,23 @@ public class TokenGetter
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	public static void readToken()
+	{
+		Scanner tokenScanner;
+		try 
+		{
+			tokenScanner = new Scanner(new java.io.File(System.getProperty("user.dir") + "/tokenGetter/token.txt"));
+			String token = tokenScanner.next();
+			tokenScanner.close();
+			GlobalVars.accessToken = token;
+			System.out.println("Token has been read from file");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}					
+	}
+	
 
 }

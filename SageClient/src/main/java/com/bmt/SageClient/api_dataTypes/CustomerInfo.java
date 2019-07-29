@@ -21,7 +21,7 @@ public class CustomerInfo
 	private String email2;
 	private String tel;
 	private String seenContact;
-	private List<String> memos = new ArrayList<>();
+	private List<Note> memos = new ArrayList<>();
 	private CustomerListData listData;
 	
 	
@@ -116,10 +116,10 @@ public class CustomerInfo
 	public void setSeenContact(String seenContact) {
 		this.seenContact = seenContact;
 	}
-	public List<String> getMemos() {
+	public List<Note> getMemos() {
 		return memos;
 	}
-	public void setMemos(List<String> memos) {
+	public void setMemos(List<Note> memos) {
 		this.memos = memos;
 	}
 	public CustomerListData getListData() {
@@ -129,7 +129,7 @@ public class CustomerInfo
 		this.listData = listData;
 	}
 	
-	public void addMemo(String memo) {
+	public void addMemo(Note memo) {
 		memos.add(memo);
 	}
 

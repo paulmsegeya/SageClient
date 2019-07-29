@@ -50,7 +50,7 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.set("Authorization", "Bearer " + GlobalVars.accessToken);		
 		headers.set("ocp-apim-subscription-key", "39cfbba1883b4f71931a6b3c495d3c68"); 
-		headers.set("X-Company", "1"); 
+		headers.set("X-Company",  GlobalVars.SageAPICompanyID); 
 		headers.set("Content-Type", "application/x-www-form-urlencoded"); 
 		headers.set("X-Site", "c3a91133-a250-c54f-e9ac-08d507348a36");		
 		headers.set("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
@@ -93,6 +93,8 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 			serverResponse.setHttpStatus( clientEx.getStatusText() );
 			serverResponse.setErrorSource("Client");
 			serverResponse.setMessage("Client error connecting to sage, attempted to retireve current user. ");
+			connTest.setServerResponse(serverResponse);
+			return connTest;
 		}
 		catch(HttpServerErrorException  serverEx)
 		{
@@ -103,9 +105,11 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 			serverResponse.setHttpStatus( serverEx.getStatusText() );
 			serverResponse.setErrorSource("Server");
 			serverResponse.setMessage("Server error connecting to sage, attempted to retireve current user. ");
+			connTest.setServerResponse(serverResponse);
+			return connTest;
 		}
 		
-		SageConnectionTest connTest = new SageConnectionTest();
+		/*SageConnectionTest connTest = new SageConnectionTest();
 		connTest.setConnectedToSage(false);
 		ServerResponse serverResponse = new ServerResponse();
 		serverResponse.setSuccess(false);
@@ -113,7 +117,7 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 		serverResponse.setErrorSource("Unknown");
 		serverResponse.setMessage("Unknown");
 		connTest.setServerResponse(serverResponse);
-		return connTest;
+		return connTest;*/
 	}
 
 

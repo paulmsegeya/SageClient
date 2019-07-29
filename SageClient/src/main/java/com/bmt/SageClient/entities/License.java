@@ -43,7 +43,7 @@ public class License
 		}
 
 
-	    @Column(name = "START_DATE", nullable = false)
+	    @Column(name = "START_DATE")
 		public Timestamp getStartDate() {
 			return startDate;
 		}
@@ -53,7 +53,7 @@ public class License
 		}
 
 
-	    @Column(name = "EXPIRY_DATE ", nullable = false)
+	    @Column(name = "END_DATE ")
 		public Timestamp getExpiryDate() {
 			return expiryDate;
 		}

@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="scripts/customer-info-style.css"> 
 
 <div class="row" ng-controller="customerInfoController as customerCtrl">
-	<div class="col-md-10">
+	<div class="col-md-12">
 
 		<div id="customerSearch" class="col-md-6">
 			<div class="form-group">
@@ -67,25 +67,27 @@
 				</table>
 
 				<div id="customerListDataDiv">
-					<customer-list-data header="Interviews" data="customerCtrl.customerInfoData.listData.interviews.data" ></customer-list-data>
-					<customer-list-data header="Chosen Agencies" data="customerCtrl.customerInfoData.listData.chosenAgencies.data" ></customer-list-data>
-					<customer-list-data header="Offers" data="customerCtrl.customerInfoData.listData.offers.data" ></customer-list-data>
-					<customer-list-data header="Casting Directories" data="customerCtrl.customerInfoData.listData.casting.data" ></customer-list-data>
-					<customer-list-data header="Self Tapes" data="customerCtrl.customerInfoData.listData.selfTapes.data" ></customer-list-data>
+					<customer-list-data header="Interviews" list-data-key="interviews" list-data="customerCtrl.customerInfoData.listData.interviews" save-data-fn="customerCtrl.saveListData"></customer-list-data>	
+					<customer-list-data header="Chosen Agencies" list-data-key="chosenAgencies" list-data="customerCtrl.customerInfoData.listData.chosenAgencies" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
+					<customer-list-data header="Offers" list-data-key="offers" list-data="customerCtrl.customerInfoData.listData.offers" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
+					<customer-list-data header="Casting Directories" list-data-key="casting" list-data="customerCtrl.customerInfoData.listData.casting" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
+					<customer-list-data header="Self Tapes" list-data-key="selfTapes" list-data="customerCtrl.customerInfoData.listData.selfTapes" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
 				</div>
 			</div>
 
-			<div id="memosDiv" class="col-md-4>"   ng-show="customerCtrl.isTableVisible">
+			<div id="memosDiv" class="col-md-4>"  ng-show="customerCtrl.isTableVisible">
 				<div class="card">
-					<div class="card-header">
-						Memos
+					<div class="card-header"> 
+						Memos					
+						<button data-toggle="modal" class="btn btn-dark editMemoButton" data-target="#notesEditModal"> <i class="far fa-edit"></i> </button>
 					</div>
 					<div class="card-body">
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item" ng-repeat="memo in customerCtrl.customerInfoData.memos">{{memo}}</li>
+							<li class="list-group-item" ng-repeat="memo in customerCtrl.customerInfoData.memos" ng-hide="memo.shouldBeDeleted">{{memo.note}}</li>
 						</ul>
 					</div>
 				</div>
+				<edit-notes memos="customerCtrl.customerInfoData.memos" save-notes-fn="customerCtrl.saveNotes" new-note="customerCtrl.newNote"></edit-notes>
 			</div>
 
 		</div>

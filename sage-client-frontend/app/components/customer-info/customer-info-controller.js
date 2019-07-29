@@ -11,6 +11,12 @@
 		this.connectionAPIDetails = {connectedToSage: false};
 		this.connectionInterfaceDetails = {sageInterfaceConnected: false};
 		this.errorMessages = {};
+		this.newNote = {
+			customerId: this.customerInfoData.customerID,
+			id: 0,
+			note: "",
+			shouldBeDeleted: false
+		};
 
 		
 		this.testSageAPIConnection = () => 
@@ -24,7 +30,6 @@
 				vm.connectionAPIDetails = response.data;
 				if(vm.connectionAPIDetails.connectedToSage == false) vm.setError("testSageAPI", "Could not connect to Sage API!");
 				else vm.clearError("testSageAPI"); 
-
 			}
 			,function(response){
 				vm.setError("testSageAPI", "Could not connect to Sage API!");
@@ -62,6 +67,8 @@
 			})
 			.then(function(response) {
 				vm.customerInfoData = response.data;
+				vm.newNote.customerId = vm.customerInfoData.customerID;
+				console.log(vm.customerInfoData);
 				vm.isCustomerInfoLoading = false;
 				vm.isTableVisible = true;
 				vm.clearError("customerInfoData"); 
@@ -99,6 +106,62 @@
 			}
 			,function(response){
 				vm.setError("topCustomerNames", "Could not retrieve customer search names!");
+			});
+		}
+
+
+		this.saveListData = (listDataKey) =>
+		{
+			let listData = this.customerInfoData.listData;
+			listData[listDataKey].shouldBeUpdated = true;
+					
+			let vm = this;
+			$http({
+				method: "POST",
+				url: "http://localhost:8080/add/list_data",
+				data: {
+					listData: listData[listDataKey],
+					customerID: listData.customerID
+				}
+			})
+			.then(function(response) {
+				if(response.data.success){
+					vm.clearError("listData");
+					alert("Data successfully updated!");
+				} 
+				else vm.setError("listData", "Error updating data!")
+			}
+			,function(response){
+				vm.setError("listData", "Error updating data!");
+			});
+		}
+
+
+		this.saveNotes = () =>
+		{
+			console.log(this.customerInfoData.memos);
+			let vm = this;
+			$http({
+				method: "POST",
+				url: "http://localhost:8080/add/notes",
+				data: vm.customerInfoData.memos
+			})
+			.then(function(response) {
+				let isSuccess = true;
+				for(let serverResponse of response.data){
+					if(serverResponse.success == false){
+						isSuccess = false;
+						break;
+					}						
+				}
+				if(isSuccess){
+					vm.clearError("Memos");
+					alert("Memos successfully updated!");	
+				}		
+				else vm.setError("Memos", "Error updating memos!");
+			}
+			,function(response){
+				vm.setError("Memos", "Error updating memos!");
 			});
 		}
 
