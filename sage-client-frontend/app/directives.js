@@ -1,3 +1,27 @@
+sageClientApp.directive("customerInfo", function(){
+	return{
+        retrict: "E",
+        scope: {
+            info: '='
+        },
+		templateUrl: "app/components/customer-info/directives/customerInfo.html"
+	};
+});
+
+sageClientApp.directive("customerInfoCell", function(){
+	return{
+        retrict: "E",
+        scope: {
+            header: '@',
+            value: '@',
+            key: '@',
+            editable: '='
+        },
+		templateUrl: "app/components/customer-info/directives/customerInfoCell.html"
+	};
+});
+
+
 sageClientApp.directive("customerValueRow", function(){
 	return{
         retrict: "E",
@@ -57,6 +81,21 @@ sageClientApp.directive("editNotes", function(){
         },
 
 		templateUrl: "app/components/customer-info/directives/editNotes.html"
+	};
+});
+
+
+sageClientApp.directive("editField", function(){
+	return{
+        retrict: "A",
+        scope: {
+            header: '=',
+            saveFieldFn: "=",
+            value: "=",
+            key: '='
+        },
+
+		templateUrl: "app/components/customer-info/directives/editField.html"
 	};
 });
 

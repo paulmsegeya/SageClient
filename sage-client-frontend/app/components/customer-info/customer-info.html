@@ -46,6 +46,7 @@
 				</div>
 			</div>
 			
+			
 			<div id="customerInfoDiv" class="col-md-8>"  ng-show="customerCtrl.isTableVisible">
 				<table id="customerInfoTbl"  class="table table-hover table-striped">
 					<tbody>
@@ -66,12 +67,14 @@
 					</tbody>
 				</table>
 
+				<customer-info data="customerCtrl.customerInfoData"></customer-info>
+
 				<div id="customerListDataDiv">
 					<customer-list-data header="Interviews" list-data-key="interviews" list-data="customerCtrl.customerInfoData.listData.interviews" save-data-fn="customerCtrl.saveListData"></customer-list-data>	
-					<customer-list-data header="Chosen Agencies" list-data-key="chosenAgencies" list-data="customerCtrl.customerInfoData.listData.chosenAgencies" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
-					<customer-list-data header="Offers" list-data-key="offers" list-data="customerCtrl.customerInfoData.listData.offers" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
-					<customer-list-data header="Casting Directories" list-data-key="casting" list-data="customerCtrl.customerInfoData.listData.casting" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
 					<customer-list-data header="Self Tapes" list-data-key="selfTapes" list-data="customerCtrl.customerInfoData.listData.selfTapes" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
+					<customer-list-data header="Offers" list-data-key="offers" list-data="customerCtrl.customerInfoData.listData.offers" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
+					<customer-list-data header="Chosen Agencies" list-data-key="chosenAgencies" list-data="customerCtrl.customerInfoData.listData.chosenAgencies" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
+					<customer-list-data header="Casting Directories" list-data-key="casting" list-data="customerCtrl.customerInfoData.listData.casting" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
 				</div>
 			</div>
 

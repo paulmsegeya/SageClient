@@ -1,0 +1,8 @@
+<div>
+    <span>{{header}}</span>
+    <button data-toggle="modal" ng-show="editable" class="btn btn-dark editMemoButton" data-target="{{'#fieldEditModal' + key}}"> <i class="far fa-edit"></i> </button>
+    <span>{{value}}</span>
+
+    
+    <edit-field ng-show="editable" header="header" value="value" key="key"></edit-field>
+</div>
