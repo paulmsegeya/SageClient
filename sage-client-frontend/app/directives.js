@@ -2,9 +2,19 @@ sageClientApp.directive("customerInfo", function(){
 	return{
         retrict: "E",
         scope: {
-            info: '='
+            data: '='
         },
 		templateUrl: "app/components/customer-info/directives/customerInfo.html"
+	};
+});
+
+sageClientApp.directive("customerInfoRow", function(){
+	return{
+        retrict: "A",
+        scope: {
+            data: '='
+        },
+		templateUrl: "app/components/customer-info/directives/customerInfoRow.html"
 	};
 });
 
@@ -13,7 +23,7 @@ sageClientApp.directive("customerInfoCell", function(){
         retrict: "E",
         scope: {
             header: '@',
-            value: '@',
+            value: '=',
             key: '@',
             editable: '='
         },

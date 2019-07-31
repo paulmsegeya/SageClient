@@ -1,0 +1,13 @@
+
+<th>
+        header {{header}}
+        <button data-toggle="modal" ng-show="editable" class="btn btn-dark editMemoButton" data-target="{{'#fieldEditModal' + key}}"> <i class="far fa-edit"></i> </button>
+</th>
+
+<td>
+       value {{value}}
+
+</td>
+
+
+<customer-info-cell header="Account Ref" value="data.accountRef" key="accountRef" editable="true"></customer-info-cell>  
