@@ -2,7 +2,10 @@ sageClientApp.directive("customerInfo", function(){
 	return{
         retrict: "E",
         scope: {
-            data: '='
+            data: '=',
+            saveFieldFn: "=",
+            saveEmail2Fn: "=",
+            saveTelFn: "="
         },
 		templateUrl: "app/components/customer-info/directives/customerInfo.html"
 	};
@@ -12,7 +15,8 @@ sageClientApp.directive("customerInfoRow", function(){
 	return{
         retrict: "A",
         scope: {
-            data: '='
+            data: '=',
+            saveFieldFn: '='
         },
 		templateUrl: "app/components/customer-info/directives/customerInfoRow.html"
 	};
@@ -97,12 +101,12 @@ sageClientApp.directive("editNotes", function(){
 
 sageClientApp.directive("editField", function(){
 	return{
-        retrict: "A",
+        retrict: "E",
         scope: {
-            header: '=',
+            header: '@',
             saveFieldFn: "=",
             value: "=",
-            key: '='
+            key: '@'
         },
 
 		templateUrl: "app/components/customer-info/directives/editField.html"

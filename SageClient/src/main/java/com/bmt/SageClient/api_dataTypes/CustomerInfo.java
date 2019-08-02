@@ -17,8 +17,8 @@ public class CustomerInfo
 	private int invoiceBalance;
 	private String signedDate;
 	private String type;
-	private String email;
-	private String email2;
+	private Email email;
+	private Email email2;
 	private String tel;
 	private String seenContact;
 	private List<Note> memos = new ArrayList<>();
@@ -92,16 +92,16 @@ public class CustomerInfo
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getEmail() {
+	public Email getEmail() {
 		return email;
 	}
-	public void setEmail(String email) {
+	public void setEmail(Email email) {
 		this.email = email;
 	}
-	public String getEmail2() {
+	public Email getEmail2() {
 		return email2;
 	}
-	public void setEmail2(String email2) {
+	public void setEmail2(Email email2) {
 		this.email2 = email2;
 	}
 	public String getTel() {

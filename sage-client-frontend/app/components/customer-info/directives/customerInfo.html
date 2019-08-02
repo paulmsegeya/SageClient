@@ -1,23 +1,86 @@
 <table id="customerInfoTbl"  class="table table-hover">
     <tbody>
-    <tr
-        customer-info-row data="data" >
-        <!-- customer-info-cell header="Account Ref" value="data.accountRef" key="accountRef" editable="true" 
-      <td> <customer-info-cell header="Account Name" value="data.accountName" key="accountName"></customer-info-cell> </td>
-        <td> <customer-info-cell header="Short Name" value="data.shortName" key="shortName"></customer-info-cell> </td>
-        <td> <customer-info-cell header="Accouname" value="data.KEY" key="KEY_HERE"></customer-info-cell> </td>>-->
-    </tr>
-  <!--  <tr>   
-        <td> <customer-info-cell header="Accouname" value="data.KEY" key="KEY_HERE"></customer-info-cell> </td>
-        <td> <customer-info-cell header="Accouname" value="data.KEY" key="KEY_HERE"></customer-info-cell> </td>
-        <td> <customer-info-cell header="Accouname" value="data.KEY" key="KEY_HERE"></customer-info-cell> </td>
 
-        <td> <customer-info-cell header="Accouname" value="data.KEY" key="KEY_HERE"></customer-info-cell> </td>
-    </tr> 
-    <tr>  
-        <td> <customer-info-cell header="Accouname" value="data.KEY" key="KEY_HERE"></customer-info-cell> </td>
-        <td> <customer-info-cell header="Accouname" value="data.KEY" key="KEY_HERE"></customer-info-cell> </td>
+        <tr>
+            <th class="customerInfoHeader"> Account Ref </th> <td class="customerInfoValue"> {{data.accountRef}} </td>
+            <th class="customerInfoHeader"> Account Name </th> <td class="customerInfoValue"> {{data.accountName}} </td>            
+            <th class="customerInfoHeader"> Short Name </th> <td class="customerInfoValue"> {{data.shortName}} </td>
+        </tr>
 
-    </tr>-->
+
+        <tr>
+            <th class="customerInfoHeader"> Customer Name </th> <td class="customerInfoValue"> {{data.customerName}} </td>
+            <th class="customerInfoHeader"> Package </th> <td class="customerInfoValue"> {{data.transPackage}} </td>            
+            <th class="customerInfoHeader"> Type </th> <td class="customerInfoValue"> {{data.type}} </td>
+        </tr>
+
+
+        <tr>
+            <th class="customerInfoHeader"> Date of Shoot </th> <td class="customerInfoValue"> {{data.dateOfShoot}} </td>
+            <th class="customerInfoHeader"> Total </th> <td class="customerInfoValue"> {{data.total}} </td>            
+            <th class="customerInfoHeader"> Invoice Balance </th> <td class="customerInfoValue"> {{data.invoiceBalance}} </td>
+        </tr>
+
+
+        <tr>
+            <th class="customerInfoHeader"> Signed Date </th> <td class="customerInfoValue"> {{data.signedDate}} </td>
+            <th class="customerInfoHeader"> Email </th> <td class="customerInfoValue"> {{data.email}} </td>            
+            <th class="customerInfoHeader">
+                    Email 2 <button data-toggle="modal" class="btn btn-dark editMemoButton" data-target="{{'#fieldEditModalemail2'}}"> <i class="far fa-edit"></i> </button>
+            </th>
+            <td class="customerInfoValue"> {{data.email2}} <edit-field header="Email 2" value="data.email2" save-field-fn="saveEmail2Fn" key="email2"></edit-field> </td>
+        </tr>
+
+
+        <tr>
+            <th class="customerInfoHeader">
+                    Tel <button data-toggle="modal" class="btn btn-dark editMemoButton" data-target="{{'#fieldEditModaltel'}}"> <i class="far fa-edit"></i> </button>
+            </th>
+            <td class="customerInfoValue"> {{data.tel}} <edit-field header="Tel" value="data.tel" save-field-fn="saveTelFn" key="tel"></edit-field> </td>
+            <th class="customerInfoHeader"> Seen Contact </th> <td class="customerInfoValue"> {{data.accountName}} </td>       
+        </tr>
+
+
+  
     </tbody>
 </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!-- customer-info-cell header="Account Ref" value="data.accountRef" key="accountRef" editable="true" 
+      <td class="customerInfoValue"> <customer-info-cell header="Account Name" value="data.accountName" key="accountName"></customer-info-cell> </td>
+        <td class="customerInfoValue"> <customer-info-cell header="Short Name" value="data.shortName" key="shortName"></customer-info-cell> </td>
+        <td class="customerInfoValue"> <customer-info-cell header="Accouname" value="data.KEY" key="KEY_HERE"></customer-info-cell> </td>>-->
+    
+  <!--  <tr>   
+        <td class="customerInfoValue"> <customer-info-cell header="Accouname" value="data.KEY" key="KEY_HERE"></customer-info-cell> </td>
+        <td class="customerInfoValue"> <customer-info-cell header="Accouname" value="data.KEY" key="KEY_HERE"></customer-info-cell> </td>
+        <td class="customerInfoValue"> <customer-info-cell header="Accouname" value="data.KEY" key="KEY_HERE"></customer-info-cell> </td>
+
+        <td class="customerInfoValue"> <customer-info-cell header="Accouname" value="data.KEY" key="KEY_HERE"></customer-info-cell> </td>
+    </tr> 
+    <tr>  
+        <td class="customerInfoValue"> <customer-info-cell header="Accouname" value="data.KEY" key="KEY_HERE"></customer-info-cell> </td>
+        <td class="customerInfoValue"> <customer-info-cell header="Accouname" value="data.KEY" key="KEY_HERE"></customer-info-cell> </td>
+
+    </tr>-->

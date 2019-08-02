@@ -22,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.bmt.SageClient.api_dataTypes.CustomerInfo;
 import com.bmt.SageClient.api_dataTypes.CustomerListData;
+import com.bmt.SageClient.api_dataTypes.Email;
 import com.bmt.SageClient.api_dataTypes.Note;
 import com.bmt.SageClient.orm.dao.SageAPICustomerHandlerDAO;
 import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
@@ -84,11 +85,21 @@ public class SageAPICustomerHandlerDAOImpl implements SageAPICustomerHandlerDAO
 				customerInfo.setSeenContact(customerView.getAnalysisCode3());
 			}			
 			
-			if(customersContacts.size() > 0){
+			/*if(customersContacts.size() > 0){
 				customerInfo.setCustomerName(customersContacts.get(0).getName());
-				customerInfo.setEmail(customersContacts.get(0).getDefaultEmail());
-				if(customersContacts.size() >= 2) customerInfo.setEmail2(customersContacts.get(1).getDefaultEmail());				
-			}
+				Email email1 = new Email();
+				Email email2 = new Email();
+				if(customersContacts.get(0).getEmails().size() > 0 ) { 
+					email1.setId(customersContacts.get(0).getEmails().get(0).getId() );
+					email1.setEmail(customersContacts.get(0).getEmails().get(0).getEmail() );
+				} 
+				if(customersContacts.get(0).getEmails().size() > 1 ) { 
+					email2.setId(customersContacts.get(0).getEmails().get(1).getId() );
+					email2.setEmail(customersContacts.get(0).getEmails().get(1).getEmail() );
+				} 				
+				customerInfo.setEmail(email1);
+				customerInfo.setEmail(email2);
+			}*/
 			
 			if(transactions.size() > 0){
 				Transactions transaction = transactions.get(0);

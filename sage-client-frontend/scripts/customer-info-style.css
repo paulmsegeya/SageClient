@@ -97,9 +97,6 @@
     display: inline-block;
 }
 
-#customerInfoTbl td{
-    padding: 0;
-}
 
 .customerInfoCell{
     padding: 5px;
@@ -109,4 +106,12 @@
     display: inline-block;
     font-weight: bold;
     background-color: #ebeeef;
+}
+
+.customerInfoHeader{
+    background-color:  #ebeeef;
+}
+
+.customerInfoValue{
+    background-color:  #f7fafb;
 }

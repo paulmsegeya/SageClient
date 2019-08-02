@@ -166,6 +166,17 @@
 		}
 
 
+		this.saveEmail2 = () =>
+		{
+			console.log(this.customerInfoData.email2);
+		}
+
+		this.saveTel = () =>
+		{
+			console.log(this.customerInfoData.tel);
+		}
+
+
 		this.setError = (errorSrc, message) =>{
 			this.errorMessages[errorSrc] = message;
 		}
