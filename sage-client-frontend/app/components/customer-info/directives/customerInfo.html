@@ -24,11 +24,11 @@
 
         <tr>
             <th class="customerInfoHeader"> Signed Date </th> <td class="customerInfoValue"> {{data.signedDate}} </td>
-            <th class="customerInfoHeader"> Email </th> <td class="customerInfoValue"> {{data.email}} </td>            
+            <th class="customerInfoHeader"> Email </th> <td class="customerInfoValue"> {{data.email.email}} </td>            
             <th class="customerInfoHeader">
                     Email 2 <button data-toggle="modal" class="btn btn-dark editMemoButton" data-target="{{'#fieldEditModalemail2'}}"> <i class="far fa-edit"></i> </button>
             </th>
-            <td class="customerInfoValue"> {{data.email2}} <edit-field header="Email 2" value="data.email2" save-field-fn="saveEmail2Fn" key="email2"></edit-field> </td>
+            <td class="customerInfoValue"> {{data.email2.email}} <edit-field header="Email 2" value="data.email2.email" save-field-fn="saveEmail2Fn" key="email2"></edit-field> </td>
         </tr>
 
 

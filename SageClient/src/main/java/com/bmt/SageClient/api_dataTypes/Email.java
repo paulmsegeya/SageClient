@@ -4,6 +4,8 @@ public class Email {
 	
 	private String email;
 	private long id;
+	private long customerContactID;
+	private long customerID;
 	
 	
 	public String getEmail() {
@@ -17,6 +19,18 @@ public class Email {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	public long getCustomerContactID() {
+		return customerContactID;
+	}
+	public void setCustomerContactID(long customerContactID) {
+		this.customerContactID = customerContactID;
+	}
+	public long getCustomerID() {
+		return customerID;
+	}
+	public void setCustomerID(long customerID) {
+		this.customerID = customerID;
 	}
 
 }

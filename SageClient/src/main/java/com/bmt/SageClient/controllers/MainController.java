@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bmt.SageClient.api_dataTypes.CustomerInfo;
 import com.bmt.SageClient.api_dataTypes.CustomerInfoFields;
 import com.bmt.SageClient.api_dataTypes.CustomerListData;
+import com.bmt.SageClient.api_dataTypes.Email;
 import com.bmt.SageClient.api_dataTypes.ListDataForm;
 import com.bmt.SageClient.api_dataTypes.Note;
 import com.bmt.SageClient.api_dataTypes.SageConnectionTest;
 import com.bmt.SageClient.api_dataTypes.SageInterfaceConnection;
 import com.bmt.SageClient.api_dataTypes.ServerResponse;
 import com.bmt.SageClient.orm.dao.SageAPICustomerHandlerDAO;
+import com.bmt.SageClient.orm.dao.SageAPIFieldsHandlerDAO;
 import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
 import com.bmt.SageClient.orm.dao.SageAPIMemoHandlerDAO;
 
@@ -33,6 +35,8 @@ public class MainController
 	SageAPIHandlerDAO sageAPIHandler;
 	@Autowired
 	SageAPIMemoHandlerDAO sageAPMemoIHandler;
+	@Autowired
+	SageAPIFieldsHandlerDAO sageAPIFieldsHandlerDAO;
 
 	
     @RequestMapping("/customer_info")
@@ -74,5 +78,11 @@ public class MainController
     public List<ServerResponse> addUpdateNotes(@RequestBody(required=true) List<Note> memos) {
           return sageAPMemoIHandler.CUDNotes(memos);
     }
+    
+    @PostMapping("/add/email")
+    public ServerResponse addUpdateEmail(@RequestBody(required=true) Email email) {
+          return sageAPIFieldsHandlerDAO.addUpdateEmail(email);
+    }
+    
     
 }
