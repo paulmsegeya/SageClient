@@ -166,6 +166,34 @@
 		}
 
 
+		this.saveEmail2 = () =>
+		{
+			console.log(this.customerInfoData.email2);
+			let vm = this;
+			$http({
+				method: "POST",
+				url: "http://localhost:8080/add/email",
+				data: vm.customerInfoData.email2
+			})
+			.then(function(response) {
+				let isSuccess = true;
+				if(response.data.success){
+					vm.clearError("Emails");
+					alert("Email 2 successfully updated!");	
+				}		
+				else vm.setError("Emails", "Error updating emails!");
+			}
+			,function(response){
+				vm.setError("Emails", "Error updating emails!");
+			});
+		}
+
+		this.saveTel = () =>
+		{
+			console.log(this.customerInfoData.tel);
+		}
+
+
 		this.setError = (errorSrc, message) =>{
 			this.errorMessages[errorSrc] = message;
 		}

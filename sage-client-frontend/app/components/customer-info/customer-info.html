@@ -46,32 +46,17 @@
 				</div>
 			</div>
 			
+			
 			<div id="customerInfoDiv" class="col-md-8>"  ng-show="customerCtrl.isTableVisible">
-				<table id="customerInfoTbl"  class="table table-hover table-striped">
-					<tbody>
-						<tr customer-header-row headers="[customerCtrl.fieldNames.accountRef, customerCtrl.fieldNames.accountName, customerCtrl.fieldNames.shortName]"></tr>
-						<tr customer-value-row values="[customerCtrl.customerInfoData.accountRef, customerCtrl.customerInfoData.accountName, customerCtrl.customerInfoData.shortName]"></tr>
-
-						<tr customer-header-row headers="[customerCtrl.fieldNames.customerName, customerCtrl.fieldNames.transPackage, customerCtrl.fieldNames.type]"></tr>
-						<tr customer-value-row values="[customerCtrl.customerInfoData.customerName, customerCtrl.customerInfoData.transPackage, customerCtrl.customerInfoData.type]"></tr>	
-						
-						<tr customer-header-row headers="[customerCtrl.fieldNames.dateOfShoot, customerCtrl.fieldNames.total, customerCtrl.fieldNames.invoiceBalance]"></tr>
-						<tr customer-value-row values="[customerCtrl.customerInfoData.dateOfShoot, customerCtrl.customerInfoData.total, customerCtrl.customerInfoData.invoiceBalance]"></tr>
-
-						<tr customer-header-row headers="[customerCtrl.fieldNames.signedDate, customerCtrl.fieldNames.email, customerCtrl.fieldNames.email2]"></tr>
-						<tr customer-value-row values="[customerCtrl.customerInfoData.signedDate, customerCtrl.customerInfoData.email, customerCtrl.customerInfoData.email2]"></tr>
-
-						<tr customer-header-row headers="[customerCtrl.fieldNames.tel, customerCtrl.fieldNames.seenContact]" col-span="2"></tr>
-						<tr customer-value-row values="[customerCtrl.customerInfoData.tel, customerCtrl.customerInfoData.seenContact]" col-span="2"></tr>
-					</tbody>
-				</table>
+				
+				<customer-info data="customerCtrl.customerInfoData" save-email2-fn="customerCtrl.saveEmail2" save-tel-fn="customerCtrl.saveTel"></customer-info>
 
 				<div id="customerListDataDiv">
 					<customer-list-data header="Interviews" list-data-key="interviews" list-data="customerCtrl.customerInfoData.listData.interviews" save-data-fn="customerCtrl.saveListData"></customer-list-data>	
-					<customer-list-data header="Chosen Agencies" list-data-key="chosenAgencies" list-data="customerCtrl.customerInfoData.listData.chosenAgencies" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
-					<customer-list-data header="Offers" list-data-key="offers" list-data="customerCtrl.customerInfoData.listData.offers" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
-					<customer-list-data header="Casting Directories" list-data-key="casting" list-data="customerCtrl.customerInfoData.listData.casting" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
 					<customer-list-data header="Self Tapes" list-data-key="selfTapes" list-data="customerCtrl.customerInfoData.listData.selfTapes" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
+					<customer-list-data header="Offers" list-data-key="offers" list-data="customerCtrl.customerInfoData.listData.offers" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
+					<customer-list-data header="Chosen Agencies" list-data-key="chosenAgencies" list-data="customerCtrl.customerInfoData.listData.chosenAgencies" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
+					<customer-list-data header="Casting Directories" list-data-key="casting" list-data="customerCtrl.customerInfoData.listData.casting" save-data-fn="customerCtrl.saveListData" ></customer-list-data>
 				</div>
 			</div>
 

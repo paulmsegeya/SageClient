@@ -96,3 +96,22 @@
 .removeMemoBtn{
     display: inline-block;
 }
+
+
+.customerInfoCell{
+    padding: 5px;
+}
+
+.infoHeaderCell{
+    display: inline-block;
+    font-weight: bold;
+    background-color: #ebeeef;
+}
+
+.customerInfoHeader{
+    background-color:  #ebeeef;
+}
+
+.customerInfoValue{
+    background-color:  #f7fafb;
+}

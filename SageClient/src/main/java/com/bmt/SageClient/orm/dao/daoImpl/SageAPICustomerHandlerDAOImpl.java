@@ -22,10 +22,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.bmt.SageClient.api_dataTypes.CustomerInfo;
 import com.bmt.SageClient.api_dataTypes.CustomerListData;
+import com.bmt.SageClient.api_dataTypes.Email;
 import com.bmt.SageClient.api_dataTypes.Note;
 import com.bmt.SageClient.orm.dao.SageAPICustomerHandlerDAO;
 import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
 import com.bmt.SageClient.sage200api.CustomerMemoListData.MemoListDataTypes;
+import com.bmt.SageClient.sage200api.entities.CustomerEmails;
 import com.bmt.SageClient.sage200api.entities.CustomerMemos;
 import com.bmt.SageClient.sage200api.entities.CustomerViews;
 import com.bmt.SageClient.sage200api.entities.Customers;
@@ -70,7 +72,6 @@ public class SageAPICustomerHandlerDAOImpl implements SageAPICustomerHandlerDAO
 			List<Transactions> transactions = requestTransactions(customer.getId());
 			List<CustomerMemos> memos = requestMemos(customer.getId());
 			
-			
 			if(customerViews.size() > 0)
 			{
 				CustomerViews customerView = customerViews.get(0);
@@ -82,12 +83,33 @@ public class SageAPICustomerHandlerDAOImpl implements SageAPICustomerHandlerDAO
 				customerInfo.setType(customerView.getAnalysisCode1());
 				customerInfo.setTel(customerView.getTelephoneSubscriberNumber());
 				customerInfo.setSeenContact(customerView.getAnalysisCode3());
-			}			
+			}
+
 			
-			if(customersContacts.size() > 0){
-				customerInfo.setCustomerName(customersContacts.get(0).getName());
-				customerInfo.setEmail(customersContacts.get(0).getDefaultEmail());
-				if(customersContacts.size() >= 2) customerInfo.setEmail2(customersContacts.get(1).getDefaultEmail());				
+			if(customersContacts.size() > 0)
+			{
+				customerInfo.setCustomerName(customersContacts.get(0).getName());						
+				
+				List<CustomerEmails> customerEmails = requestEmails(customersContacts.get(0).getId());
+				Email email1 = new Email();
+				Email email2 = new Email();
+				
+				email1.setCustomerContactID(customersContacts.get(0).getId() );
+				email1.setCustomerID(customer.getId());
+				email2.setCustomerContactID(customersContacts.get(0).getId() );
+				email2.setCustomerID(customer.getId());
+				
+				if(customerEmails.size() > 0){					
+					email1.setId(customerEmails.get(0).getId() );
+					email1.setEmail(customerEmails.get(0).getEmail() );
+				}
+				if(customerEmails.size() > 1){					
+					email2.setId(customerEmails.get(1).getId() );
+					email2.setEmail(customerEmails.get(1).getEmail() );
+				}
+				customerInfo.setEmail(email1);
+				customerInfo.setEmail2(email2);		
+				
 			}
 			
 			if(transactions.size() > 0){
@@ -367,6 +389,38 @@ public class SageAPICustomerHandlerDAOImpl implements SageAPICustomerHandlerDAO
 		}
 		
 		return new ArrayList<String>();
+	}
+	
+	
+	public List<CustomerEmails> requestEmails(long customerContactID)
+	{
+		setToken();
+		try 
+		{
+			RestTemplate restTemplate = new RestTemplate();		
+			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_emails")
+			        .queryParam("$filter", "customer_contact_id eq " + customerContactID
+			        		);
+			
+			ResponseEntity<List<CustomerEmails>> response = restTemplate.exchange(
+					builder.toUriString().replaceAll("%20", " "),
+					HttpMethod.GET,
+					entity,
+			  new ParameterizedTypeReference<List<CustomerEmails>>(){});
+			List<CustomerEmails> emails = response.getBody();
+			return emails;
+		}
+		catch(HttpClientErrorException clientEx)
+		{
+			System.out.println(clientEx);
+		}
+		catch(HttpServerErrorException  serverEx)
+		{
+			System.out.println(serverEx);
+		}
+		
+		return new ArrayList<CustomerEmails>();
 	}
 	
 	
