@@ -24,11 +24,13 @@ import com.bmt.SageClient.api_dataTypes.CustomerInfo;
 import com.bmt.SageClient.api_dataTypes.CustomerListData;
 import com.bmt.SageClient.api_dataTypes.Email;
 import com.bmt.SageClient.api_dataTypes.Note;
+import com.bmt.SageClient.api_dataTypes.Telephone;
 import com.bmt.SageClient.orm.dao.SageAPICustomerHandlerDAO;
 import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
 import com.bmt.SageClient.sage200api.CustomerMemoListData.MemoListDataTypes;
 import com.bmt.SageClient.sage200api.entities.CustomerEmails;
 import com.bmt.SageClient.sage200api.entities.CustomerMemos;
+import com.bmt.SageClient.sage200api.entities.CustomerTelephones;
 import com.bmt.SageClient.sage200api.entities.CustomerViews;
 import com.bmt.SageClient.sage200api.entities.Customers;
 import com.bmt.SageClient.sage200api.entities.CustomersContacts;
@@ -81,7 +83,6 @@ public class SageAPICustomerHandlerDAOImpl implements SageAPICustomerHandlerDAO
 				customerInfo.setShortName(customerView.getShortName());
 				customerInfo.setSignedDate(customerView.getAnalysisCode2());
 				customerInfo.setType(customerView.getAnalysisCode1());
-				customerInfo.setTel(customerView.getTelephoneSubscriberNumber());
 				customerInfo.setSeenContact(customerView.getAnalysisCode3());
 			}
 
@@ -111,6 +112,24 @@ public class SageAPICustomerHandlerDAOImpl implements SageAPICustomerHandlerDAO
 				customerInfo.setEmail2(email2);		
 				
 			}
+			
+			
+			if(customersContacts.size() > 0)
+			{
+				List<CustomerTelephones> customerTels = requestTel(customersContacts.get(0).getId());
+				Telephone tel1 = new Telephone();
+				
+				tel1.setCustomerContactID(customersContacts.get(0).getId() );
+				tel1.setCustomerID(customer.getId());
+				
+				if(customerTels.size() > 0){					
+					tel1.setId(customerTels.get(0).getId() );
+					tel1.setTelephone(customerTels.get(0).getSubscriberNumber() );
+				}
+				customerInfo.setTel(tel1);				
+			}
+			
+			
 			
 			if(transactions.size() > 0){
 				Transactions transaction = transactions.get(0);
@@ -421,6 +440,38 @@ public class SageAPICustomerHandlerDAOImpl implements SageAPICustomerHandlerDAO
 		}
 		
 		return new ArrayList<CustomerEmails>();
+	}
+	
+	
+	public List<CustomerTelephones> requestTel(long customerContactID)
+	{
+		setToken();
+		try 
+		{
+			RestTemplate restTemplate = new RestTemplate();		
+			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_telephones")
+			        .queryParam("$filter", "customer_contact_id eq " + customerContactID
+			        		);
+			
+			ResponseEntity<List<CustomerTelephones>> response = restTemplate.exchange(
+					builder.toUriString().replaceAll("%20", " "),
+					HttpMethod.GET,
+					entity,
+			  new ParameterizedTypeReference<List<CustomerTelephones>>(){});
+			List<CustomerTelephones> telNums = response.getBody();
+			return telNums;
+		}
+		catch(HttpClientErrorException clientEx)
+		{
+			System.out.println(clientEx);
+		}
+		catch(HttpServerErrorException  serverEx)
+		{
+			System.out.println(serverEx);
+		}
+		
+		return new ArrayList<CustomerTelephones>();
 	}
 	
 	

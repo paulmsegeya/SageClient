@@ -36,7 +36,7 @@
             <th class="customerInfoHeader">
                     Tel <button data-toggle="modal" class="btn btn-dark editMemoButton" data-target="{{'#fieldEditModaltel'}}"> <i class="far fa-edit"></i> </button>
             </th>
-            <td class="customerInfoValue"> {{data.tel}} <edit-field header="Tel" value="data.tel" save-field-fn="saveTelFn" key="tel"></edit-field> </td>
+            <td class="customerInfoValue"> {{data.tel}} <edit-field header="Tel" value="data.tel.telephone" save-field-fn="saveTelFn" key="tel"></edit-field> </td>
             <th class="customerInfoHeader"> Seen Contact </th> <td class="customerInfoValue"> {{data.accountName}} </td>       
         </tr>
 

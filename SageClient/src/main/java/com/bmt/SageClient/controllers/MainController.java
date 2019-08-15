@@ -19,6 +19,7 @@ import com.bmt.SageClient.api_dataTypes.Note;
 import com.bmt.SageClient.api_dataTypes.SageConnectionTest;
 import com.bmt.SageClient.api_dataTypes.SageInterfaceConnection;
 import com.bmt.SageClient.api_dataTypes.ServerResponse;
+import com.bmt.SageClient.api_dataTypes.Telephone;
 import com.bmt.SageClient.orm.dao.SageAPICustomerHandlerDAO;
 import com.bmt.SageClient.orm.dao.SageAPIFieldsHandlerDAO;
 import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
@@ -82,6 +83,11 @@ public class MainController
     @PostMapping("/add/email")
     public ServerResponse addUpdateEmail(@RequestBody(required=true) Email email) {
           return sageAPIFieldsHandlerDAO.addUpdateEmail(email);
+    }
+    
+    @PostMapping("/add/tel")
+    public ServerResponse addUpdateTel(@RequestBody(required=true) Telephone tel) {
+          return sageAPIFieldsHandlerDAO.addUpdateTel(tel);
     }
     
     
