@@ -17,18 +17,22 @@
 
         <tr>
             <th class="customerInfoHeader"> Date of Shoot </th> <td class="customerInfoValue"> {{data.dateOfShoot}} </td>
-            <th class="customerInfoHeader"> Total </th> <td class="customerInfoValue"> {{data.total}} </td>            
+            <th class="customerInfoHeader"> Total </th> <td class="customerInfoValue"> {{data.total | currency : '&pound;'}} </td>            
             <th class="customerInfoHeader"> Invoice Balance </th> <td class="customerInfoValue"> {{data.invoiceBalance}} </td>
         </tr>
 
 
         <tr>
             <th class="customerInfoHeader"> Signed Date </th> <td class="customerInfoValue"> {{data.signedDate}} </td>
-            <th class="customerInfoHeader"> Email </th> <td class="customerInfoValue"> {{data.email.email}} </td>            
+            <th class="customerInfoHeader"> 
+                Email  <button data-toggle="modal" class="btn btn-dark editMemoButton" data-target="{{'#fieldEditModalemail'}}"> <i class="far fa-edit"></i> </button>
+            </th> 
+            <td class="customerInfoValue"> {{data.email.email}} <edit-field header="Email" value="data.email.email" save-field-fn="saveEmailFn" key="email"></edit-field> </td>            
+
             <th class="customerInfoHeader">
                     Email 2 <button data-toggle="modal" class="btn btn-dark editMemoButton" data-target="{{'#fieldEditModalemail2'}}"> <i class="far fa-edit"></i> </button>
             </th>
-            <td class="customerInfoValue"> {{data.email2.email}} <edit-field header="Email 2" value="data.email2.email" save-field-fn="saveEmail2Fn" key="email2"></edit-field> </td>
+            <td class="customerInfoValue"> {{data.email2.email}} <edit-field header="Email 2" value="data.email2.email" save-field-fn="saveEmailFn" key="email2"></edit-field> </td>
         </tr>
 
 
@@ -36,7 +40,14 @@
             <th class="customerInfoHeader">
                     Tel <button data-toggle="modal" class="btn btn-dark editMemoButton" data-target="{{'#fieldEditModaltel'}}"> <i class="far fa-edit"></i> </button>
             </th>
-            <td class="customerInfoValue"> {{data.tel}} <edit-field header="Tel" value="data.tel.telephone" save-field-fn="saveTelFn" key="tel"></edit-field> </td>
+            <td class="customerInfoValue"> {{data.tel.telephone}} <edit-field header="Tel" value="data.tel.telephone" save-field-fn="saveTelFn" key="tel"></edit-field> </td>
+
+            <th class="customerInfoHeader">
+
+                Tel 2 <button data-toggle="modal" class="btn btn-dark editMemoButton" data-target="{{'#fieldEditModaltel2'}}"> <i class="far fa-edit"></i> </button>
+            </th>
+            <td class="customerInfoValue"> {{data.tel2.telephone}} <edit-field header="Tel 2" value="data.tel2.telephone" save-field-fn="saveTelFn" key="tel2"></edit-field> </td>
+
             <th class="customerInfoHeader"> Seen Contact </th> <td class="customerInfoValue"> {{data.accountName}} </td>       
         </tr>
 

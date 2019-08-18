@@ -20,6 +20,7 @@ public class CustomerInfo
 	private Email email;
 	private Email email2;
 	private Telephone tel;
+	private Telephone tel2;
 	private String seenContact;
 	private List<Note> memos = new ArrayList<>();
 	private CustomerListData listData;
@@ -109,6 +110,12 @@ public class CustomerInfo
 	}
 	public void setTel(Telephone tel) {
 		this.tel = tel;
+	}
+	public Telephone getTel2() {
+		return tel2;
+	}
+	public void setTel2(Telephone tel2) {
+		this.tel2 = tel2;
 	}
 	public String getSeenContact() {
 		return seenContact;

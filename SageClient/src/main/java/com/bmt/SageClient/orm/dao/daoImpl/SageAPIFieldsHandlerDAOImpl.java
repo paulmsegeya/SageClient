@@ -145,13 +145,14 @@ public class SageAPIFieldsHandlerDAOImpl implements SageAPIFieldsHandlerDAO
 
 
 	@Override
-	public ServerResponse updateTel(Telephone tel) {
+	public ServerResponse updateTel(Telephone tel) 
+	{
 		setToken();
 		ServerResponse serverResponse;
 		try
 		{
 			RestTemplate restTemplate = new RestTemplate();		
-			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customers/customer_telephones/" + tel.getId());
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_telephones/" + tel.getId());
 			CustomerTelephones telRequestBody = new CustomerTelephones();
 			telRequestBody.setSubscriberNumber(tel.getTelephone());
 			HttpEntity<CustomerTelephones> entity = new HttpEntity<CustomerTelephones>(telRequestBody, headers);					

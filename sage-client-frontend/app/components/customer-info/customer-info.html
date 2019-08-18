@@ -49,7 +49,7 @@
 			
 			<div id="customerInfoDiv" class="col-md-8>"  ng-show="customerCtrl.isTableVisible">
 				
-				<customer-info data="customerCtrl.customerInfoData" save-email2-fn="customerCtrl.saveEmail2" save-tel-fn="customerCtrl.saveTel"></customer-info>
+				<customer-info data="customerCtrl.customerInfoData" save-email-fn="customerCtrl.saveEmail" save-tel-fn="customerCtrl.saveTel"></customer-info>
 
 				<div id="customerListDataDiv">
 					<customer-list-data header="Interviews" list-data-key="interviews" list-data="customerCtrl.customerInfoData.listData.interviews" save-data-fn="customerCtrl.saveListData"></customer-list-data>	
@@ -72,7 +72,7 @@
 						</ul>
 					</div>
 				</div>
-				<edit-notes memos="customerCtrl.customerInfoData.memos" save-notes-fn="customerCtrl.saveNotes" new-note="customerCtrl.newNote"></edit-notes>
+				<edit-notes memos="customerCtrl.customerInfoData.memos" save-notes-fn="customerCtrl.saveNotes" new-note="customerCtrl.getNewNote"></edit-notes>
 			</div>
 
 		</div>

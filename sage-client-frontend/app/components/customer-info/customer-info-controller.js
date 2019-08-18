@@ -137,6 +137,12 @@
 		}
 
 
+		this.getNewNote = () =>{
+			console.log(Object.assign({}, this.newNote));
+			return Object.assign({}, this.newNote);
+		}
+
+
 		this.saveNotes = () =>
 		{
 			console.log(this.customerInfoData.memos);
@@ -166,20 +172,19 @@
 		}
 
 
-		this.saveEmail2 = () =>
+		this.saveEmail = (emailKey) =>
 		{
-			console.log(this.customerInfoData.email2);
 			let vm = this;
 			$http({
 				method: "POST",
 				url: "http://localhost:8080/add/email",
-				data: vm.customerInfoData.email2
+				data: vm.customerInfoData[emailKey]
 			})
 			.then(function(response) {
 				let isSuccess = true;
 				if(response.data.success){
 					vm.clearError("Emails");
-					alert("Email 2 successfully updated!");	
+					alert("Email successfully updated!");	
 				}		
 				else vm.setError("Emails", "Error updating emails!");
 			}
@@ -188,9 +193,27 @@
 			});
 		}
 
-		this.saveTel = () =>
+
+		this.saveTel = (telKey) =>
 		{
-			console.log(this.customerInfoData.tel);
+			let vm = this;
+			$http({
+				method: "POST",
+				url: "http://localhost:8080/add/tel",
+				data: vm.customerInfoData[telKey]
+			})
+			.then(function(response) {
+				let isSuccess = true;
+				if(response.data.success){
+					console.log(response.data);
+					vm.clearError("Tel");
+					alert("Telephone successfully updated!");	
+				}		
+				else vm.setError("Tel", "Error updating telephone!");
+			}
+			,function(response){
+				vm.setError("Tel", "Error updating telephone!");
+			});
 		}
 
 

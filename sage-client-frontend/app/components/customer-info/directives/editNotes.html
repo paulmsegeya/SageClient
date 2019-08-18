@@ -14,7 +14,7 @@
                 <input type="text" class="editMemoTxt form-control" ng-model="memos[$index].note">
                 <button type="button" class="removeMemoBtn btn btn-danger" ng-click="memos[$index].shouldBeDeleted = true"><i class="fas fa-minus-square"></i></button>
             </div>
-            <button type="button" class="btn btn-primary" ng-click="memos.push(newNote)" ><i class="fas fa-plus-square"></i></button>
+            <button type="button" class="btn btn-primary" ng-click="memos.push(newNote())" ><i class="fas fa-plus-square"></i></button>
         </div>
 
         <!-- Modal footer -->

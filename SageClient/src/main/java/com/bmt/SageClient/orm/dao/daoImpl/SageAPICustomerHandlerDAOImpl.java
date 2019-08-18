@@ -89,6 +89,7 @@ public class SageAPICustomerHandlerDAOImpl implements SageAPICustomerHandlerDAO
 			
 			if(customersContacts.size() > 0)
 			{
+				//Emails
 				customerInfo.setCustomerName(customersContacts.get(0).getName());						
 				
 				List<CustomerEmails> customerEmails = requestEmails(customersContacts.get(0).getId());
@@ -111,24 +112,28 @@ public class SageAPICustomerHandlerDAOImpl implements SageAPICustomerHandlerDAO
 				customerInfo.setEmail(email1);
 				customerInfo.setEmail2(email2);		
 				
-			}
-			
-			
-			if(customersContacts.size() > 0)
-			{
+				//Telephones				
 				List<CustomerTelephones> customerTels = requestTel(customersContacts.get(0).getId());
 				Telephone tel1 = new Telephone();
+				Telephone tel2 = new Telephone();
 				
 				tel1.setCustomerContactID(customersContacts.get(0).getId() );
 				tel1.setCustomerID(customer.getId());
+				tel2.setCustomerContactID(customersContacts.get(0).getId() );
+				tel2.setCustomerID(customer.getId());
 				
 				if(customerTels.size() > 0){					
 					tel1.setId(customerTels.get(0).getId() );
 					tel1.setTelephone(customerTels.get(0).getSubscriberNumber() );
 				}
+				if(customerTels.size() > 1){					
+					
+					tel2.setId(customerTels.get(1).getId() );
+					tel2.setTelephone(customerTels.get(1).getSubscriberNumber() );
+				}
 				customerInfo.setTel(tel1);				
-			}
-			
+				customerInfo.setTel2(tel2);		
+			}			
 			
 			
 			if(transactions.size() > 0){
