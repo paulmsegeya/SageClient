@@ -15,8 +15,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.bmt.SageClient.GlobalVars;
 import com.bmt.SageClient.api_dataTypes.Email;
 import com.bmt.SageClient.api_dataTypes.ServerResponse;
+import com.bmt.SageClient.api_dataTypes.Telephone;
 import com.bmt.SageClient.orm.dao.SageAPIFieldsHandlerDAO;
 import com.bmt.SageClient.sage200api.entities.CustomerEmails;
+import com.bmt.SageClient.sage200api.entities.CustomerTelephones;
 
 
 @Repository
@@ -103,7 +105,71 @@ public class SageAPIFieldsHandlerDAOImpl implements SageAPIFieldsHandlerDAO
 		
 		return serverResponse;
 	}
+
 	
+	
+	@Override
+	public ServerResponse addUpdateTel(Telephone tel) {
+		if(tel.getId() == 0) return addTel(tel);
+		return updateTel(tel);
+	}
+
+
+	
+	@Override
+	public ServerResponse addTel(Telephone tel) 
+	{
+		setToken();
+		ServerResponse serverResponse;
+		try
+		{
+			RestTemplate restTemplate = new RestTemplate();		
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customers/" + tel.getCustomerID() + "/customer_contacts/" + tel.getCustomerContactID() + "/customer_telephones");
+			CustomerTelephones telRequestBody = new CustomerTelephones();
+			telRequestBody.setSubscriberNumber(tel.getTelephone());
+			HttpEntity<CustomerTelephones> entity = new HttpEntity<CustomerTelephones>(telRequestBody, headers);					
+			ResponseEntity<CustomerTelephones> response = restTemplate.exchange(
+					builder.toUriString().replaceAll("%20", " "),
+					HttpMethod.POST, entity, new ParameterizedTypeReference<CustomerTelephones>(){}) ;
+			
+			serverResponse = new ServerResponse();
+			serverResponse.setSuccess(true);
+			serverResponse.setHttpStatus( String.valueOf(response.getStatusCodeValue()) );
+		}
+		catch(HttpClientErrorException clientEx){ return runClientException(clientEx, "Client error adding telephone number"); }
+		catch(HttpServerErrorException  serverEx){ return runServerException(serverEx, "Server error adding telephone number"); }
+		catch(Exception e) { return runUnknownException(e); }
+		
+		return serverResponse;
+	}
+
+
+	@Override
+	public ServerResponse updateTel(Telephone tel) 
+	{
+		setToken();
+		ServerResponse serverResponse;
+		try
+		{
+			RestTemplate restTemplate = new RestTemplate();		
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_telephones/" + tel.getId());
+			CustomerTelephones telRequestBody = new CustomerTelephones();
+			telRequestBody.setSubscriberNumber(tel.getTelephone());
+			HttpEntity<CustomerTelephones> entity = new HttpEntity<CustomerTelephones>(telRequestBody, headers);					
+			ResponseEntity<CustomerTelephones> response = restTemplate.exchange(
+					builder.toUriString().replaceAll("%20", " "),
+					HttpMethod.PUT, entity, new ParameterizedTypeReference<CustomerTelephones>(){}) ;
+			
+			serverResponse = new ServerResponse();
+			serverResponse.setSuccess(true);
+			serverResponse.setHttpStatus( String.valueOf(response.getStatusCodeValue()) );
+		}
+		catch(HttpClientErrorException clientEx){ return runClientException(clientEx, "Client error updating telephone number"); }
+		catch(HttpServerErrorException  serverEx){ return runServerException(serverEx, "Server error updating telephone number"); }
+		catch(Exception e) { return runUnknownException(e); }
+		
+		return serverResponse;
+	}
 	
 	
 	
@@ -141,6 +207,8 @@ public class SageAPIFieldsHandlerDAOImpl implements SageAPIFieldsHandlerDAO
 		serverResponse.setMessage("Unknown");
 		return serverResponse;
 	}
+
+
 
 
 
