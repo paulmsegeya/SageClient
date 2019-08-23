@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -28,6 +29,7 @@ import com.bmt.SageClient.api_dataTypes.CustomerListData;
 import com.bmt.SageClient.api_dataTypes.SageConnectionTest;
 import com.bmt.SageClient.api_dataTypes.SageInterfaceConnection;
 import com.bmt.SageClient.api_dataTypes.ServerResponse;
+import com.bmt.SageClient.orm.dao.RequestHeaders;
 import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
 import com.bmt.SageClient.sage200api.CustomerMemoListData.MemoListDataTypes;
 import com.bmt.SageClient.sage200api.entities.CustomerMemos;
@@ -39,22 +41,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;;
 
-
 @Repository
-public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO 
+public class SageAPIHandlerDAOImpl extends RequestHeaders implements SageAPIHandlerDAO 
 {
-	HttpHeaders headers;
-	
-	public SageAPIHandlerDAOImpl() {
-		headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.set("Authorization", "Bearer " + GlobalVars.accessToken);		
-		headers.set("ocp-apim-subscription-key", "39cfbba1883b4f71931a6b3c495d3c68"); 
-		headers.set("X-Company",  GlobalVars.SageAPICompanyID); 
-		headers.set("Content-Type", "application/x-www-form-urlencoded"); 
-		headers.set("X-Site", "c3a91133-a250-c54f-e9ac-08d507348a36");		
-		headers.set("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
-	} 
 	
 	
 	public void setToken() {
@@ -108,16 +97,7 @@ public class SageAPIHandlerDAOImpl implements SageAPIHandlerDAO
 			connTest.setServerResponse(serverResponse);
 			return connTest;
 		}
-		
-		/*SageConnectionTest connTest = new SageConnectionTest();
-		connTest.setConnectedToSage(false);
-		ServerResponse serverResponse = new ServerResponse();
-		serverResponse.setSuccess(false);
-		serverResponse.setHttpStatus( "Unknown" );
-		serverResponse.setErrorSource("Unknown");
-		serverResponse.setMessage("Unknown");
-		connTest.setServerResponse(serverResponse);
-		return connTest;*/
+
 	}
 
 
