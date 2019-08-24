@@ -5,15 +5,19 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.annotation.Bean;
 
 import com.bmt.SageClient.gui.HideToSystemTray;
+import com.bmt.SageClient.service.Initialiser;
+import com.bmt.SageClient.service.InitialiserInterface;
 import com.bmt.SageClient.service.TokenGetter;
 
 @SpringBootApplication
 public class SageClientApplication {
+
 
 	public static void main(String[] args) {
 		//SpringApplication.run(SageClientApplication.class, args);	
@@ -25,6 +29,12 @@ public class SageClientApplication {
 		//startFrontEnd();
 	}
 
+	@Bean // TO DO: make daos extend a class that contains the headers which runs a timer to get the keys stored in 'globalVars'
+	   public CommandLineRunner demo(InitialiserInterface appInitialiser) {
+	      return (args) -> {
+	          appInitialiser.setSageApiConnectionData();	    	  
+	      };
+	   }
 	
 	
 	public static void getInput()
@@ -40,6 +50,7 @@ public class SageClientApplication {
 				else if(option.toLowerCase().equals("r")) TokenGetter.readToken();						
 			}
 	}
+	
 	
 	
 	public static void startFrontEnd()
