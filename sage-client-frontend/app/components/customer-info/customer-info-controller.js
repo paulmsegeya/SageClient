@@ -3,9 +3,11 @@
 	var CustomerInfoController =  function($http) 
 	{		
 		this.customerInfoAPIFieldNames = [];
-		this.fieldNames = {}
+		this.fieldNames = {};
+		this.searchType = "NAME";
 		this.customerInfoData = {};
 		this.customerName = undefined;
+		this.telSearchInput = "";
 		this.isTableVisible = false;
 		this.isCustomerInfoLoading = false;
 		this.connectionAPIDetails = {connectedToSage: false};
@@ -18,7 +20,7 @@
 			shouldBeDeleted: false
 		};
 
-		
+
 		this.testSageAPIConnection = () => 
 		{
 			let vm = this;
@@ -215,6 +217,49 @@
 				vm.setError("Tel", "Error updating telephone!");
 			});
 		}
+
+
+		this.getCustomerNamesByTel = (tel) =>{
+			console.log("arg: " + tel);
+			console.log("here: " + this.telSearchInput);
+			let vm = this;
+			return $http({
+				method: "GET",
+				url: "http://localhost:8080/search/tel/names",
+				params: {
+					tel : tel
+				}
+			})
+			.then(function(response) {
+				vm.clearError("nameTelSearch"); 
+				return response.data;
+			}
+			,function(response){
+				vm.setError("nameTelSearch", "Error finding customers for given telephone number");
+			});
+		}
+
+
+		this.getCustomerNamesByEmail = (email) =>{
+			console.log("arg: " + email);
+			let vm = this;
+			return $http({
+				method: "GET",
+				url: "http://localhost:8080/search/email/names",
+				params: {
+					email : email
+				}
+			})
+			.then(function(response) {
+				vm.clearError("nameEmailSearch"); 
+				return response.data;
+			}
+			,function(response){
+				vm.setError("nameEmailSearch", "Error finding customers for given email address.");
+			});
+		}
+
+
 
 
 		this.setError = (errorSrc, message) =>{

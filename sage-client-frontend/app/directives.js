@@ -1,3 +1,16 @@
+sageClientApp.directive("customerSearch", function(){
+	return{
+        retrict: "E",
+        scope: {
+            customerName: '=',
+            inputText: '@',
+            nameSearchFn: "=",
+            infoSearchFn: '='
+        },
+		templateUrl: "app/components/customer-info/directives/customerSearch.html"
+	};
+});
+
 sageClientApp.directive("customerInfo", function(){
 	return{
         retrict: "E",

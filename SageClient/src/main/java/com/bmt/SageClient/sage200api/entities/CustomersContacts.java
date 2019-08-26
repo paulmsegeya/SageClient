@@ -10,6 +10,7 @@ public class CustomersContacts
 {
 	
 	private long id;
+	private long customerID;
 	private String name;
 	private String defaultTelephone;
 	private String defaultEmail;
@@ -22,6 +23,14 @@ public class CustomersContacts
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	@JsonProperty("customer_id")
+	public long getCustomerID() {
+		return customerID;
+	}
+	public void setCustomerID(long customerID) {
+		this.customerID = customerID;
 	}
 	
 	@JsonProperty("name")

@@ -276,7 +276,7 @@ public class SageAPICustomerHandlerDAOImpl extends RequestHeaders implements Sag
 			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
 			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_contacts")
 			        .queryParam("$filter", "customer_id eq " + id)
-			        .queryParam("$select", "id,name,default_email");
+			        .queryParam("$select", "id,customer_id,name,default_email");
 			
 			ResponseEntity<List<CustomersContacts>> response = restTemplate.exchange(
 					builder.toUriString().replaceAll("%20", " "),
