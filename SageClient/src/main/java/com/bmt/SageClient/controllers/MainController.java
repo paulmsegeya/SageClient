@@ -21,9 +21,11 @@ import com.bmt.SageClient.api_dataTypes.SageInterfaceConnection;
 import com.bmt.SageClient.api_dataTypes.ServerResponse;
 import com.bmt.SageClient.api_dataTypes.Telephone;
 import com.bmt.SageClient.orm.dao.SageAPICustomerHandlerDAO;
+import com.bmt.SageClient.orm.dao.SageAPIEmailSearchDAO;
 import com.bmt.SageClient.orm.dao.SageAPIFieldsHandlerDAO;
 import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
 import com.bmt.SageClient.orm.dao.SageAPIMemoHandlerDAO;
+import com.bmt.SageClient.orm.dao.SageAPITelSearchDAO;
 
 @CrossOrigin
 @RestController
@@ -38,8 +40,24 @@ public class MainController
 	SageAPIMemoHandlerDAO sageAPMemoIHandler;
 	@Autowired
 	SageAPIFieldsHandlerDAO sageAPIFieldsHandlerDAO;
+	@Autowired
+	SageAPITelSearchDAO sageApiTelSearchDao;
+	@Autowired
+	SageAPIEmailSearchDAO sageAPIEmailSearchDAO;
 
 	
+	
+	
+	@RequestMapping("/search/tel/names")
+    public List<String> searchNamesByTel(@RequestParam(name = "tel", required=true) String tel) {
+          return sageApiTelSearchDao.seachViaTel(tel);
+    }
+	
+	@RequestMapping("/search/email/names")
+    public List<String> searchNamesByEmail(@RequestParam(name = "email", required=true) String email) {
+          return sageAPIEmailSearchDAO.seachViaEmail(email);
+    }
+    
     @RequestMapping("/customer_info")
     public CustomerInfo getCustomerInfo(@RequestParam(name = "customerName", required=true) String customerName) {
           return sageAPICustomerHandler.getCustomerInfo(customerName);
