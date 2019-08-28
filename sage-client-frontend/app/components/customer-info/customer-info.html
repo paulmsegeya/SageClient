@@ -4,19 +4,19 @@
 	<div class="col-md-12">
 		
 		<div id="menuRow" class="row">
-			<customer-search  ng-show="customerCtrl.searchType == 'NAME'" class="col-md-6"
+			<customer-search  ng-show="customerCtrl.searchType == 'NAME'" class="col-md-5"
 			customer-name="customerCtrl.customerName"  input-text="Enter customer name" 
 			name-search-fn="customerCtrl.getTopCustomerNames" info-search-fn="customerCtrl.getCustomerInfoData"></customer-search>
 
-			<customer-search  ng-show="customerCtrl.searchType == 'TEL'" class="col-md-6"
+			<customer-search  ng-show="customerCtrl.searchType == 'TEL'" class="col-md-5"
 			customer-name="customerCtrl.customerName"  input-text="Enter telephone number" 
 			name-search-fn="customerCtrl.getCustomerNamesByTel" info-search-fn="customerCtrl.getCustomerInfoData"></customer-search>
 
-			<customer-search  ng-show="customerCtrl.searchType == 'EMAIL'" class="col-md-6"
+			<customer-search  ng-show="customerCtrl.searchType == 'EMAIL'" class="col-md-5"
 			customer-name="customerCtrl.customerName"  input-text="Enter email address" 
 			name-search-fn="customerCtrl.getCustomerNamesByEmail" info-search-fn="customerCtrl.getCustomerInfoData"></customer-search>
 
-			<div id="searchType" class="col-md-2">
+			<div id="searchType" class="col-md-1">
 				<div class="form-check">
 					<label class="form-check-label">
 						<input type="radio" value="NAME" ng-model="customerCtrl.searchType"  class="form-check-input" name="optradio">Name
@@ -32,6 +32,11 @@
 						<input type="radio" value="EMAIL" ng-model="customerCtrl.searchType" class="form-check-input" name="optradio">Email
 					</label>
 				</div>
+			</div>
+
+			<div id="reportsMenu" class="col-md-1 offset-md-1" ng-controller="datePickerController as datePickerCtrl">
+				<button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#reportModal"> Report </button>
+				<report-modal ctrl="datePickerCtrl"></report-modal>					
 			</div>
 
 			<div id="connectionStatus" class="col-md-3 offset-md-1">

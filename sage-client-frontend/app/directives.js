@@ -138,5 +138,16 @@ sageClientApp.directive("connectionInfo", function(){
 	};
 });
 
+sageClientApp.directive("reportModal", function(){
+	return{
+        retrict: "E",
+        scope: {
+            ctrl: '='
+        },
+		templateUrl: "app/components/customer-info/directives/reportModal.html"
+	};
+});
+
+
 
 
