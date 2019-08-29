@@ -9,41 +9,31 @@
         </div>
 
         <!-- Modal body -->
-        <div class="modal-body">
+        <div class="modal-body"  ng-controller="reportsController as reportsCtrl">
             
-            <h5>Memo Dates </h5>
-            {{ctrl.data}}
+            <h5>Memo Dates </h5> {{reportsCtrl.data}}
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6" ng-controller="datePickerController as datePicker1Ctrl">
                     <p class="input-group">
-                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                    <input type="text" class="form-control" uib-datepicker-popup="{{datePicker1Ctrl.format}}" ng-model="datePicker1Ctrl.dt" is-open="datePicker1Ctrl.popup1.opened" datepicker-options="datePicker1Ctrl.dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="datePicker1Ctrl.open1()"><i class="fas fa-calendar-alt"></i></button>
                     </span>
                     </p>
                 </div>
 
-                <div class="col-md-6">
+
+                <div class="col-md-6" ng-controller="datePickerController as datePicker2Ctrl">
                     <p class="input-group">
-                    <input type="text" class="form-control" uib-datepicker-popup ng-model="dt" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                    <input type="text" class="form-control" uib-datepicker-popup="{{datePicker2Ctrl.format}}" ng-model="datePicker2Ctrl.dt" is-open="datePicker2Ctrl.popup2.opened" datepicker-options="datePicker2Ctrl.dateOptions" ng-required="true" close-text="Close" />
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="datePicker2Ctrl.open2()"><i class="fas fa-calendar-alt"></i></button>
                     </span>
                     </p>
                 </div>
             </div>
-                
-            <div class="row">
-                <div class="col-md-6">
-                    <label>Format: <span class="muted-text">(manual alternate <em>{{altInputFormats[0]}}</em>)</span></label> <select class="form-control" ng-model="format" ng-options="f for f in formats"><option></option></select>
-                </div>
-            </div>
+    
 
-            <hr />
-            <button type="button" class="btn btn-sm btn-info" ng-click="today()">Today</button>
-            <button type="button" class="btn btn-sm btn-default" ng-click="setDate(2009, 7, 24)">2009-08-24</button>
-            <button type="button" class="btn btn-sm btn-danger" ng-click="clear()">Clear</button>
-            <button type="button" class="btn btn-sm btn-default" ng-click="toggleMin()" uib-tooltip="After today restriction">Min date</button>
 
 
 
