@@ -56,6 +56,7 @@ public class SageAPIReportDAOImpl extends RequestHeaders implements SageAPIRepor
 	@Override
 	public List<CustomerMemos> getCustomerIDsFromMemos(Date date1, Date date2) 
 	{
+		setToken();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  		
 		try
 		{
@@ -106,6 +107,7 @@ public class SageAPIReportDAOImpl extends RequestHeaders implements SageAPIRepor
 	@Override
 	public List<Customers> getCustomerNamesFromIDs(List<Long> customerIDs) 
 	{
+		setToken();
 		String idFilter = "";
 		for(int x = 0; x < customerIDs.size(); x++) {
 			idFilter += "id eq " + customerIDs.get(x);

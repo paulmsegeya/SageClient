@@ -1,11 +1,33 @@
 sageClientApp.factory('reportsService', function() {
     
-    let dateFrom = "mydateFrom";//undefined;
+    let dateFrom = new Date();//undefined;
     let dateTo = "myDateto";//undefined;
 
+    let getDateFrom = () =>{
+        return dateFrom;
+    }
+
+    let setDateFrom = (val) =>{
+        dateFrom = val;
+    }
+
+    let getDateTo = () =>{
+        return dateTo;
+    }
+
+    let setDateTo = (val) =>{
+        dateTo = val;
+    }
+
     return {
-        dateFrom: dateFrom,
-        dateTo: dateTo
+        dateFrom: {
+            get: getDateFrom,
+            set: setDateFrom,
+        },
+        dateTo: {
+            get: getDateTo,
+            set: setDateTo,
+        }
     }
 
 });

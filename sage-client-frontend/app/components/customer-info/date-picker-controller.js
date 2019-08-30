@@ -3,7 +3,10 @@
 	var DatePickerController =  function() 
 	{	
 
-    //this.reportsService = $reportsService;
+    this.saveDate = () =>{
+      this.setDateFn(this.dt);
+    }
+    
 
     this.today = function() {
         this.dt = new Date();
@@ -52,6 +55,7 @@
       };
 
       this.setDate = function(year, month, day) {
+        console.log("here");
         this.dt = new Date(year, month, day);
       };
 
@@ -107,5 +111,5 @@
     }
 
 
-    angular.module('sageClientApp').controller('datePickerController', [ DatePickerController]);
+    angular.module('sageClientApp').controller('datePickerController', [DatePickerController]);
 }());

@@ -148,6 +148,17 @@ sageClientApp.directive("reportModal", function(){
 	};
 });
 
+sageClientApp.directive("reportTable", function(){
+	return{
+        retrict: "E",
+        scope: {
+            data: '='
+        },
+		templateUrl: "app/components/customer-info/directives/reportTable.html"
+	};
+});
+
+
 
 
 

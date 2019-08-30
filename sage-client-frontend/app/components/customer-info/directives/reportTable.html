@@ -1,0 +1,63 @@
+<div class="reportSection">
+    <div class="reportsTableWrapper" class="col-md-8">
+        <table class="reportTbl"  class="table table-striped">
+            <tbody>
+        
+                <tr> <th class="customerInfoHeader"> Account Ref </th> <td class="customerInfoValue"> {{data.accountRef}} </td> </tr>
+                <tr> <th class="customerInfoHeader"> Account Name </th> <td class="customerInfoValue"> {{data.accountName}} </td>  </tr>
+                <tr> <th class="customerInfoHeader"> Short Name </th> <td class="customerInfoValue"> {{data.shortName}} </td> </tr>
+                <tr> <th class="customerInfoHeader"> Customer Name </th> <td class="customerInfoValue"> {{data.customerName}} </td> </tr>
+                <tr> <th class="customerInfoHeader"> Package </th> <td class="customerInfoValue"> {{data.transPackage}} </td> </tr>
+                <tr> <th class="customerInfoHeader"> Type </th> <td class="customerInfoValue"> {{data.type}} </td> </tr>     
+                <tr> <th class="customerInfoHeader"> Date of Shoot </th> <td class="customerInfoValue"> {{data.dateOfShoot}} </td> </tr>
+                <tr> <th class="customerInfoHeader"> Total </th> <td class="customerInfoValue"> {{data.total | currency : '&pound;'}} </td> </tr>
+                <tr> <th class="customerInfoHeader"> Invoice Balance </th> <td class="customerInfoValue"> {{data.invoiceBalance}} </td> </tr>
+                <tr> <th class="customerInfoHeader"> Signed Date </th> <td class="customerInfoValue"> {{data.signedDate}} </td> </tr>
+                <tr> <th class="customerInfoHeader"> </th> <td class="customerInfoValue"> {{data.email.email}} </td>  </tr>
+                <tr> <th class="customerInfoHeader"> </th> <td class="customerInfoValue"> {{data.email2.email}}</td></tr>
+                <tr> <th class="customerInfoHeader"> Tel </th> <td class="customerInfoValue"> {{data.tel.telephone}} </td></tr>
+                <tr> <th class="customerInfoHeader"> Tel 2 </th> <td class="customerInfoValue"> {{data.tel2.telephone}}  </td></tr>
+                <tr> <th class="customerInfoHeader"> Seen Contact </th> <td class="customerInfoValue"> {{data.accountName}} </td> </tr>
+            
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-4">
+        <h3>Memos</h3>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" ng-repeat="memo in data.memos" >{{memo.note}}</li>
+        </ul>
+    </div>
+
+    <div class="listDataReport">
+        <h3> Casting Directories  </h3>
+        <div class="listDataReportList">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" ng-repeat="value in data.listData.casting.data"> {{value}}</li>
+            </ul>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+                    
+
+
+
+
+
+
+
+
+
+
