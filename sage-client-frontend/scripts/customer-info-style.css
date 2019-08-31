@@ -1,3 +1,12 @@
+#menuRow{
+    margin-bottom: 50px;
+}
+
+#smallMenu{
+    text-align: right;
+}
+
+
 #customerSearch{
     margin-bottom: 20px;
     float: left;

@@ -5,6 +5,7 @@
 		this.dateFrom = new Date();
 		this.dateTo = new Date();
 		this.reports = [];
+		this.isReportLoading = false;
 		
 		this.setReportsFromState = () =>{
 			if($stateParams.reportData !== undefined) this.reports = $stateParams.reportData;
@@ -13,7 +14,7 @@
 		this.getReport = () =>
 		{
 			let vm = this;
-			return $http({
+			$http({
 				method: "GET",
 				url: "http://localhost:8080/report",
 				params: {
@@ -22,13 +23,16 @@
 				}
 			})
 			.then(function(response) {
+				this.isReportLoading = false;
 				console.log(response);
 				vm.reports = response.data;
 				$state.go('reports', {reportData: response.data});
 			}
 			,function(response){
+				this.isReportLoading = false;
 				console.log("error", response);
 			});
+			this.isReportLoading = true;
 		}
 
 		this.printReport = () =>{			

@@ -12,6 +12,7 @@
 		this.isCustomerInfoLoading = false;
 		this.connectionAPIDetails = {connectedToSage: false};
 		this.connectionInterfaceDetails = {sageInterfaceConnected: false};
+		this.isConnectionStatusVisible = false;
 		this.errorMessages = {};
 		this.newNote = {
 			customerId: this.customerInfoData.customerID,
@@ -257,6 +258,10 @@
 			,function(response){
 				vm.setError("nameEmailSearch", "Error finding customers for given email address.");
 			});
+		}
+
+		this.toggleConnectionStatusVisiblity = () =>{
+			this.isConnectionStatusVisible = !this.isConnectionStatusVisible;
 		}
 
 

@@ -1,50 +1,62 @@
-<div class="modal" id="reportModal">
-    <div class="modal-dialog" ng-controller="reportsController as reportsCtrl" >
-        <div class="modal-content"   >
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Reports</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                
-                <h5>Memo Dates </h5>
-
-                <div class="row">
-                    <div class="col-md-6" ng-controller="datePickerController as datePicker1Ctrl">
-                        <p class="input-group">
-                        <input type="text" class="form-control" uib-datepicker-popup="{{datePicker1Ctrl.format}}" ng-model="reportsCtrl.dateFrom" is-open="datePicker1Ctrl.popup1.opened" datepicker-options="datePicker1Ctrl.dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="datePicker1Ctrl.open1()"><i class="fas fa-calendar-alt"></i></button>
-                        </span>
-                        </p>
-                    </div>
-
-
-                    <div class="col-md-6" ng-controller="datePickerController as datePicker2Ctrl">
-                        <p class="input-group">
-                        <input type="text" class="form-control" uib-datepicker-popup="{{datePicker2Ctrl.format}}" ng-model="reportsCtrl.dateTo" is-open="datePicker2Ctrl.popup2.opened" datepicker-options="datePicker2Ctrl.dateOptions" ng-required="true" close-text="Close" />
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="datePicker2Ctrl.open2()"><i class="fas fa-calendar-alt"></i></button>
-                        </span>
-                        </p>
-                    </div>
+<div class="mainContent"  ng-controller="reportsController as reportsCtrl">
+    
+    <div class="modal" id="reportModal">
+        <div class="modal-dialog" >
+            <div class="modal-content"   >
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Reports</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-
-
-
-
+    
+                <!-- Modal body -->
+                <div class="modal-body">
+                    
+                    <h5>Memo Dates </h5>
+    
+                    <div class="row">
+                        <div class="col-md-6" ng-controller="datePickerController as datePicker1Ctrl">
+                            <p class="input-group">
+                            <input type="text" class="form-control" uib-datepicker-popup="{{datePicker1Ctrl.format}}" ng-model="reportsCtrl.dateFrom" is-open="datePicker1Ctrl.popup1.opened" datepicker-options="datePicker1Ctrl.dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="datePicker1Ctrl.open1()"><i class="fas fa-calendar-alt"></i></button>
+                            </span>
+                            </p>
+                        </div>
+    
+    
+                        <div class="col-md-6" ng-controller="datePickerController as datePicker2Ctrl">
+                            <p class="input-group">
+                            <input type="text" class="form-control" uib-datepicker-popup="{{datePicker2Ctrl.format}}" ng-model="reportsCtrl.dateTo" is-open="datePicker2Ctrl.popup2.opened" datepicker-options="datePicker2Ctrl.dateOptions" ng-required="true" close-text="Close" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="datePicker2Ctrl.open2()"><i class="fas fa-calendar-alt"></i></button>
+                            </span>
+                            </p>
+                        </div>
+                    </div>
+    
+    
+    
+    
+                </div>
+    
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="reportsCtrl.getReport()"> Preview </button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+    
             </div>
+        </div>
+    </div>
+    
 
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="reportsCtrl.getReport()"> Preview </button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
 
+    <div id="reportLoaderIcon">
+        <div class="spinner-border text-primary" role="status" ng-show="reportsCtrl.isReportLoading">
+            <span class="sr-only">Loading...</span>
         </div>
     </div>
 </div>
+
