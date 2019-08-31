@@ -30,6 +30,10 @@
 				console.log("error", response);
 			});
 		}
+
+		this.printReport = () =>{			
+			window.print();
+		}
  
 
 		this.setReportsFromState();

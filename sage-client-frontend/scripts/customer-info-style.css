@@ -129,6 +129,10 @@
     color: black;
 }
 
-.reportSection{
-    margin-bottom: 20px;
+#searchTxts{
+    float: left;
+}
+#searchTypes{
+    margin-left: 50px;
+    float: left;
 }
