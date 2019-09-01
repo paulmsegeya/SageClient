@@ -29,7 +29,7 @@
             <h5>Memos</h5>
             <table class="listDataReportList table table-sm">
                 <tr ng-repeat="memo in data.memos">
-                    <td>{{memo.note}}</td>
+                    <td>{{formatDateFn(memo.dateTimeUpdated) + ' - ' + memo.note}}</td>
                 </tr>
             </table>
         </div>

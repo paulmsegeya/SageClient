@@ -1,18 +1,22 @@
 package com.bmt.SageClient.api_dataTypes;
 
+import java.util.Date;
+
 public class Note
 {
 	private long id;
 	private long customerId;
 	private String note;
+	private Date dateTimeUpdated;
 	private boolean shouldBeDeleted;
 
 	public Note() {}
 	
-	public Note(long id, long customerId, String note) {
+	public Note(long id, long customerId, String note, Date dateTimeUpdated) {
 		this.id = id;
 		this.customerId = customerId;
 		this.note = note;
+		this.dateTimeUpdated = dateTimeUpdated;
 	}
 	
 	
@@ -39,6 +43,13 @@ public class Note
 	}
 	public void setShouldBeDeleted(boolean shouldBeDeleted) {
 		this.shouldBeDeleted = shouldBeDeleted;
+	}
+	public Date getDateTimeUpdated() {
+		return dateTimeUpdated;
+	}
+
+	public void setDateTimeUpdated(Date dateTimeUpdated) {
+		this.dateTimeUpdated = dateTimeUpdated;
 	}
 	
 	

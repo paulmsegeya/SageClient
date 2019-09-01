@@ -264,6 +264,9 @@
 			this.isConnectionStatusVisible = !this.isConnectionStatusVisible;
 		}
 
+		this.formatDate = (date) =>{
+			return moment(date).format('DD-MM-YYYY');
+		}
 
 
 

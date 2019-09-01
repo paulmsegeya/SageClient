@@ -16,9 +16,9 @@
 
 
         <tr>
-            <th class="customerInfoHeader"> Date of Shoot </th> <td class="customerInfoValue"> {{data.dateOfShoot}} </td>
+            <th class="customerInfoHeader"> Date of Shoot </th> <td class="customerInfoValue"> {{ctrl.formatDate(data.dateOfShoot)}} </td>
             <th class="customerInfoHeader"> Total </th> <td class="customerInfoValue"> {{data.total | currency : '&pound;'}} </td>            
-            <th class="customerInfoHeader"> Invoice Balance </th> <td class="customerInfoValue"> {{data.invoiceBalance}} </td>
+            <th class="customerInfoHeader"> Invoice Balance </th> <td class="customerInfoValue"> {{data.invoiceBalance | currency : '&pound;'}} </td>
         </tr>
 
 

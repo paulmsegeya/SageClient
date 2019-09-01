@@ -198,8 +198,9 @@ public class SageAPICustomerHandlerDAOImpl extends RequestHeaders implements Sag
 				}
 				
 			}
-			else customerInfo.addMemo(new Note(memo.getId(), memo.getCustomerId(), memo.getNote())    );	//regular memo
+			else customerInfo.addMemo(new Note(memo.getId(), memo.getCustomerId(), memo.getNote(), memo.getDateTimeUpdated())    );	//regular memo
 		}			
+
 		customerInfo.setListData(listData);
 	}
 	
@@ -341,7 +342,7 @@ public class SageAPICustomerHandlerDAOImpl extends RequestHeaders implements Sag
 			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);		
 			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_memos")
 			        .queryParam("$filter", "customer_id eq " + id)
-			        .queryParam("$select", "id,customer_id,note");
+			        .queryParam("$select", "id,customer_id,note,date_time_updated");
 			
 			ResponseEntity<List<CustomerMemos>> response = restTemplate.exchange(
 					builder.toUriString().replaceAll("%20", " "),

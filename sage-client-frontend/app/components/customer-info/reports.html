@@ -1,14 +1,13 @@
 <link rel="stylesheet" href="scripts/reportsStyle.css"> 
 
-<div class="
-"  ng-controller="reportsController as reportsCtrl">
+<div class="mainContent"  ng-controller="reportsController as reportsCtrl">
 
     <button type="button" class="btn btn-primary d-print-none" ng-click="reportsCtrl.printReport()"> Print </button>
 
     <div>
         <div class="row">
             <div class="col-md-12">                 
-                <report-table ng-repeat="report in reportsCtrl.reports" data="report"></report-table>
+                <report-table ng-repeat="report in reportsCtrl.reports" data="report" format-date-fn="reportsCtrl.formatDate"></report-table>
             </div>    
         </div>
     </div>

@@ -27,6 +27,8 @@
 			</div>
 			
 
+
+
 			<div id="smallMenu" class="col-md-3 offset-md-2">
 				<div id="smallMenuButtons">
 					<ul class="nav nav-tabs">
@@ -72,7 +74,7 @@
 			
 			<div id="customerInfoDiv" class="col-md-8>"  ng-show="customerCtrl.isTableVisible">
 				
-				<customer-info data="customerCtrl.customerInfoData" save-email-fn="customerCtrl.saveEmail" save-tel-fn="customerCtrl.saveTel"></customer-info>
+				<customer-info data="customerCtrl.customerInfoData" ctrl="customerCtrl" save-email-fn="customerCtrl.saveEmail" save-tel-fn="customerCtrl.saveTel"></customer-info>
 
 				<div id="customerListDataDiv">
 					<customer-list-data header="Interviews" list-data-key="interviews" list-data="customerCtrl.customerInfoData.listData.interviews" save-data-fn="customerCtrl.saveListData"></customer-list-data>	
@@ -91,7 +93,13 @@
 					</div>
 					<div class="card-body">
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item" ng-repeat="memo in customerCtrl.customerInfoData.memos" ng-hide="memo.shouldBeDeleted">{{memo.note}}</li>
+							<li class="list-group-item" ng-repeat="memo in customerCtrl.customerInfoData.memos" ng-hide="memo.shouldBeDeleted">
+									<!--{{customerCtrl.formatDate(memo.dateTimeUpdated) + ' - ' + memo.note}}-->
+									<div>
+										<span class="memoDate">{{customerCtrl.formatDate(memo.dateTimeUpdated)}}</span> </br>
+										<span>{{memo.note}}</span>
+									</div>
+							</li>
 						</ul>
 					</div>
 				</div>
