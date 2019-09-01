@@ -1,4 +1,6 @@
 package com.bmt.SageClient.sage200api.entities;
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,6 +11,7 @@ public class CustomerMemos
 	private long id;
 	private long customerId;
 	private String note;
+	private Date dateTimeUpdated;
 	
 
 	@JsonProperty("id")
@@ -33,6 +36,14 @@ public class CustomerMemos
 	}
 	public void setNote(String note) {
 		this.note = note;
+	}
+	
+	@JsonProperty("date_time_updated")
+	public Date getDateTimeUpdated() {
+		return dateTimeUpdated;
+	}
+	public void setDateTimeUpdated(Date dateTimeUpdated) {
+		this.dateTimeUpdated = dateTimeUpdated;
 	}
 	
 	

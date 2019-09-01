@@ -12,6 +12,7 @@
 		this.isCustomerInfoLoading = false;
 		this.connectionAPIDetails = {connectedToSage: false};
 		this.connectionInterfaceDetails = {sageInterfaceConnected: false};
+		this.isConnectionStatusVisible = false;
 		this.errorMessages = {};
 		this.newNote = {
 			customerId: this.customerInfoData.customerID,
@@ -259,6 +260,13 @@
 			});
 		}
 
+		this.toggleConnectionStatusVisiblity = () =>{
+			this.isConnectionStatusVisible = !this.isConnectionStatusVisible;
+		}
+
+		this.formatDate = (date) =>{
+			return moment(date).format('DD-MM-YYYY');
+		}
 
 
 

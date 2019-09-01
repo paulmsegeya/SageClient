@@ -5,14 +5,14 @@
     angular.module('sageClientApp').config(function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/customer");
         
-        $stateProvider.state("test", {
+        $stateProvider.state("customer", {
             url: "/customer",
             templateUrl: "app/components/customer-info/customer-info.html"
-        }).state("test2", {
-        	url: "/test2",
-        	templateUrl: "app/components/customer-info/customer-info.html",
+        }).state("reports", {
+        	url: "/reports",
+        	templateUrl: "app/components/customer-info/reports.html",
     		params: {
-    	        data: null
+    	        reportData: []
     	    }
     	})
     });

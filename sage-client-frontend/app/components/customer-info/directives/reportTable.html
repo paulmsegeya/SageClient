@@ -1,0 +1,108 @@
+<div class="reportSection">
+    <div class="row reportTblAndMemo">
+        <div class="reportsTableWrapper col-md-6">
+            <h5> Customer Details </h5>
+            <table class="reportTbl table table-sm">
+                <tbody>
+            
+                    <tr> <th class="customerInfoHeader"> Account Ref </th> <td class="customerInfoValue"> {{data.accountRef}} </td> </tr>
+                    <tr> <th class="customerInfoHeader"> Account Name </th> <td class="customerInfoValue"> {{data.accountName}} </td>  </tr>
+                    <tr> <th class="customerInfoHeader"> Short Name </th> <td class="customerInfoValue"> {{data.shortName}} </td> </tr>
+                    <tr> <th class="customerInfoHeader"> Customer Name </th> <td class="customerInfoValue"> {{data.customerName}} </td> </tr>
+                    <tr> <th class="customerInfoHeader"> Package </th> <td class="customerInfoValue"> {{data.transPackage}} </td> </tr>
+                    <tr> <th class="customerInfoHeader"> Type </th> <td class="customerInfoValue"> {{data.type}} </td> </tr>     
+                    <tr> <th class="customerInfoHeader"> Date of Shoot </th> <td class="customerInfoValue"> {{data.dateOfShoot}} </td> </tr>
+                    <tr> <th class="customerInfoHeader"> Total </th> <td class="customerInfoValue"> {{data.total | currency : '&pound;'}} </td> </tr>
+                    <tr> <th class="customerInfoHeader"> Invoice Balance </th> <td class="customerInfoValue"> {{data.invoiceBalance}} </td> </tr>
+                    <tr> <th class="customerInfoHeader"> Signed Date </th> <td class="customerInfoValue"> {{data.signedDate}} </td> </tr>
+                    <tr> <th class="customerInfoHeader"> Email </th> <td class="customerInfoValue"> {{data.email.email}} </td>  </tr>
+                    <tr> <th class="customerInfoHeader"> Email 2</th> <td class="customerInfoValue"> {{data.email2.email}}</td></tr>
+                    <tr> <th class="customerInfoHeader"> Tel </th> <td class="customerInfoValue"> {{data.tel.telephone}} </td></tr>
+                    <tr> <th class="customerInfoHeader"> Tel 2 </th> <td class="customerInfoValue"> {{data.tel2.telephone}}  </td></tr>
+                    <tr> <th class="customerInfoHeader"> Seen Contact </th> <td class="customerInfoValue"> {{data.accountName}} </td> </tr>
+                
+                </tbody>
+            </table>
+        </div>
+
+        <div class="memoReportSection col-md-6" ng-show="data.memos.length > 0">
+            <h5>Memos</h5>
+            <table class="listDataReportList table table-sm">
+                <tr ng-repeat="memo in data.memos">
+                    <td>{{formatDateFn(memo.dateTimeUpdated) + ' - ' + memo.note}}</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="row listDataReportSection">
+        <div class="listDataReport col-md-2" ng-show="data.listData.interviews.data.length > 0">
+            <h5> Interviews  </h5>
+            <table class="listDataReportList table table-sm">
+                <tr ng-repeat="value in data.listData.interviews.data">
+                    <td>{{value}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="listDataReport col-md-2" ng-show="data.listData.selfTapes.data.length > 0">
+            <h5> Self Tapes  </h5>
+            <table class="listDataReportList table table-sm">
+                <tr ng-repeat="value in data.listData.selfTapes.data">
+                    <td>{{value}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="listDataReport col-md-2" ng-show="data.listData.offers.data.length > 0">
+            <h5> Offers  </h5>
+            <table class="listDataReportList table table-sm">
+                <tr ng-repeat="value in data.listData.offers.data">
+                    <td>{{value}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="listDataReport col-md-2" ng-show="data.listData.chosenAgencies.data.length > 0">
+            <h5> Chosen Agencies  </h5>
+            <table class="listDataReportList table table-sm">
+                <tr ng-repeat="value in data.listData.chosenAgencies.data">
+                    <td>{{value}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="listDataReport col-md-2" ng-show="data.listData.casting.data.length > 0">
+            <h5> Casting Directories  </h5>
+            <table class="listDataReportList table table-sm">
+                <tr ng-repeat="value in data.listData.casting.data">
+                    <td>{{value}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+
+
+
+</div>
+
+
+
+
+
+
+
+
+                    
+
+
+
+
+
+
+
+
+
+

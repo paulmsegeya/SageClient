@@ -1,0 +1,15 @@
+.reportSection{
+    margin-bottom: 25px;
+    margin-top: 25px;
+    border-bottom: 1px solid black;
+    padding-bottom: 20px;
+
+}
+
+.reportsTableWrapper{
+    padding-right: 50px;
+}
+
+.listDataReportSection{
+    margin-top: 25px;
+}

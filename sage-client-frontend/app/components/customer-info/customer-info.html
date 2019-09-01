@@ -1,42 +1,54 @@
 <link rel="stylesheet" href="scripts/customer-info-style.css"> 
 
-<div class="row" ng-controller="customerInfoController as customerCtrl">
+<div class="mainContent row" ng-controller="customerInfoController as customerCtrl">
 	<div class="col-md-12">
 		
 		<div id="menuRow" class="row">
-			<customer-search  ng-show="customerCtrl.searchType == 'NAME'" class="col-md-6"
-			customer-name="customerCtrl.customerName"  input-text="Enter customer name" 
-			name-search-fn="customerCtrl.getTopCustomerNames" info-search-fn="customerCtrl.getCustomerInfoData"></customer-search>
-
-			<customer-search  ng-show="customerCtrl.searchType == 'TEL'" class="col-md-6"
-			customer-name="customerCtrl.customerName"  input-text="Enter telephone number" 
-			name-search-fn="customerCtrl.getCustomerNamesByTel" info-search-fn="customerCtrl.getCustomerInfoData"></customer-search>
-
-			<customer-search  ng-show="customerCtrl.searchType == 'EMAIL'" class="col-md-6"
-			customer-name="customerCtrl.customerName"  input-text="Enter email address" 
-			name-search-fn="customerCtrl.getCustomerNamesByEmail" info-search-fn="customerCtrl.getCustomerInfoData"></customer-search>
-
-			<div id="searchType" class="col-md-2">
-				<div class="form-check">
-					<label class="form-check-label">
-						<input type="radio" value="NAME" ng-model="customerCtrl.searchType"  class="form-check-input" name="optradio">Name
-					</label>
-				</div>
-				<div class="form-check">
-					<label class="form-check-label">
-						<input type="radio" value="TEL" ng-model="customerCtrl.searchType" class="form-check-input" name="optradio">Telephone
-					</label>
-				</div>
-				<div class="form-check">
-					<label class="form-check-label">
-						<input type="radio" value="EMAIL" ng-model="customerCtrl.searchType" class="form-check-input" name="optradio">Email
-					</label>
+			<div id="search" class="col-md-7">
+				<div id="searchTxts">
+					<customer-search  ng-show="customerCtrl.searchType == 'NAME'"
+					customer-name="customerCtrl.customerName"  input-text="Enter customer name" 
+					name-search-fn="customerCtrl.getTopCustomerNames" info-search-fn="customerCtrl.getCustomerInfoData"></customer-search>
+		
+					<customer-search  ng-show="customerCtrl.searchType == 'TEL'"
+					customer-name="customerCtrl.customerName"  input-text="Enter telephone number" 
+					name-search-fn="customerCtrl.getCustomerNamesByTel" info-search-fn="customerCtrl.getCustomerInfoData"></customer-search>
+		
+					<customer-search  ng-show="customerCtrl.searchType == 'EMAIL'"
+					customer-name="customerCtrl.customerName"  input-text="Enter email address" 
+					name-search-fn="customerCtrl.getCustomerNamesByEmail" info-search-fn="customerCtrl.getCustomerInfoData"></customer-search>
+				</div>				
+	
+				<div id="searchTypes">
+					<div> <label> <input type="radio" value="NAME" ng-model="customerCtrl.searchType"  class="form-check-input" name="optradio">Name </label> </div>
+					<div> <label> <input type="radio" value="TEL" ng-model="customerCtrl.searchType" class="form-check-input" name="optradio">Telephone </label> </div>
+					<div> <label> <input type="radio" value="EMAIL" ng-model="customerCtrl.searchType" class="form-check-input" name="optradio">Email </label> </div>
 				</div>
 			</div>
+			
 
-			<div id="connectionStatus" class="col-md-3 offset-md-1">
-				<connection-info api-details="customerCtrl.connectionAPIDetails" interface-details="customerCtrl.connectionInterfaceDetails"></connection-info>
+
+
+			<div id="smallMenu" class="col-md-3 offset-md-2">
+				<div id="smallMenuButtons">
+					<ul class="nav nav-tabs">
+						<li class="nav-item" data-toggle="modal" data-target="#reportModal"><a class="nav-link  href="#"> <i class="fas fa-file-alt"></i> Report </a></li>
+						<li class="nav-item" ng-click="customerCtrl.toggleConnectionStatusVisiblity()"> <a class="nav-link  href="#">  <i class="fas fa-server"></i> Connection </a> </li>
+					</ul>
+				</div>
+				<div id="smallMenuContent" class="row">
+					<div class="col-md-10">
+						<report-modal></report-modal>
+						<div id="connectionStatus" ng-show="customerCtrl.isConnectionStatusVisible">
+							<connection-info api-details="customerCtrl.connectionAPIDetails" interface-details="customerCtrl.connectionInterfaceDetails"></connection-info>
+						</div>
+					</div>
+					
+				</div>
 			</div>
+			
+
+			
 
 
 		</div>
@@ -62,7 +74,7 @@
 			
 			<div id="customerInfoDiv" class="col-md-8>"  ng-show="customerCtrl.isTableVisible">
 				
-				<customer-info data="customerCtrl.customerInfoData" save-email-fn="customerCtrl.saveEmail" save-tel-fn="customerCtrl.saveTel"></customer-info>
+				<customer-info data="customerCtrl.customerInfoData" ctrl="customerCtrl" save-email-fn="customerCtrl.saveEmail" save-tel-fn="customerCtrl.saveTel"></customer-info>
 
 				<div id="customerListDataDiv">
 					<customer-list-data header="Interviews" list-data-key="interviews" list-data="customerCtrl.customerInfoData.listData.interviews" save-data-fn="customerCtrl.saveListData"></customer-list-data>	
@@ -81,7 +93,13 @@
 					</div>
 					<div class="card-body">
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item" ng-repeat="memo in customerCtrl.customerInfoData.memos" ng-hide="memo.shouldBeDeleted">{{memo.note}}</li>
+							<li class="list-group-item" ng-repeat="memo in customerCtrl.customerInfoData.memos" ng-hide="memo.shouldBeDeleted">
+									<!--{{customerCtrl.formatDate(memo.dateTimeUpdated) + ' - ' + memo.note}}-->
+									<div>
+										<span class="memoDate">{{customerCtrl.formatDate(memo.dateTimeUpdated)}}</span> </br>
+										<span>{{memo.note}}</span>
+									</div>
+							</li>
 						</ul>
 					</div>
 				</div>

@@ -1,8 +1,10 @@
 package com.bmt.SageClient.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +27,9 @@ import com.bmt.SageClient.orm.dao.SageAPIEmailSearchDAO;
 import com.bmt.SageClient.orm.dao.SageAPIFieldsHandlerDAO;
 import com.bmt.SageClient.orm.dao.SageAPIHandlerDAO;
 import com.bmt.SageClient.orm.dao.SageAPIMemoHandlerDAO;
+import com.bmt.SageClient.orm.dao.SageAPIReportDAO;
 import com.bmt.SageClient.orm.dao.SageAPITelSearchDAO;
+import com.bmt.SageClient.sage200api.entities.CustomerMemos;
 
 @CrossOrigin
 @RestController
@@ -44,6 +48,8 @@ public class MainController
 	SageAPITelSearchDAO sageApiTelSearchDao;
 	@Autowired
 	SageAPIEmailSearchDAO sageAPIEmailSearchDAO;
+	@Autowired
+	SageAPIReportDAO sageAPIReportDAO;
 
 	
 	
@@ -107,6 +113,13 @@ public class MainController
     public ServerResponse addUpdateTel(@RequestBody(required=true) Telephone tel) {
           return sageAPIFieldsHandlerDAO.addUpdateTel(tel);
     }
+    
+    @RequestMapping("/report")
+    public List<CustomerInfo> getReport( 
+    		@RequestParam(name = "date1", required=true ) @DateTimeFormat(pattern="yyyy-MM-dd") Date date1, 
+    		@RequestParam(name = "date2", required=true ) @DateTimeFormat(pattern="yyyy-MM-dd") Date date2) {
+          return sageAPIReportDAO.getReport(date1, date2);
+    }    
     
     
 }

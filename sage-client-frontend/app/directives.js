@@ -18,7 +18,8 @@ sageClientApp.directive("customerInfo", function(){
             data: '=',
             saveFieldFn: "=",
             saveEmailFn: "=",
-            saveTelFn: "="
+            saveTelFn: "=",
+            ctrl: "="
         },
 		templateUrl: "app/components/customer-info/directives/customerInfo.html"
 	};
@@ -137,6 +138,29 @@ sageClientApp.directive("connectionInfo", function(){
 		templateUrl: "app/components/customer-info/directives/connectionInfo.html"
 	};
 });
+
+sageClientApp.directive("reportModal", function(){
+	return{
+        retrict: "E",
+        scope: {
+            ctrl: '='
+        },
+		templateUrl: "app/components/customer-info/directives/reportModal.html"
+	};
+});
+
+sageClientApp.directive("reportTable", function(){
+	return{
+        retrict: "E",
+        scope: {
+            data: '=',
+            formatDateFn: '='
+        },
+		templateUrl: "app/components/customer-info/directives/reportTable.html"
+	};
+});
+
+
 
 
 

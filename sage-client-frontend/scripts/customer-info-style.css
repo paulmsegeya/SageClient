@@ -1,3 +1,12 @@
+#menuRow{
+    margin-bottom: 50px;
+}
+
+#smallMenu{
+    text-align: right;
+}
+
+
 #customerSearch{
     margin-bottom: 20px;
     float: left;
@@ -114,4 +123,30 @@
 
 .customerInfoValue{
     background-color:  #f7fafb;
+}
+
+
+.full button span {
+    background-color: limegreen;
+    border-radius: 32px;
+    color: black;
+}
+
+.partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+}
+
+#searchTxts{
+    float: left;
+}
+#searchTypes{
+    margin-left: 50px;
+    float: left;
+}
+
+.memoDate{
+    font-size: 11pt;
+    color: #7c7e80;
 }
