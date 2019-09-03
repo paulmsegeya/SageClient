@@ -13,23 +13,24 @@ public class HideToSystemTray extends JFrame {
 	
 	public HideToSystemTray() 
 	{
-		super("SystemTray test");
-		System.out.println("creating instance");
-		
+		super("SystemTray");
 		try {
-			System.out.println("setting look and feel");
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-			System.out.println("Unable to set LookAndFeel");
-		}
+		} catch (Exception e) {	}
 		
 		createSystemTray();
 		addWindowsStateListener();		
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage("IMAGE PATH HERE"));
-		setVisible(true);
+		try {
+			tray.add(trayIcon);
+			setVisible(false);
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}
+		/*setVisible(true);
 		setSize(300, 200);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
 	}
 	
 
@@ -51,13 +52,13 @@ public class HideToSystemTray extends JFrame {
 			MenuItem defaultItem = new MenuItem("Exit");
 			defaultItem.addActionListener(exitListener);
 			popup.add(defaultItem);
-			defaultItem = new MenuItem("Open");
+			/*defaultItem = new MenuItem("Open");
 			defaultItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setVisible(true);
 					setExtendedState(JFrame.NORMAL);
 				}
-			});
+			});*/
 			popup.add(defaultItem);
 			trayIcon = new TrayIcon(image, "SystemTray Demo", popup);
 			trayIcon.setImageAutoSize(true);
