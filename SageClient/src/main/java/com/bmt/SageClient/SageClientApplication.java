@@ -24,7 +24,7 @@ public class SageClientApplication {
         builder.headless(false).run(args);
 		TokenGetter.scheduleTokenGetter();
 		new HideToSystemTray();
-		startFrontEnd();
+		//startFrontEnd();
 	}
 
 	@Bean 
@@ -49,3 +49,4 @@ public class SageClientApplication {
 	}
 
 }
+

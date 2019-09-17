@@ -1,5 +1,8 @@
 package com.bmt.SageClient.orm.dao.daoImpl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +23,7 @@ import com.bmt.SageClient.orm.dao.RequestHeaders;
 import com.bmt.SageClient.orm.dao.SageAPIFieldsHandlerDAO;
 import com.bmt.SageClient.sage200api.entities.CustomerEmails;
 import com.bmt.SageClient.sage200api.entities.CustomerTelephones;
+import com.bmt.SageClient.sage200api.entities.Customers;
 
 
 @Repository
@@ -36,9 +40,7 @@ public class SageAPIFieldsHandlerDAOImpl extends RequestHeaders implements SageA
 	public ServerResponse addUpdateEmail(Email email) {
 		if(email.getId() == 0) return addEmail(email);
 		return updateEmail(email);
-	}
-	
-	
+	}	
 
 	@Override
 	public ServerResponse addEmail(Email email) {
@@ -96,13 +98,12 @@ public class SageAPIFieldsHandlerDAOImpl extends RequestHeaders implements SageA
 
 	
 	
+	
 	@Override
 	public ServerResponse addUpdateTel(Telephone tel) {
 		if(tel.getId() == 0) return addTel(tel);
 		return updateTel(tel);
 	}
-
-
 	
 	@Override
 	public ServerResponse addTel(Telephone tel) 
@@ -131,7 +132,6 @@ public class SageAPIFieldsHandlerDAOImpl extends RequestHeaders implements SageA
 		return serverResponse;
 	}
 
-
 	@Override
 	public ServerResponse updateTel(Telephone tel) 
 	{
@@ -158,6 +158,50 @@ public class SageAPIFieldsHandlerDAOImpl extends RequestHeaders implements SageA
 		
 		return serverResponse;
 	}
+	
+	
+
+	/*@Override
+	public ServerResponse addUpdateName(long customerID, String name) {
+		return customerID == 0 ?  addName(customerID, name) : updateName(customerID, name);
+	}
+
+	@Override
+	public ServerResponse addName(long customerID, String name) 
+	{
+		return null;
+	}*/
+
+	@Override
+	public ServerResponse updateName(long customerID, String name) 
+	{
+		setToken();
+		ServerResponse serverResponse;
+		try
+		{
+			RestTemplate restTemplate = new RestTemplate();		
+			Customers customerRequestBody = new Customers();
+			HttpEntity<Customers> entity = new HttpEntity<Customers>(customerRequestBody, headers);		
+			customerRequestBody.setName(name);
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customers/" + String.valueOf(customerID));
+	
+			ResponseEntity<List<Customers>> response = restTemplate.exchange(
+					builder.toUriString().replaceAll("%20", " "),
+					HttpMethod.PUT,
+					entity,
+			  new ParameterizedTypeReference<List<Customers>>(){});
+			
+			serverResponse = new ServerResponse();
+			serverResponse.setSuccess(true);
+			serverResponse.setHttpStatus( String.valueOf(response.getStatusCodeValue()) );
+		}
+		catch(HttpClientErrorException clientEx){ return runClientException(clientEx, "Client error updating customer name"); }
+		catch(HttpServerErrorException  serverEx){ return runServerException(serverEx, "Server error updating customer name"); }
+		catch(Exception e) { return runUnknownException(e); }
+		
+		return serverResponse;
+	}
+
 	
 	
 	
@@ -195,6 +239,7 @@ public class SageAPIFieldsHandlerDAOImpl extends RequestHeaders implements SageA
 		serverResponse.setMessage("Unknown");
 		return serverResponse;
 	}
+
 
 
 

@@ -13,5 +13,9 @@ public interface SageAPIFieldsHandlerDAO {
 	public ServerResponse addUpdateTel(Telephone tel);
 	public ServerResponse addTel(Telephone tel);
 	public ServerResponse updateTel(Telephone tel);
+	
+	//public ServerResponse addUpdateName(long customerID, String name);
+	//public ServerResponse addName(long customerID, String name);
+	public ServerResponse updateName(long customerID, String name);
 
 }

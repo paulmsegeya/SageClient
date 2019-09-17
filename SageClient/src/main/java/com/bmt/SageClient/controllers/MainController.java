@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -112,6 +113,11 @@ public class MainController
     @PostMapping("/add/tel")
     public ServerResponse addUpdateTel(@RequestBody(required=true) Telephone tel) {
           return sageAPIFieldsHandlerDAO.addUpdateTel(tel);
+    }
+    
+    @PutMapping("/update/customer_name")
+    public ServerResponse updateCustomerName(@RequestParam(required=true, name="customerID") long customerID, @RequestParam(required=true, name="name") String name) {
+          return sageAPIFieldsHandlerDAO.updateName(customerID, name);
     }
     
     @RequestMapping("/report")
