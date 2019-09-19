@@ -26,6 +26,7 @@ public class SageApiConnectionDAOImpl implements SageApiConnectionDAO
 	@Transactional
 	public boolean getConnectionDetails()
 	{
+
 		Iterable<SageApiConnection> connectionRows =  sageApiConnRepo.findAll();
 		boolean isDetailsFound = false;
 		for(SageApiConnection connectionDetails: connectionRows) 

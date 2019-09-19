@@ -19,6 +19,7 @@ sageClientApp.directive("customerInfo", function(){
             saveFieldFn: "=",
             saveEmailFn: "=",
             saveTelFn: "=",
+            saveNameFn: "=",
             ctrl: "="
         },
 		templateUrl: "app/components/customer-info/directives/customerInfo.html"

@@ -220,6 +220,35 @@
 		}
 
 
+		this.saveName = (nameKey) =>
+		{
+			console.log({
+				customerID: this.customerInfoData.customerID,
+				name: this.customerInfoData.customerName
+			});
+			let vm = this;
+			$http({
+				method: "PUT",
+				url: "http://localhost:8080/update/customer_name",
+				params: {
+					customerID: vm.customerInfoData.customerID,
+					name: vm.customerInfoData.customerName
+				}
+			})
+			.then(function(response) {
+				if(response.data.success){
+					console.log(response.data);
+					vm.clearError("nameEdit");
+					alert("Customer Name successfully updated!");	
+				}		
+				else vm.setError("nameEdit", "Error updating customer name!");
+			}
+			,function(response){
+				vm.setError("nameEdit", "Error updating customer name!");
+			});
+		}
+
+
 		this.getCustomerNamesByTel = (tel) =>{
 			console.log("arg: " + tel);
 			console.log("here: " + this.telSearchInput);

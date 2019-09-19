@@ -175,21 +175,22 @@ public class SageAPIFieldsHandlerDAOImpl extends RequestHeaders implements SageA
 	@Override
 	public ServerResponse updateName(long customerID, String name) 
 	{
+
 		setToken();
 		ServerResponse serverResponse;
 		try
 		{
 			RestTemplate restTemplate = new RestTemplate();		
 			Customers customerRequestBody = new Customers();
-			HttpEntity<Customers> entity = new HttpEntity<Customers>(customerRequestBody, headers);		
 			customerRequestBody.setName(name);
+			HttpEntity<Customers> entity = new HttpEntity<Customers>(customerRequestBody, headers);		
 			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customers/" + String.valueOf(customerID));
 	
-			ResponseEntity<List<Customers>> response = restTemplate.exchange(
+			ResponseEntity<Customers> response = restTemplate.exchange(
 					builder.toUriString().replaceAll("%20", " "),
 					HttpMethod.PUT,
 					entity,
-			  new ParameterizedTypeReference<List<Customers>>(){});
+			  new ParameterizedTypeReference<Customers>(){});
 			
 			serverResponse = new ServerResponse();
 			serverResponse.setSuccess(true);
