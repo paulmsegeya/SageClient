@@ -15,24 +15,26 @@
                     
                     <h5>Memo Dates </h5>
     
-                    <div class="row">
+                    <div id="reportInputs" class="row">
                         <div class="col-md-6" ng-controller="datePickerController as datePicker1Ctrl">
-                            <p class="input-group">
-                            <input type="text" class="form-control" uib-datepicker-popup="{{datePicker1Ctrl.format}}" ng-model="reportsCtrl.dateFrom" is-open="datePicker1Ctrl.popup1.opened" datepicker-options="datePicker1Ctrl.dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="datePicker1Ctrl.open1()"><i class="fas fa-calendar-alt"></i></button>
-                            </span>
-                            </p>
+                            <h6> From: </h6>
+                            <div class="input-group">                                
+                                <input readonly type="text" class="form-control" uib-datepicker-popup="{{datePicker1Ctrl.format}}" ng-model="reportsCtrl.dateFrom" is-open="datePicker1Ctrl.popup1.opened" datepicker-options="datePicker1Ctrl.dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="datePicker1Ctrl.open1()"><i class="fas fa-calendar-alt"></i></button>
+                                </span>
+                            </div>
                         </div>
     
     
                         <div class="col-md-6" ng-controller="datePickerController as datePicker2Ctrl">
-                            <p class="input-group">
-                            <input type="text" class="form-control" uib-datepicker-popup="{{datePicker2Ctrl.format}}" ng-model="reportsCtrl.dateTo" is-open="datePicker2Ctrl.popup2.opened" datepicker-options="datePicker2Ctrl.dateOptions" ng-required="true" close-text="Close" />
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="datePicker2Ctrl.open2()"><i class="fas fa-calendar-alt"></i></button>
-                            </span>
-                            </p>
+                            <h6> To: </h6>
+                            <div class="input-group">
+                                <input readonly type="text" class="form-control" uib-datepicker-popup="{{datePicker2Ctrl.format}}" ng-model="reportsCtrl.dateTo" is-open="datePicker2Ctrl.popup2.opened" datepicker-options="datePicker2Ctrl.dateOptions" ng-required="true" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="datePicker2Ctrl.open2()"><i class="fas fa-calendar-alt"></i></button>
+                                </span>
+                            </div>
                         </div>
                     </div>
     

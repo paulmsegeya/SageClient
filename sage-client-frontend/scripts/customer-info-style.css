@@ -150,3 +150,11 @@
     font-size: 11pt;
     color: #7c7e80;
 }
+
+#reportModal{
+    text-align: left;
+}
+
+#reportInputs{
+    margin-top: 20px;
+}
