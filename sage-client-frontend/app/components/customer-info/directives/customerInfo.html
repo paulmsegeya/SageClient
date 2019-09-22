@@ -26,7 +26,11 @@
 
 
         <tr>
-            <th class="customerInfoHeader"> Signed Date </th> <td class="customerInfoValue"> {{data.signedDate}} </td>
+            <th class="customerInfoHeader"> 
+                Signed Date  <button data-toggle="modal" ng-click="alert('Enter date as yyyy-mm-dd')" class="btn btn-dark editMemoButton" data-target="{{'#fieldEditModalsignedDate'}}"> <i class="far fa-edit"></i> </button> 
+            </th> 
+            <td class="customerInfoValue"> {{data.signedDate}} <edit-field field_type="date" header="Signed Date" value="data.signedDate" save-field-fn="saveSigneddateFn" key="signedDate"></edit-field> </td>  
+
             <th class="customerInfoHeader"> 
                 Email  <button data-toggle="modal" class="btn btn-dark editMemoButton" data-target="{{'#fieldEditModalemail'}}"> <i class="far fa-edit"></i> </button>
             </th> 
@@ -51,7 +55,7 @@
             </th>
             <td class="customerInfoValue"> {{data.tel2.telephone}} <edit-field header="Tel 2" value="data.tel2.telephone" save-field-fn="saveTelFn" key="tel2"></edit-field> </td>
 
-            <th class="customerInfoHeader"> Seen Contact </th> <td class="customerInfoValue"> {{data.accountName}} </td>       
+            <th class="customerInfoHeader"> Seen Contact </th> <td class="customerInfoValue"> {{data.seenContact}} </td>       
         </tr>
 
 

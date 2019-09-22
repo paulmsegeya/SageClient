@@ -10,7 +10,15 @@
 
         <!-- Modal body -->
         <div class="modal-body">
+            
+            <div ng-show="fieldType == 'date'"> Enter as 'yyyy-mm-dd' </div>
             <input type="text" class="editMemoTxt form-control" ng-model="value">
+            <!--<div class="input-group" ng-show="fieldType == 'date'"  ng-controller="datePickerController as signedDatePickerCtrl">
+                <input type="text" class="form-control" ng-model="value" />    
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="signedDatePickerCtrl.open2()"><i class="fas fa-calendar-alt"></i></button>
+                </span>
+            </div>-->
         </div>
 
         <!-- Modal footer -->
@@ -22,3 +30,5 @@
         </div>
     </div>
 </div>
+
+<!--  uib-datepicker-popup="{{signedDatePickerCtrl.format}}" is-open="signedDatePickerCtrl.popup2.opened" datepicker-options="signedDatePickerCtrl.dateOptions" ng-required="true" close-text="Close"  -->

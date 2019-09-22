@@ -1,6 +1,9 @@
 package com.bmt.SageClient.orm.dao.daoImpl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -163,21 +166,10 @@ public class SageAPIFieldsHandlerDAOImpl extends RequestHeaders implements SageA
 	
 	
 
-	/*@Override
-	public ServerResponse addUpdateName(long customerID, String name) {
-		return customerID == 0 ?  addName(customerID, name) : updateName(customerID, name);
-	}
-
-	@Override
-	public ServerResponse addName(long customerID, String name) 
-	{
-		return null;
-	}*/
 
 	@Override
 	public ServerResponse updateName(long customerContactID, Name name) 
 	{
-
 		setToken();
 		ServerResponse serverResponse;
 		try
@@ -208,6 +200,37 @@ public class SageAPIFieldsHandlerDAOImpl extends RequestHeaders implements SageA
 	}
 
 	
+
+	@Override 
+	public ServerResponse updateSignedDate(long customerID, Date signedDate) {
+		setToken();
+		ServerResponse serverResponse;
+		try
+		{
+			RestTemplate restTemplate = new RestTemplate();
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  		
+			Customers customerRequestBody = new Customers();
+			customerRequestBody.setAnalysisCode2(dateFormat.format(signedDate));
+			HttpEntity<Customers> entity = new HttpEntity<Customers>(customerRequestBody, headers);		
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customers/" + String.valueOf(customerID));
+	
+			ResponseEntity<Customers> response = restTemplate.exchange(
+					builder.toUriString().replaceAll("%20", " "),
+					HttpMethod.PUT,
+					entity,
+			  new ParameterizedTypeReference<Customers>(){});
+			
+			serverResponse = new ServerResponse();
+			serverResponse.setSuccess(true);
+			serverResponse.setHttpStatus( String.valueOf(response.getStatusCodeValue()) );
+		}
+		catch(HttpClientErrorException clientEx){ return runClientException(clientEx, "Client error updating signed date"); }
+		catch(HttpServerErrorException  serverEx){ return runServerException(serverEx, "Server error updating signed date"); }
+		catch(Exception e) { return runUnknownException(e); }
+		
+		return serverResponse;
+		
+	}
 	
 	
 	
@@ -226,7 +249,7 @@ public class SageAPIFieldsHandlerDAOImpl extends RequestHeaders implements SageA
 
 	private ServerResponse runClientException(HttpClientErrorException clientEx, String msg) {
 		System.out.println(clientEx.getMessage());
-		System.out.println(clientEx.getStackTrace());
+		System.out.println(clientEx.getResponseBodyAsString());
 		ServerResponse serverResponse = new ServerResponse();
 		serverResponse.setSuccess(false);
 		serverResponse.setHttpStatus( clientEx.getStatusText() );
@@ -244,6 +267,9 @@ public class SageAPIFieldsHandlerDAOImpl extends RequestHeaders implements SageA
 		serverResponse.setMessage("Unknown");
 		return serverResponse;
 	}
+
+
+
 
 
 

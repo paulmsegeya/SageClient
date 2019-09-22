@@ -120,6 +120,11 @@ public class MainController
     public ServerResponse updateCustomerName(@RequestParam(required=true, name="customerID") long customerContactID, @RequestBody(required=true) Name name) {
           return sageAPIFieldsHandlerDAO.updateName(customerContactID, name);
     }
+
+    @PutMapping("/update/signed_date")
+    public ServerResponse updateSignedDate(@RequestParam(required=true, name="customerID") long customerID, @RequestParam(required=true, name="signedDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date signedDate) {
+          return sageAPIFieldsHandlerDAO.updateSignedDate(customerID, signedDate);
+    }
     
     @RequestMapping("/report")
     public List<CustomerInfo> getReport( 

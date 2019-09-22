@@ -111,7 +111,7 @@ public class SageAPIReportDAOImpl extends RequestHeaders implements SageAPIRepor
 		String idFilter = "";
 		for(int x = 0; x < customerIDs.size(); x++) {
 			idFilter += "id eq " + customerIDs.get(x);
-			if(x < customerIDs.size() -1 ) idFilter += "or ";
+			if(x < customerIDs.size() -1 ) idFilter += " or ";
 		}
 		
 		try

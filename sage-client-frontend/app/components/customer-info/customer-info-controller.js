@@ -14,6 +14,8 @@
 		this.connectionInterfaceDetails = {sageInterfaceConnected: false};
 		this.isConnectionStatusVisible = false;
 		this.errorMessages = {};
+		this.signedDateObj = null;
+		this.alert = alert.bind(window);
 		this.customerContactName = {
 			firstName: "",
 			middleName: "",
@@ -77,6 +79,7 @@
 				vm.customerInfoData = response.data;
 				vm.newNote.customerId = vm.customerInfoData.customerID;
 				vm.splitCustomerContactName(vm.customerContactName);
+				vm.signedDateObj = new Date(vm.customerInfoData.signedDate);
 				console.log(vm.customerInfoData);
 				vm.isCustomerInfoLoading = false;
 				vm.isTableVisible = true;
@@ -247,6 +250,31 @@
 			});
 		}
 
+		this.saveSignedDate = (signedDateKey) =>
+		{
+			let vm = this;
+			console.log("signedDate orig", this.customerInfoData.signedDate);			
+			console.log("signedDate edit", this.signedDateObj);
+			$http({
+				method: "PUT",
+				url: "http://localhost:8080/update/signed_date",
+				params: {
+					customerID: vm.customerInfoData.customerID,
+					signedDate: moment(vm.customerInfoData.signedDate).format('YYYY-MM-DD')
+				}
+			})
+			.then(function(response) {
+				if(response.data.success){
+					vm.clearError("signedDate");
+					alert("Signed date successfully updated!");	
+				}		
+				else vm.setError("signedDate", "Error updating signed date!");
+			}
+			,function(response){
+				vm.setError("signedDate", "Error updating signed date!");
+			})
+		}
+
 
 		this.saveName = () =>
 		{
@@ -316,6 +344,11 @@
 		this.formatDate = (date) =>{
 			return moment(date).format('DD-MM-YYYY');
 		}
+
+		this.parseDate = (date) =>{
+			return moment(date);
+		}
+
 
 
 

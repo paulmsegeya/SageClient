@@ -24,7 +24,6 @@
       };
     
       this.dateOptions = {
-        dateDisabled: disabled,
         formatYear: 'yy',
         maxDate: new Date(2020, 5, 22),
         minDate: new Date(),
@@ -55,7 +54,6 @@
       };
 
       this.setDate = function(year, month, day) {
-        console.log("here");
         this.dt = new Date(year, month, day);
       };
 

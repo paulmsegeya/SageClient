@@ -71,8 +71,8 @@
 			
 			<div id="customerInfoDiv" class="col-md-8>"  ng-show="customerCtrl.isTableVisible">
 				
-				<customer-info data="customerCtrl.customerInfoData" ctrl="customerCtrl" contact-names-data="customerCtrl.customerContactName"
-				save-email-fn="customerCtrl.saveEmail" save-tel-fn="customerCtrl.saveTel" save-name-fn="customerCtrl.saveName"></customer-info>
+				<customer-info data="customerCtrl.customerInfoData" ctrl="customerCtrl" contact-names-data="customerCtrl.customerContactName" signeddate-data="customerCtrl.signedDateObj"
+				save-email-fn="customerCtrl.saveEmail" save-tel-fn="customerCtrl.saveTel" save-name-fn="customerCtrl.saveName" save-signeddate-fn="customerCtrl.saveSignedDate"></customer-info>
 
 				<div id="customerListDataDiv">
 					<customer-list-data header="Interviews" list-data-key="interviews" list-data="customerCtrl.customerInfoData.listData.interviews" save-data-fn="customerCtrl.saveListData"></customer-list-data>	
