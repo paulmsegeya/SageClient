@@ -7,6 +7,7 @@ import java.util.List;
 public class CustomerInfo 
 {
 	private Long customerID;
+	private Long customerContactID;
 	private String accountRef;
 	private String accountName;
 	private String shortName;
@@ -32,6 +33,12 @@ public class CustomerInfo
 	}
 	public void setCustomerID(Long customerID) {
 		this.customerID = customerID;
+	}
+	public Long getCustomerContactID() {
+		return customerContactID;
+	}
+	public void setCustomerContactID(Long customerContactID) {
+		this.customerContactID = customerContactID;
 	}
 	public String getAccountRef() {
 		return accountRef;

@@ -20,7 +20,8 @@ sageClientApp.directive("customerInfo", function(){
             saveEmailFn: "=",
             saveTelFn: "=",
             saveNameFn: "=",
-            ctrl: "="
+            ctrl: "=",
+            contactNamesData: "="
         },
 		templateUrl: "app/components/customer-info/directives/customerInfo.html"
 	};
@@ -125,6 +126,18 @@ sageClientApp.directive("editField", function(){
         },
 
 		templateUrl: "app/components/customer-info/directives/editField.html"
+	};
+});
+
+sageClientApp.directive("editNames", function(){
+	return{
+        retrict: "E",
+        scope: {
+            saveNameFn: "=",
+            names: "=",
+        },
+
+		templateUrl: "app/components/customer-info/directives/editNames.html"
 	};
 });
 

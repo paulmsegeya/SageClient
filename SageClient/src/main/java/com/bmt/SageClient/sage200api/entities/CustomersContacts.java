@@ -12,6 +12,9 @@ public class CustomersContacts
 	private long id;
 	private long customerID;
 	private String name;
+	private String firstName;
+	private String middleName;
+	private String lastName;
 	private String defaultTelephone;
 	private String defaultEmail;
 	
@@ -41,6 +44,29 @@ public class CustomersContacts
 		this.name = name;
 	}
 
+	@JsonProperty("first_name")
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	@JsonProperty("middle_name")
+	public String getMiddleName() {
+		return middleName;
+	}
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+	
+	@JsonProperty("last_name")
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 	@JsonProperty("default_telephone")
 	public String getDefaultTelephone() {
 		return defaultTelephone;

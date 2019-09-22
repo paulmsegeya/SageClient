@@ -78,9 +78,10 @@ public class SageAPICustomerHandlerDAOImpl extends RequestHeaders implements Sag
 			
 			if(customersContacts.size() > 0)
 			{
-				//Emails
-				customerInfo.setCustomerName(customersContacts.get(0).getName());						
+				customerInfo.setCustomerContactID(customersContacts.get(0).getId() );
 				
+				//Emails
+				customerInfo.setCustomerName(customersContacts.get(0).getName());
 				List<CustomerEmails> customerEmails = requestEmails(customersContacts.get(0).getId());
 				Email email1 = new Email();
 				Email email2 = new Email();

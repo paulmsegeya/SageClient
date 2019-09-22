@@ -10,9 +10,9 @@
 
         <tr>
             <th class="customerInfoHeader"> 
-                Customer Name <button data-toggle="modal" class="btn btn-dark editMemoButton" data-target="{{'#fieldEditModalname'}}"> <i class="far fa-edit"></i> </button>
+                Customer Name <button data-toggle="modal" class="btn btn-dark editMemoButton" data-target="{{'#namesEditModal'}}"> <i class="far fa-edit"></i> </button>
             </th>          
-            <td class="customerInfoValue"> {{data.customerName}} <edit-field header="Customer Name" value="data.customerName" save-field-fn="saveNameFn" key="name"></edit-field> </td>   
+            <td class="customerInfoValue"> {{data.customerName}} <edit-names names="contactNamesData" save-name-fn="saveNameFn"></edit-names> </td>   
             <th class="customerInfoHeader"> Package </th> <td class="customerInfoValue"> {{data.transPackage}} </td>            
             <th class="customerInfoHeader"> Type </th> <td class="customerInfoValue"> {{data.type}} </td>
         </tr>

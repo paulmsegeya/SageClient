@@ -18,6 +18,7 @@ import com.bmt.SageClient.api_dataTypes.CustomerInfoFields;
 import com.bmt.SageClient.api_dataTypes.CustomerListData;
 import com.bmt.SageClient.api_dataTypes.Email;
 import com.bmt.SageClient.api_dataTypes.ListDataForm;
+import com.bmt.SageClient.api_dataTypes.Name;
 import com.bmt.SageClient.api_dataTypes.Note;
 import com.bmt.SageClient.api_dataTypes.SageConnectionTest;
 import com.bmt.SageClient.api_dataTypes.SageInterfaceConnection;
@@ -116,8 +117,8 @@ public class MainController
     }
     
     @PutMapping("/update/customer_name")
-    public ServerResponse updateCustomerName(@RequestParam(required=true, name="customerID") long customerID, @RequestParam(required=true, name="name") String name) {
-          return sageAPIFieldsHandlerDAO.updateName(customerID, name);
+    public ServerResponse updateCustomerName(@RequestParam(required=true, name="customerID") long customerContactID, @RequestBody(required=true) Name name) {
+          return sageAPIFieldsHandlerDAO.updateName(customerContactID, name);
     }
     
     @RequestMapping("/report")

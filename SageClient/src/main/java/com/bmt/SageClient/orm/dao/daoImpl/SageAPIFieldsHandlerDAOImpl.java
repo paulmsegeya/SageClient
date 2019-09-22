@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.bmt.SageClient.GlobalVars;
 import com.bmt.SageClient.api_dataTypes.Email;
+import com.bmt.SageClient.api_dataTypes.Name;
 import com.bmt.SageClient.api_dataTypes.ServerResponse;
 import com.bmt.SageClient.api_dataTypes.Telephone;
 import com.bmt.SageClient.orm.dao.RequestHeaders;
@@ -24,6 +25,7 @@ import com.bmt.SageClient.orm.dao.SageAPIFieldsHandlerDAO;
 import com.bmt.SageClient.sage200api.entities.CustomerEmails;
 import com.bmt.SageClient.sage200api.entities.CustomerTelephones;
 import com.bmt.SageClient.sage200api.entities.Customers;
+import com.bmt.SageClient.sage200api.entities.CustomersContacts;
 
 
 @Repository
@@ -173,7 +175,7 @@ public class SageAPIFieldsHandlerDAOImpl extends RequestHeaders implements SageA
 	}*/
 
 	@Override
-	public ServerResponse updateName(long customerID, String name) 
+	public ServerResponse updateName(long customerContactID, Name name) 
 	{
 
 		setToken();
@@ -181,16 +183,18 @@ public class SageAPIFieldsHandlerDAOImpl extends RequestHeaders implements SageA
 		try
 		{
 			RestTemplate restTemplate = new RestTemplate();		
-			Customers customerRequestBody = new Customers();
-			customerRequestBody.setName(name);
-			HttpEntity<Customers> entity = new HttpEntity<Customers>(customerRequestBody, headers);		
-			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customers/" + String.valueOf(customerID));
+			CustomersContacts customerContactsRequestBody = new CustomersContacts();
+			customerContactsRequestBody.setFirstName(name.getFirstName());
+			customerContactsRequestBody.setMiddleName(name.getMiddleName());
+			customerContactsRequestBody.setLastName(name.getLastName());
+			HttpEntity<CustomersContacts> entity = new HttpEntity<CustomersContacts>(customerContactsRequestBody, headers);		
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.columbus.sage.com/uk/sage200extra/accounts/v1/customer_contacts/" + String.valueOf(customerContactID));
 	
-			ResponseEntity<Customers> response = restTemplate.exchange(
+			ResponseEntity<CustomersContacts> response = restTemplate.exchange(
 					builder.toUriString().replaceAll("%20", " "),
 					HttpMethod.PUT,
 					entity,
-			  new ParameterizedTypeReference<Customers>(){});
+			  new ParameterizedTypeReference<CustomersContacts>(){});
 			
 			serverResponse = new ServerResponse();
 			serverResponse.setSuccess(true);

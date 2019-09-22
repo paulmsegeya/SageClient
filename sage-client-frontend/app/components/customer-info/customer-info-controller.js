@@ -14,6 +14,11 @@
 		this.connectionInterfaceDetails = {sageInterfaceConnected: false};
 		this.isConnectionStatusVisible = false;
 		this.errorMessages = {};
+		this.customerContactName = {
+			firstName: "",
+			middleName: "",
+			lastName: ""
+		}
 		this.newNote = {
 			customerId: this.customerInfoData.customerID,
 			id: 0,
@@ -71,6 +76,7 @@
 			.then(function(response) {
 				vm.customerInfoData = response.data;
 				vm.newNote.customerId = vm.customerInfoData.customerID;
+				vm.splitCustomerContactName(vm.customerContactName);
 				console.log(vm.customerInfoData);
 				vm.isCustomerInfoLoading = false;
 				vm.isTableVisible = true;
@@ -113,6 +119,31 @@
 		}
 
 
+		this.splitCustomerContactName = (customerContactNames) =>
+		{
+			let concatenatedName = this.customerInfoData.customerName;
+			let nameTitlePrefixPos = concatenatedName.indexOf(".");
+			let nonPreFixedName = concatenatedName;
+			if(nameTitlePrefixPos != -1){
+				nonPreFixedName = concatenatedName.substr( nameTitlePrefixPos+2, concatenatedName.length-1 );
+			}
+			let splitNames = nonPreFixedName.split(" ");
+
+			if(splitNames.length > 0) customerContactNames.firstName = splitNames[0];
+
+			
+			if(splitNames.length > 2){
+				let lastName = splitNames[2];
+				for(let x = 3; x < splitNames.length; x++){
+					lastName += ("-" + splitNames[x]);
+				}				
+				customerContactNames.lastName = lastName;
+				customerContactNames.middleName = splitNames[1];
+			}
+			else customerContactNames.lastName = splitNames[1]; //only two names => second name is stored as lastName
+		}
+
+
 		this.saveListData = (listDataKey) =>
 		{
 			let listData = this.customerInfoData.listData;
@@ -141,14 +172,12 @@
 
 
 		this.getNewNote = () =>{
-			console.log(Object.assign({}, this.newNote));
 			return Object.assign({}, this.newNote);
 		}
 
 
 		this.saveNotes = () =>
 		{
-			console.log(this.customerInfoData.memos);
 			let vm = this;
 			$http({
 				method: "POST",
@@ -208,7 +237,6 @@
 			.then(function(response) {
 				let isSuccess = true;
 				if(response.data.success){
-					console.log(response.data);
 					vm.clearError("Tel");
 					alert("Telephone successfully updated!");	
 				}		
@@ -220,24 +248,19 @@
 		}
 
 
-		this.saveName = (nameKey) =>
+		this.saveName = () =>
 		{
-			console.log({
-				customerID: this.customerInfoData.customerID,
-				name: this.customerInfoData.customerName
-			});
+			this.customerInfoData.customerName = this.customerContactName.firstName + " " + this.customerContactName.middleName + " " + this.customerContactName.lastName;
+
 			let vm = this;
 			$http({
 				method: "PUT",
 				url: "http://localhost:8080/update/customer_name",
-				params: {
-					customerID: vm.customerInfoData.customerID,
-					name: vm.customerInfoData.customerName
-				}
+				params: { customerID: vm.customerInfoData.customerContactID },
+				data: vm.customerContactName
 			})
 			.then(function(response) {
 				if(response.data.success){
-					console.log(response.data);
 					vm.clearError("nameEdit");
 					alert("Customer Name successfully updated!");	
 				}		
@@ -250,8 +273,6 @@
 
 
 		this.getCustomerNamesByTel = (tel) =>{
-			console.log("arg: " + tel);
-			console.log("here: " + this.telSearchInput);
 			let vm = this;
 			return $http({
 				method: "GET",
@@ -271,7 +292,6 @@
 
 
 		this.getCustomerNamesByEmail = (email) =>{
-			console.log("arg: " + email);
 			let vm = this;
 			return $http({
 				method: "GET",
